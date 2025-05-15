@@ -66,7 +66,7 @@ const QuizPage: React.FC = () => {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       // Calculate final score
-      const correctAnswers = userAnswers.reduce((count, answer, index) => {
+      const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
         // Convert to string for comparison when needed to avoid type mismatch
         return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
       }, 0);
@@ -232,7 +232,7 @@ const QuizPage: React.FC = () => {
   };
   
   const renderResults = () => {
-    const correctAnswers = userAnswers.reduce((count, answer, index) => {
+    const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
       // Convert to string for comparison when needed to avoid type mismatch
       return quiz && String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
     }, 0);
