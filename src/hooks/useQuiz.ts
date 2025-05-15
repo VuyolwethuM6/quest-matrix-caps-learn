@@ -64,7 +64,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
         return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
       }, 0);
       
-      const finalScore = Math.round((correctAnswers / Number(quiz.questions.length)) * 100);
+      const finalScore = Math.round((correctAnswers / quiz.questions.length) * 100);
       setScore(finalScore);
       
       // Save quiz completion
