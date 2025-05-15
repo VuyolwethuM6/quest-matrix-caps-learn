@@ -66,8 +66,9 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
         return count;
       }, 0);
       
-      // Use Number() for the quiz.questions.length to ensure it's treated as a number
-      const finalScore = Math.round((correctAnswers / Number(quiz.questions.length)) * 100);
+      // Make sure both parts of the division are numbers
+      const totalQuestions = quiz.questions.length;
+      const finalScore = Math.round((correctAnswers / totalQuestions) * 100);
       setScore(finalScore);
       
       // Save quiz completion
@@ -90,7 +91,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
     setAnswerState('unanswered');
   };
 
-  // Calculate correct answers for results display - using Number() to ensure type safety
+  // Calculate correct answers for results display
   const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
     if (quiz && quiz.questions[index]) {
       return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
@@ -105,7 +106,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
     currentQuestion,
     userAnswers,
     answerState,
-    score, // This is now guaranteed to be a number
+    score,
     correctAnswers,
     handleAnswer,
     handleNextQuestion,

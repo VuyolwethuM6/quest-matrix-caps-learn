@@ -86,7 +86,7 @@ const QuizPage: React.FC = () => {
       case 'results':
         return (
           <QuizResults
-            score={Number(score)}
+            score={score} // This is now guaranteed to be a number in useQuiz.ts
             correctAnswers={correctAnswers}
             totalQuestions={quiz.questions.length}
             onRetakeQuiz={handleRetry}
