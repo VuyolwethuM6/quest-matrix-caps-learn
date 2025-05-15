@@ -67,7 +67,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
       }, 0);
       
       // Make sure to use Number() for the division to avoid type issues
-      const finalScore = Math.round((correctAnswers / Number(quiz.questions.length)) * 100);
+      const finalScore = Math.round((correctAnswers / quiz.questions.length) * 100);
       setScore(finalScore);
       
       // Save quiz completion

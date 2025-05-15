@@ -1,7 +1,6 @@
 
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import QuizIntro from "@/components/quiz/QuizIntro";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
@@ -57,8 +56,9 @@ const QuizPage: React.FC = () => {
         return (
           <QuizIntro 
             quiz={quiz}
-            onStart={startQuiz}
-            onBack={handleBack}
+            subjectId={subjectId}
+            topicId={topicId}
+            onStartQuiz={startQuiz}
           />
         );
       
@@ -67,24 +67,24 @@ const QuizPage: React.FC = () => {
         
         return (
           <QuizQuestion
-            question={currentQuestion}
-            questionNumber={currentQuestionIndex + 1}
+            currentQuestion={currentQuestion}
+            currentQuestionIndex={currentQuestionIndex}
             totalQuestions={quiz.questions.length}
             userAnswer={userAnswers[currentQuestionIndex]}
             answerState={answerState}
-            onAnswer={handleAnswer}
-            onNext={handleNextQuestion}
+            onAnswerSelect={handleAnswer}
+            onNextQuestion={handleNextQuestion}
           />
         );
       
       case 'results':
         return (
           <QuizResults
-            score={Number(score)}
+            score={score}
             correctAnswers={correctAnswers}
             totalQuestions={quiz.questions.length}
-            onRetry={handleRetry}
-            onBack={handleBack}
+            onRetakeQuiz={handleRetry}
+            onContinueLearning={handleBack}
           />
         );
       
@@ -97,7 +97,9 @@ const QuizPage: React.FC = () => {
     <div className="min-h-screen bg-background pb-20">
       <QuizHeader 
         title={quiz.title}
-        onBack={quizProgress === 'intro' ? handleBack : undefined}
+        showResults={quizProgress === 'results'}
+        onNavigateBack={handleBack}
+        navigationLink={`/learn/${subjectId}/${topicId}/${subtopicId}`}
       />
       
       <div className="p-6">
