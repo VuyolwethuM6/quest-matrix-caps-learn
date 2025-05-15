@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
@@ -68,7 +67,8 @@ const QuizPage: React.FC = () => {
     } else {
       // Calculate final score
       const correctAnswers = userAnswers.reduce((count, answer, index) => {
-        return answer === quiz.questions[index].correctAnswer ? count + 1 : count;
+        // Convert to string for comparison when needed to avoid type mismatch
+        return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
       }, 0);
       
       const finalScore = Math.round((correctAnswers / quiz.questions.length) * 100);
@@ -233,7 +233,8 @@ const QuizPage: React.FC = () => {
   
   const renderResults = () => {
     const correctAnswers = userAnswers.reduce((count, answer, index) => {
-      return quiz && answer === quiz.questions[index].correctAnswer ? count + 1 : count;
+      // Convert to string for comparison when needed to avoid type mismatch
+      return quiz && String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
     }, 0);
     
     const totalQuestions = quiz?.questions.length || 0;
