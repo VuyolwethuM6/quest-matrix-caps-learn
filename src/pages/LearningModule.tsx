@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ChevronLeft, BookOpen } from "lucide-react";
+import { ChevronLeft, BookOpen, CheckCircle, PenTool } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useProgress } from "@/contexts/ProgressContext";
@@ -73,14 +73,16 @@ const LearningModule: React.FC = () => {
       case 'formula':
         return (
           <div key={block.id} className="mb-6">
-            <MathDisplay content={block.content} className="text-center py-4" />
+            <MathDisplay content={block.content} className="text-center py-4 bg-quest-softPurple/20 rounded-lg" />
           </div>
         );
         
       case 'example':
         return (
-          <div key={block.id} className="mb-6 bg-muted p-4 rounded-lg">
-            <h3 className="font-medium mb-2">Example:</h3>
+          <div key={block.id} className="mb-6 bg-quest-softBlue/30 p-5 rounded-lg border border-quest-blue/20">
+            <h3 className="font-medium mb-2 text-quest-blue flex items-center gap-2">
+              <PenTool size={16} /> Example:
+            </h3>
             <pre className="whitespace-pre-wrap text-sm">{block.content}</pre>
           </div>
         );
@@ -88,11 +90,13 @@ const LearningModule: React.FC = () => {
       case 'image':
         return (
           <div key={block.id} className="mb-6">
-            <img 
-              src={block.content}
-              alt={`Figure ${index + 1}`}
-              className="rounded-lg w-full h-auto"
-            />
+            <div className="rounded-lg overflow-hidden shadow-sm border">
+              <img 
+                src={block.content}
+                alt={`Figure ${index + 1}`}
+                className="w-full h-auto"
+              />
+            </div>
             <p className="text-xs text-muted-foreground mt-2 text-center">
               Figure {index + 1}
             </p>
@@ -107,10 +111,10 @@ const LearningModule: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="sticky top-0 bg-background border-b z-10">
-        <div className="p-4 flex items-center justify-between">
+      <div className="sticky top-0 bg-background border-b z-10 shadow-sm">
+        <div className="p-4 flex items-center justify-between bg-gradient-to-r from-quest-softPurple to-white">
           <div className="flex items-center gap-2">
-            <Link to={`/curriculum?subject=${subject.id}&topic=${topic.id}`} className="p-2 rounded-full hover:bg-muted">
+            <Link to={`/curriculum?subject=${subject.id}&topic=${topic.id}`} className="p-2 rounded-full hover:bg-white/30 transition-colors">
               <ChevronLeft size={20} />
             </Link>
             <div>
@@ -125,19 +129,19 @@ const LearningModule: React.FC = () => {
       </div>
       
       {/* Content */}
-      <div className="p-6">
+      <div className="p-6 max-w-3xl mx-auto">
         <h2 className="text-2xl font-bold mb-6">{subTopic.name}</h2>
         {subTopic.content.map(renderContentBlock)}
       </div>
       
       {/* Quiz Button */}
-      <div className="p-6 border-t sticky bottom-0 bg-background">
-        <div className="flex gap-4">
+      <div className="p-6 border-t sticky bottom-0 bg-background/95 backdrop-blur-sm">
+        <div className="flex gap-4 max-w-3xl mx-auto">
           <Button 
             onClick={handleCompleteLesson}
-            className="flex-1 bg-quest-primary hover:bg-quest-secondary"
+            className="flex-1 bg-quest-primary hover:bg-quest-secondary gap-2"
           >
-            Mark as Complete
+            <CheckCircle size={18} /> Mark as Complete
           </Button>
           
           <Link 
@@ -146,9 +150,9 @@ const LearningModule: React.FC = () => {
           >
             <Button 
               variant="outline" 
-              className="w-full border-quest-primary text-quest-primary hover:bg-quest-softPurple"
+              className="w-full border-quest-primary text-quest-primary hover:bg-quest-softPurple gap-2"
             >
-              Take Quiz
+              <PenTool size={18} /> Take Quiz
             </Button>
           </Link>
         </div>

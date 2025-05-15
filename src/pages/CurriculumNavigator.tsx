@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, BookOpen, GraduationCap } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import TopicCard from "@/components/TopicCard";
 import SubTopicCard from "@/components/SubTopicCard";
@@ -33,18 +33,27 @@ const CurriculumNavigator: React.FC = () => {
   
   const renderSubjects = () => (
     <>
-      <h1 className="text-2xl font-bold mb-4">Subject Library</h1>
-      <div className="space-y-4">
+      <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+        <h1 className="text-2xl font-bold mb-2 flex items-center gap-2">
+          <GraduationCap className="text-quest-primary" />
+          Subject Library
+        </h1>
+        <p className="text-muted-foreground text-sm">Choose a subject to start learning</p>
+      </div>
+      
+      <div className="space-y-4 px-4">
         {subjects.map(subject => (
           <div
             key={subject.id}
             onClick={() => setSelectedSubjectId(subject.id)}
-            className={`quest-card cursor-pointer ${
-              selectedSubjectId === subject.id ? "border-quest-primary" : ""
+            className={`rounded-xl border p-4 cursor-pointer transition-all hover:shadow-md ${
+              selectedSubjectId === subject.id 
+                ? "border-quest-primary bg-quest-softPurple/30" 
+                : "border-border bg-card hover:bg-accent/10"
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-full ${subject.color} text-white flex items-center justify-center`}>
+              <div className={`w-12 h-12 rounded-full ${subject.color} text-white flex items-center justify-center`}>
                 {subject.icon === "calculator" ? "🧮" : "⚗️"}
               </div>
               <div>
@@ -63,17 +72,22 @@ const CurriculumNavigator: React.FC = () => {
     
     return (
       <>
-        <div className="flex items-center gap-2 mb-4">
-          <button
-            onClick={() => setSelectedSubjectId(null)}
-            className="p-2 rounded-full hover:bg-muted"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <h1 className="text-2xl font-bold">{selectedSubject.name}</h1>
+        <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSelectedSubjectId(null)}
+              className="p-2 rounded-full hover:bg-white/20 transition-colors"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <div>
+              <h1 className="text-2xl font-bold">{selectedSubject.name}</h1>
+              <p className="text-sm text-muted-foreground">Select a topic to continue</p>
+            </div>
+          </div>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-4 px-4">
           {selectedSubject.topics.map(topic => (
             <TopicCard 
               key={topic.id} 
@@ -91,20 +105,22 @@ const CurriculumNavigator: React.FC = () => {
     
     return (
       <>
-        <div className="flex items-center gap-2 mb-4">
-          <button
-            onClick={() => setSelectedTopicId(null)}
-            className="p-2 rounded-full hover:bg-muted"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <div>
-            <h1 className="text-2xl font-bold">{selectedTopic.name}</h1>
-            <p className="text-sm text-muted-foreground">{selectedSubject.name}</p>
+        <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setSelectedTopicId(null)}
+              className="p-2 rounded-full hover:bg-white/20 transition-colors"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <div>
+              <h1 className="text-2xl font-bold">{selectedTopic.name}</h1>
+              <p className="text-sm text-muted-foreground">{selectedSubject.name}</p>
+            </div>
           </div>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-4 px-4">
           {selectedTopic.subTopics.map(subTopic => (
             <SubTopicCard
               key={subTopic.id}
@@ -120,9 +136,11 @@ const CurriculumNavigator: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-background pb-20">
-      <div className="p-6">
-        {selectedTopicId && selectedSubject ? renderSubTopics() : selectedSubjectId ? renderTopics() : renderSubjects()}
-      </div>
+      {selectedTopicId && selectedSubject 
+        ? renderSubTopics() 
+        : selectedSubjectId 
+        ? renderTopics() 
+        : renderSubjects()}
       <NavBar />
     </div>
   );

@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Award, ChevronRight, Brain } from "lucide-react";
+import { BookOpen, Award, ChevronRight, Brain, Rocket } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
 import TopicCard from "@/components/TopicCard";
 import BadgeCard from "@/components/BadgeCard";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { subjects, getBadges } from "@/data/curriculum";
@@ -57,20 +58,20 @@ const Dashboard: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-6 text-white">
+      {/* Header with Gradient Background */}
+      <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-6 text-white rounded-b-2xl shadow-md">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">Hello, {name}</h1>
             <p className="opacity-90">Grade {grade}</p>
           </div>
-          <div className="quest-avatar w-12 h-12 flex items-center justify-center text-2xl bg-white">
+          <div className="quest-avatar w-14 h-14 flex items-center justify-center text-2xl bg-white rounded-full shadow-md">
             {avatarEmoji}
           </div>
         </div>
         
-        <div className="flex items-center justify-between mt-6">
-          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2">
+        <div className="flex items-center justify-between mt-6 gap-3">
+          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2 flex-1 shadow-sm">
             <XPProgress size="sm" showText={false} />
             <div className="text-sm">
               <p className="font-medium">Level {level}</p>
@@ -78,7 +79,7 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           
-          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2">
+          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2 flex-1 shadow-sm">
             <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center">
               🔥
             </div>
@@ -93,8 +94,10 @@ const Dashboard: React.FC = () => {
       {/* Recent Topics */}
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold">Continue Learning</h2>
-          <Link to="/curriculum" className="text-quest-primary text-sm flex items-center">
+          <h2 className="text-lg font-bold flex items-center gap-2">
+            <Rocket size={18} className="text-quest-primary" /> Continue Learning
+          </h2>
+          <Link to="/curriculum" className="text-quest-primary text-sm flex items-center font-medium">
             View all <ChevronRight size={16} />
           </Link>
         </div>
@@ -113,8 +116,10 @@ const Dashboard: React.FC = () => {
       {/* Badges */}
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold">Recent Badges</h2>
-          <Link to="/badges" className="text-quest-primary text-sm flex items-center">
+          <h2 className="text-lg font-bold flex items-center gap-2">
+            <Award size={18} className="text-quest-orange" /> Recent Badges
+          </h2>
+          <Link to="/badges" className="text-quest-primary text-sm flex items-center font-medium">
             View all <ChevronRight size={16} />
           </Link>
         </div>
@@ -128,35 +133,37 @@ const Dashboard: React.FC = () => {
       
       {/* CAPS Buddy (Coming Soon) */}
       <div className="p-4">
-        <div className="quest-card bg-gradient-to-br from-quest-softBlue to-white border border-dashed border-quest-blue">
-          <div className="flex flex-col items-center p-4">
-            <div className="w-12 h-12 rounded-full bg-quest-blue/20 flex items-center justify-center mb-3">
-              <Brain size={24} className="text-quest-blue" />
+        <Card className="bg-gradient-to-br from-quest-softBlue to-white border-quest-blue/30 overflow-hidden">
+          <CardContent className="p-5">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-quest-blue/20 flex items-center justify-center mb-3">
+                <Brain size={24} className="text-quest-blue" />
+              </div>
+              
+              <h3 className="text-lg font-bold mb-1">Ask CAPS Buddy</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Get instant help with your studies from our AI tutor
+              </p>
+              
+              <Button variant="outline" disabled className="bg-white/50 border-quest-blue text-quest-blue">
+                Coming Soon!
+              </Button>
             </div>
-            
-            <h3 className="text-lg font-bold mb-1">Ask CAPS Buddy</h3>
-            <p className="text-sm text-muted-foreground text-center mb-4">
-              Get instant help with your studies from our AI tutor
-            </p>
-            
-            <Button variant="outline" disabled className="bg-white/50 border-quest-blue text-quest-blue">
-              Coming Soon!
-            </Button>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
       
       {/* Quick Actions */}
       <div className="p-4">
         <div className="grid grid-cols-2 gap-3">
-          <Link to="/curriculum" className="quest-card bg-quest-softPurple hover:bg-quest-softPurple/80">
+          <Link to="/curriculum" className="bg-quest-softPurple hover:bg-quest-softPurple/90 transition-colors rounded-xl p-4 shadow-sm">
             <div className="flex flex-col items-center">
               <BookOpen size={32} className="text-quest-primary mb-2" />
               <span className="font-medium">Start Learning</span>
             </div>
           </Link>
           
-          <Link to="/badges" className="quest-card bg-quest-softPeach hover:bg-quest-softPeach/80">
+          <Link to="/badges" className="bg-quest-softPeach hover:bg-quest-softPeach/90 transition-colors rounded-xl p-4 shadow-sm">
             <div className="flex flex-col items-center">
               <Award size={32} className="text-quest-orange mb-2" />
               <span className="font-medium">View Badges</span>

@@ -58,13 +58,16 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
     if (currentQuestionIndex < quiz.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // Calculate final score
+      // Calculate final score - ensure we're using numbers for the calculation
       const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
-        // Convert to string for comparison when needed to avoid type mismatch
-        return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
+        if (quiz.questions[index]) {
+          return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
+        }
+        return count;
       }, 0);
       
-      const finalScore = Math.round((correctAnswers / quiz.questions.length) * 100);
+      // Make sure to use Number() for the division to avoid type issues
+      const finalScore = Math.round((correctAnswers / Number(quiz.questions.length)) * 100);
       setScore(finalScore);
       
       // Save quiz completion
@@ -87,10 +90,13 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
     setAnswerState('unanswered');
   };
 
-  // Calculate correct answers for results display
-  const correctAnswers = quiz ? userAnswers.reduce((count: number, answer, index) => {
-    return quiz && String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
-  }, 0) : 0;
+  // Calculate correct answers for results display - using Number() to ensure type safety
+  const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
+    if (quiz && quiz.questions[index]) {
+      return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
+    }
+    return count;
+  }, 0);
 
   return {
     quiz,
@@ -99,7 +105,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
     currentQuestion,
     userAnswers,
     answerState,
-    score,
+    score, // This is now guaranteed to be a number
     correctAnswers,
     handleAnswer,
     handleNextQuestion,
