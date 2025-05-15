@@ -8,10 +8,12 @@ import QuizResults from "@/components/quiz/QuizResults";
 import QuizHeader from "@/components/quiz/QuizHeader";
 import { Button } from "@/components/ui/button";
 import { useQuiz } from "@/hooks/useQuiz";
+import { useToast } from "@/hooks/use-toast";
 
 const QuizPage: React.FC = () => {
   const { subjectId = "", topicId = "", subtopicId = "" } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
   
   const {
     quiz,
@@ -47,6 +49,10 @@ const QuizPage: React.FC = () => {
   // Retry the quiz
   const handleRetry = () => {
     resetQuiz();
+    toast({
+      title: "Quiz Reset",
+      description: "Let's try again!"
+    });
   };
   
   // Render the quiz content based on the current progress stage
@@ -80,7 +86,7 @@ const QuizPage: React.FC = () => {
       case 'results':
         return (
           <QuizResults
-            score={score}
+            score={Number(score)}
             correctAnswers={correctAnswers}
             totalQuestions={quiz.questions.length}
             onRetakeQuiz={handleRetry}
@@ -102,7 +108,7 @@ const QuizPage: React.FC = () => {
         navigationLink={`/learn/${subjectId}/${topicId}/${subtopicId}`}
       />
       
-      <div className="p-6">
+      <div className="p-6 max-w-3xl mx-auto">
         {renderQuizContent()}
       </div>
       

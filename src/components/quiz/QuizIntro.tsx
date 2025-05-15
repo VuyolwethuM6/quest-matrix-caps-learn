@@ -14,7 +14,7 @@ interface QuizIntroProps {
 
 const QuizIntro: React.FC<QuizIntroProps> = ({ quiz, subjectId, topicId, onStartQuiz }) => {
   return (
-    <div className="p-6 flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <h1 className="text-2xl font-bold mb-2">{quiz?.title}</h1>
       <p className="text-muted-foreground mb-6">{quiz?.description}</p>
       
