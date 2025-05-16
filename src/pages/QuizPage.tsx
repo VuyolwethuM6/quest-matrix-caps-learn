@@ -85,7 +85,7 @@ const QuizPage: React.FC = () => {
       
       case 'results':
         // Ensure score is always a number type
-        const finalScore: number = typeof score === 'number' ? score : 0;
+        const finalScore: number = typeof score === 'number' ? Number(score) : 0;
         
         return (
           <QuizResults

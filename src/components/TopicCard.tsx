@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useProgress } from "@/contexts/ProgressContext";
 import { Topic } from "@/data/models";
+import { Card } from "@/components/ui/card";
 
 interface TopicCardProps {
   topic: Topic;
@@ -31,22 +32,23 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId }) => {
     : 0;
   
   return (
-    <Link
-      to={`/curriculum?subject=${subjectId}&topic=${topic.id}`}
-      className="quest-card hover:border-quest-primary group"
-    >
+    <Card className="p-4 hover:border-quest-primary group transition-all shadow-sm hover:shadow-md">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <h3 className="text-lg font-bold group-hover:text-quest-primary">{topic.name}</h3>
           <p className="text-sm text-muted-foreground">{topic.description}</p>
         </div>
-        <ChevronRight className="text-muted-foreground group-hover:text-quest-primary transition-transform group-hover:translate-x-1" />
+        <Link to={`/curriculum?subject=${subjectId}&topic=${topic.id}`}>
+          <div className="p-2 rounded-full bg-gray-100 group-hover:bg-quest-primary/10 group-hover:text-quest-primary transition-all">
+            <ChevronRight className="h-5 w-5" />
+          </div>
+        </Link>
       </div>
       
       <div className="mt-4">
-        <div className="quest-progress-bar">
+        <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="quest-progress-value"
+            className="h-full bg-quest-primary transition-all"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
@@ -54,7 +56,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId }) => {
           {completionPercentage}% complete
         </p>
       </div>
-    </Link>
+    </Card>
   );
 };
 

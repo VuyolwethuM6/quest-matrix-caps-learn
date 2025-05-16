@@ -59,7 +59,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       // Calculate final score - ensure we're using numbers for the calculation
-      const correctAnswers = userAnswers.reduce((count: number, answer, index) => {
+      const correctAnswers: number = userAnswers.reduce((count: number, answer, index) => {
         if (quiz.questions[index]) {
           return String(answer) === String(quiz.questions[index].correctAnswer) ? count + 1 : count;
         }
@@ -68,7 +68,8 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
       
       // Make sure both parts of the division are numbers
       const totalQuestions: number = quiz.questions.length;
-      const calculatedScore: number = (correctAnswers / totalQuestions) * 100;
+      // Explicitly convert to numbers to fix TypeScript error
+      const calculatedScore: number = (Number(correctAnswers) / Number(totalQuestions)) * 100;
       const finalScore: number = Math.round(calculatedScore);
       setScore(finalScore);
       
