@@ -16,6 +16,7 @@ import LearningModule from "./pages/LearningModule";
 import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
 import BadgesPage from "./pages/BadgesPage";
+import LeaderboardsPage from "./pages/LeaderboardsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/quiz/:subjectId/:topicId/:subtopicId" element={<QuizPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/badges" element={<BadgesPage />} />
+              <Route path="/leaderboards" element={<LeaderboardsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
