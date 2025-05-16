@@ -12,7 +12,7 @@ export const useQuiz = () => {
     subtopicId: string;
   }>();
   const navigate = useNavigate();
-  const { updateProgress } = useProgress();
+  const { markQuizCompleted } = useProgress();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -72,14 +72,10 @@ export const useQuiz = () => {
   useEffect(() => {
     if (quizCompleted && subject && topic && subtopic) {
       const quizId = `${subject.id}-${topic.id}-${subtopic.id}-quiz`;
-      // Use updateProgress instead of markQuizCompleted since that's what's available in the context
-      updateProgress({
-        type: 'quiz_completed',
-        id: quizId,
-        score: score
-      });
+      // Use markQuizCompleted which is available in the context
+      markQuizCompleted(quizId, score);
     }
-  }, [quizCompleted, subject, topic, subtopic, updateProgress, score]);
+  }, [quizCompleted, subject, topic, subtopic, markQuizCompleted, score]);
 
   const handleReturnToCurriculum = () => {
     navigate(`/curriculum?subject=${subjectId}&topic=${topicId}`);

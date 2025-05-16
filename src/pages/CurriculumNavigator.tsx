@@ -12,19 +12,17 @@ const CurriculumNavigator: React.FC = () => {
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   
-  // Set initial selection from URL params
+  // Set initial selection from URL params, but don't default to first subject
   useEffect(() => {
     const subjectParam = searchParams.get("subject");
     const topicParam = searchParams.get("topic");
     
     if (subjectParam) {
       setSelectedSubjectId(subjectParam);
-    } else if (subjects.length > 0) {
-      setSelectedSubjectId(subjects[0].id);
-    }
-    
-    if (topicParam) {
-      setSelectedTopicId(topicParam);
+      
+      if (topicParam) {
+        setSelectedTopicId(topicParam);
+      }
     }
   }, [searchParams]);
   
@@ -120,7 +118,7 @@ const CurriculumNavigator: React.FC = () => {
           </div>
         </div>
         
-        <div className="space-y-4 px-4">
+        <div className="space-y-4 px-4 pb-20">
           {selectedTopic.subTopics.map(subTopic => (
             <SubTopicCard
               key={subTopic.id}
