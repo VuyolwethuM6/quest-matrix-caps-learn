@@ -17,7 +17,7 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<(string | number | boolean | null)[]>([]);
   const [answerState, setAnswerState] = useState<AnswerState>('unanswered');
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState<number>(0);
 
   // Find the quiz for this subtopic
   useEffect(() => {
@@ -67,8 +67,9 @@ export const useQuiz = (subjectId: string, topicId: string, subtopicId: string) 
       }, 0);
       
       // Make sure both parts of the division are numbers
-      const totalQuestions = quiz.questions.length;
-      const finalScore = Math.round((correctAnswers / totalQuestions) * 100);
+      const totalQuestions: number = quiz.questions.length;
+      const calculatedScore: number = (correctAnswers / totalQuestions) * 100;
+      const finalScore: number = Math.round(calculatedScore);
       setScore(finalScore);
       
       // Save quiz completion

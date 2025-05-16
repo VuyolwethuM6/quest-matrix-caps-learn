@@ -84,9 +84,12 @@ const QuizPage: React.FC = () => {
         );
       
       case 'results':
+        // Ensure score is always a number type
+        const finalScore: number = typeof score === 'number' ? score : 0;
+        
         return (
           <QuizResults
-            score={score} // This is now guaranteed to be a number in useQuiz.ts
+            score={finalScore}
             correctAnswers={correctAnswers}
             totalQuestions={quiz.questions.length}
             onRetakeQuiz={handleRetry}
