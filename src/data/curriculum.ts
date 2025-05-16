@@ -1,4 +1,3 @@
-
 import { Subject } from './models';
 
 export const subjects: Subject[] = [
@@ -221,6 +220,21 @@ export const subjects: Subject[] = [
     ]
   }
 ];
+
+// Helper functions to get data by ID
+export const getSubjectById = (subjectId: string): Subject | undefined => {
+  return subjects.find(subject => subject.id === subjectId);
+};
+
+export const getTopicById = (subjectId: string, topicId: string) => {
+  const subject = getSubjectById(subjectId);
+  return subject?.topics.find(topic => topic.id === topicId);
+};
+
+export const getSubTopicById = (subjectId: string, topicId: string, subtopicId: string) => {
+  const topic = getTopicById(subjectId, topicId);
+  return topic?.subTopics.find(subtopic => subtopic.id === subtopicId);
+};
 
 export const getBadges = (): Badge[] => [
   {

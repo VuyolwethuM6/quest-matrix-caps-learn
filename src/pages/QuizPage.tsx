@@ -1,56 +1,45 @@
+
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useQuiz } from "@/hooks/useQuiz";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useToast } from "@/hooks/use-toast";
 import { BookOpenCheck, BookOpen, XCircle } from "lucide-react";
-import { questions } from "@/data/curriculum";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardFooter, CardDescription, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import NavBar from "@/components/NavBar";
 
-interface RouteParams {
-  subjectId: string;
-  topicId: string;
-  subtopicId: string;
-}
-
 const QuizPage: React.FC = () => {
-  const { subjectId, topicId, subtopicId } = useParams<RouteParams>();
-  const navigate = useNavigate();
   const { toast } = useToast();
-  
-  const lessonId = `${subjectId}-${topicId}-${subtopicId}`;
-  const quizId = `${lessonId}-quiz`;
-  
   const {
+    currentQuestion,
     currentQuestionIndex,
+    totalQuestions,
     selectedAnswer,
+    isAnswerSubmitted,
+    quizCompleted,
+    correctAnswers,
     score,
-    question,
-    options,
-    handleAnswerSelection,
+    handleSelectAnswer,
+    handleSubmitAnswer,
     handleNextQuestion,
-    resetQuiz,
-    isQuizFinished,
-  } = useQuiz(subjectId!, topicId!, subtopicId!);
-  
-  const { markQuizCompleted } = useProgress();
+    handleReturnToCurriculum,
+    subject,
+    topic,
+    subtopic,
+  } = useQuiz();
   
   useEffect(() => {
-    if (isQuizFinished) {
-      markQuizCompleted(quizId, score);
-      
+    if (quizCompleted) {
       toast({
         title: "Quiz Completed!",
         description: `You scored ${score}% on the quiz.`,
       });
     }
-  }, [isQuizFinished, markQuizCompleted, quizId, score, toast]);
+  }, [quizCompleted, score, toast]);
   
-  if (!question) {
+  if (!currentQuestion) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="w-full max-w-md">
@@ -85,16 +74,16 @@ const QuizPage: React.FC = () => {
           </CardHeader>
           
           <CardContent className="space-y-4">
-            <p className="text-lg">{question}</p>
+            <p className="text-lg">{currentQuestion.text}</p>
             
             <div className="grid gap-2">
-              {options.map((option, index) => (
+              {currentQuestion.options && currentQuestion.options.map((option, index) => (
                 <Button
                   key={index}
                   variant="outline"
                   className={`justify-start ${selectedAnswer === option ? 'bg-quest-primary/10 text-quest-primary' : ''}`}
-                  onClick={() => handleAnswerSelection(option)}
-                  disabled={selectedAnswer !== null}
+                  onClick={() => handleSelectAnswer(option)}
+                  disabled={isAnswerSubmitted}
                 >
                   {option}
                 </Button>
@@ -102,57 +91,51 @@ const QuizPage: React.FC = () => {
             </div>
           </CardContent>
           
-          <CardFooter className="justify-between">
+          <CardFooter className="justify-between flex-wrap">
             <Button
               variant="ghost"
-              onClick={() => navigate(`/learn/${subjectId}/${topicId}/${subtopicId}`)}
+              onClick={handleReturnToCurriculum}
             >
               <BookOpen className="mr-2" size={16} />
               Back to Lesson
             </Button>
             
-            {isQuizFinished ? (
-              <QuizResults score={Number(score)} onRestart={resetQuiz} lessonId={lessonId} />
+            {quizCompleted ? (
+              <div className="text-center w-full mt-4">
+                <h2 className="text-3xl font-bold mb-4">Results</h2>
+                <p className="text-lg mb-4">
+                  You scored {score}% on the quiz!
+                </p>
+                
+                <div className="flex justify-center gap-4">
+                  <Button onClick={() => window.location.reload()}>
+                    <XCircle className="mr-2" size={16} />
+                    Retake Quiz
+                  </Button>
+                  <Button onClick={handleReturnToCurriculum}>
+                    <BookOpenCheck className="mr-2" size={16} />
+                    Back to Lesson
+                  </Button>
+                </div>
+              </div>
             ) : (
-              <Button onClick={handleNextQuestion} disabled={selectedAnswer === null}>
-                Next Question
-              </Button>
+              <>
+                {isAnswerSubmitted ? (
+                  <Button onClick={handleNextQuestion}>
+                    Next Question
+                  </Button>
+                ) : (
+                  <Button onClick={handleSubmitAnswer} disabled={selectedAnswer === null}>
+                    Submit Answer
+                  </Button>
+                )}
+              </>
             )}
           </CardFooter>
         </Card>
       </div>
       
       <NavBar />
-    </div>
-  );
-};
-
-interface QuizResultsProps {
-  score: number;
-  onRestart: () => void;
-  lessonId: string;
-}
-
-const QuizResults: React.FC<QuizResultsProps> = ({ score, onRestart, lessonId }) => {
-  const navigate = useNavigate();
-  
-  return (
-    <div className="text-center">
-      <h2 className="text-3xl font-bold mb-4">Results</h2>
-      <p className="text-lg mb-4">
-        You scored {score}% on the quiz!
-      </p>
-      
-      <div className="flex justify-center gap-4">
-        <Button onClick={onRestart}>
-          <XCircle className="mr-2" size={16} />
-          Retake Quiz
-        </Button>
-        <Button onClick={() => navigate(`/learn/${lessonId.split('-').slice(0, 3).join('/')}`)}>
-          <BookOpenCheck className="mr-2" size={16} />
-          Back to Lesson
-        </Button>
-      </div>
     </div>
   );
 };
