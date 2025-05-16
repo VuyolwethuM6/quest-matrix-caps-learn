@@ -12,7 +12,7 @@ const CurriculumNavigator: React.FC = () => {
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   
-  // Set initial selection from URL params, but don't default to first subject
+  // Set initial selection from URL params
   useEffect(() => {
     const subjectParam = searchParams.get("subject");
     const topicParam = searchParams.get("topic");
@@ -43,7 +43,10 @@ const CurriculumNavigator: React.FC = () => {
         {subjects.map(subject => (
           <div
             key={subject.id}
-            onClick={() => setSelectedSubjectId(subject.id)}
+            onClick={() => {
+              setSelectedSubjectId(subject.id);
+              setSelectedTopicId(null); // Reset topic selection when changing subject
+            }}
             className={`rounded-xl border p-4 cursor-pointer transition-all hover:shadow-md ${
               selectedSubjectId === subject.id 
                 ? "border-quest-primary bg-quest-softPurple/30" 
@@ -73,7 +76,10 @@ const CurriculumNavigator: React.FC = () => {
         <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setSelectedSubjectId(null)}
+              onClick={() => {
+                setSelectedSubjectId(null);
+                setSelectedTopicId(null);
+              }}
               className="p-2 rounded-full hover:bg-white/20 transition-colors"
             >
               <ChevronLeft size={24} />
@@ -85,12 +91,13 @@ const CurriculumNavigator: React.FC = () => {
           </div>
         </div>
         
-        <div className="space-y-4 px-4">
+        <div className="space-y-4 px-4 pb-20">
           {selectedSubject.topics.map(topic => (
             <TopicCard 
               key={topic.id} 
               topic={topic} 
               subjectId={selectedSubject.id} 
+              onClick={() => setSelectedTopicId(topic.id)}
             />
           ))}
         </div>

@@ -9,9 +9,10 @@ import { Card } from "@/components/ui/card";
 interface TopicCardProps {
   topic: Topic;
   subjectId: string;
+  onClick?: () => void; // Add onClick prop
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId }) => {
+const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId, onClick }) => {
   const { completedLessons, completedQuizzes } = useProgress();
   
   // Calculate completion percentage for this topic
@@ -31,18 +32,27 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId }) => {
     ? Math.round((completedSubTopics / totalSubTopics) * 100)
     : 0;
   
+  // We'll handle the click event directly instead of using Link for navigation
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    }
+  };
+  
   return (
-    <Card className="p-4 hover:border-quest-primary group transition-all shadow-sm hover:shadow-md">
+    <Card 
+      className="p-4 hover:border-quest-primary group transition-all shadow-sm hover:shadow-md cursor-pointer"
+      onClick={handleCardClick}
+    >
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <h3 className="text-lg font-bold group-hover:text-quest-primary">{topic.name}</h3>
           <p className="text-sm text-muted-foreground">{topic.description}</p>
         </div>
-        <Link to={`/curriculum?subject=${subjectId}&topic=${topic.id}`}>
-          <div className="p-2 rounded-full bg-gray-100 group-hover:bg-quest-primary/10 group-hover:text-quest-primary transition-all">
-            <ChevronRight className="h-5 w-5" />
-          </div>
-        </Link>
+        <div className="p-2 rounded-full bg-gray-100 group-hover:bg-quest-primary/10 group-hover:text-quest-primary transition-all">
+          <ChevronRight className="h-5 w-5" />
+        </div>
       </div>
       
       <div className="mt-4">

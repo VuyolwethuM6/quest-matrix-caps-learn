@@ -12,7 +12,7 @@ export const useQuiz = () => {
     subtopicId: string;
   }>();
   const navigate = useNavigate();
-  const { markQuizCompleted } = useProgress();
+  const { completeQuiz } = useProgress();
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -72,10 +72,10 @@ export const useQuiz = () => {
   useEffect(() => {
     if (quizCompleted && subject && topic && subtopic) {
       const quizId = `${subject.id}-${topic.id}-${subtopic.id}-quiz`;
-      // Use markQuizCompleted which is available in the context
-      markQuizCompleted(quizId, score);
+      // Use completeQuiz which is available in the context
+      completeQuiz(quizId, score);
     }
-  }, [quizCompleted, subject, topic, subtopic, markQuizCompleted, score]);
+  }, [quizCompleted, subject, topic, subtopic, completeQuiz, score]);
 
   const handleReturnToCurriculum = () => {
     navigate(`/curriculum?subject=${subjectId}&topic=${topicId}`);
