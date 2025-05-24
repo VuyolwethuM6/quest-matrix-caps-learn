@@ -4,6 +4,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Question } from "@/data/models";
 import MathDisplay from "@/components/MathDisplay";
 
@@ -28,9 +29,26 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   onAnswerSelect,
   onNextQuestion
 }) => {
+  const getQuestionTypeBadge = () => {
+    if (currentQuestion.type === 'mcq') {
+      return 'Multiple Choice';
+    } else if (currentQuestion.type === 'true-false') {
+      return 'True/False';
+    }
+    return 'Question';
+  };
+
   return (
     <div className="bg-white rounded-xl p-8 shadow-sm border max-w-2xl mx-auto">
       <div className="text-center mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-sm font-medium">
+            {getQuestionTypeBadge()}
+          </Badge>
+          <span className="text-sm text-muted-foreground font-medium">
+            {currentQuestionIndex + 1}/{totalQuestions}
+          </span>
+        </div>
         <h2 className="text-2xl font-bold mb-2">Question {currentQuestionIndex + 1}</h2>
         <p className="text-muted-foreground">Choose the correct answer below</p>
       </div>
