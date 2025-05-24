@@ -17,6 +17,7 @@ import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
 import BadgesPage from "./pages/BadgesPage";
 import LeaderboardsPage from "./pages/LeaderboardsPage";
+import CAPSBuddyPage from "./pages/CAPSBuddyPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/badges" element={<BadgesPage />} />
               <Route path="/leaderboards" element={<LeaderboardsPage />} />
+              <Route path="/caps-buddy" element={<CAPSBuddyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

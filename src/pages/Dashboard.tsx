@@ -12,7 +12,6 @@ import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { subjects, getBadges } from "@/data/curriculum";
 import LevelUpModal from "@/components/LevelUpModal";
-import CAPSBuddy from "@/components/CAPSBuddy";
 
 const Dashboard: React.FC = () => {
   const { name, avatar, grade } = useUser();
@@ -27,7 +26,6 @@ const Dashboard: React.FC = () => {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [newLevel, setNewLevel] = useState(1);
   const [prevLevel, setPrevLevel] = useState(level);
-  const [showCAPSBuddy, setShowCAPSBuddy] = useState(false);
   
   // Check if we should show level up modal
   useEffect(() => {
@@ -147,13 +145,14 @@ const Dashboard: React.FC = () => {
                 Get instant help with your studies from our AI tutor
               </p>
               
-              <Button
-                variant="outline" 
-                className="bg-white/50 border-quest-blue text-quest-blue"
-                onClick={() => setShowCAPSBuddy(true)}
-              >
-                Chat with CAPS Buddy
-              </Button>
+              <Link to="/caps-buddy">
+                <Button
+                  variant="outline" 
+                  className="bg-white/50 border-quest-blue text-quest-blue"
+                >
+                  Chat with CAPS Buddy
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -183,12 +182,6 @@ const Dashboard: React.FC = () => {
         isOpen={showLevelUp} 
         onClose={() => setShowLevelUp(false)} 
         newLevel={newLevel}
-      />
-      
-      {/* CAPS Buddy Chat Modal */}
-      <CAPSBuddy 
-        isOpen={showCAPSBuddy} 
-        onClose={() => setShowCAPSBuddy(false)} 
       />
       
       <NavBar />
