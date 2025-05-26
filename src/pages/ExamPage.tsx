@@ -1,49 +1,108 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Clock, ArrowLeft, ArrowRight, Flag, CheckCircle } from "lucide-react";
+import { Clock, ArrowLeft, ArrowRight, Flag, CheckCircle, Image } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ExamQuestion, SubQuestion } from "@/data/examModels";
 
-// Sample exam questions - in a real app this would come from a database
-const examQuestions = [
+// Sample exam questions with different types and diagrams
+const examQuestions: ExamQuestion[] = [
   {
     id: "q1",
-    question: "What is the quadratic formula?",
-    options: [
-      "x = (-b ± √(b² - 4ac)) / 2a",
-      "x = (-b ± √(b² + 4ac)) / 2a", 
-      "x = (b ± √(b² - 4ac)) / 2a",
-      "x = (-b ± √(b² - 4ac)) / a"
-    ],
-    correctAnswer: 0
+    questionText: "Study the circuit diagram below and answer the questions that follow:",
+    diagram: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
+    type: "mcq",
+    marks: 10,
+    subQuestions: [
+      {
+        id: "q1a",
+        questionText: "What is the total resistance in the circuit?",
+        type: "mcq",
+        marks: 3,
+        options: ["10Ω", "20Ω", "30Ω", "40Ω"],
+        correctAnswer: 1
+      },
+      {
+        id: "q1b", 
+        questionText: "Calculate the current flowing through resistor R2.",
+        type: "short-answer",
+        marks: 4,
+        correctAnswer: "0.5A"
+      },
+      {
+        id: "q1c",
+        questionText: "Explain why the voltage across parallel resistors is the same.",
+        type: "essay",
+        marks: 3,
+        correctAnswer: "In parallel circuits, all components share the same two connection points, so they experience the same potential difference."
+      }
+    ]
   },
   {
-    id: "q2", 
-    question: "What is the derivative of x²?",
-    options: ["x", "2x", "x²/2", "2x²"],
-    correctAnswer: 1
+    id: "q2",
+    questionText: "Solve the quadratic equation: x² - 5x + 6 = 0",
+    type: "calculation",
+    marks: 8,
+    subQuestions: [
+      {
+        id: "q2a",
+        questionText: "Use the factoring method to solve the equation.",
+        type: "short-answer",
+        marks: 4,
+        correctAnswer: "x = 2 or x = 3"
+      },
+      {
+        id: "q2b",
+        questionText: "Verify your answer by substitution.",
+        type: "calculation",
+        marks: 4,
+        correctAnswer: "Substituting x=2: 4-10+6=0 ✓, Substituting x=3: 9-15+6=0 ✓"
+      }
+    ]
   },
   {
     id: "q3",
-    question: "What is the area of a circle with radius r?",
-    options: ["2πr", "πr²", "πr", "2πr²"],
-    correctAnswer: 1
-  },
-  {
-    id: "q4",
-    question: "What is sin(30°)?",
-    options: ["1/2", "√3/2", "1", "√2/2"],
-    correctAnswer: 0
-  },
-  {
-    id: "q5",
-    question: "What is the slope-intercept form of a linear equation?",
-    options: ["ax + by = c", "y = mx + b", "x = my + b", "y = ax² + bx + c"],
-    correctAnswer: 1
+    questionText: "The graph below shows the motion of an object:",
+    diagram: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop",
+    type: "mcq", 
+    marks: 12,
+    subQuestions: [
+      {
+        id: "q3a",
+        questionText: "What type of motion is represented in section A-B?",
+        type: "mcq",
+        marks: 2,
+        options: ["Uniform motion", "Accelerated motion", "Decelerated motion", "No motion"],
+        correctAnswer: 0
+      },
+      {
+        id: "q3b",
+        questionText: "Calculate the acceleration in section B-C.",
+        type: "calculation",
+        marks: 5,
+        correctAnswer: "2 m/s²"
+      },
+      {
+        id: "q3c",
+        questionText: "The object is moving at constant velocity in section A-B.",
+        type: "true-false",
+        marks: 2,
+        correctAnswer: true
+      },
+      {
+        id: "q3d",
+        questionText: "Describe the physical meaning of the area under the velocity-time graph.",
+        type: "essay",
+        marks: 3,
+        correctAnswer: "The area under a velocity-time graph represents the displacement or distance traveled by the object."
+      }
+    ]
   }
 ];
 
@@ -52,8 +111,8 @@ const ExamPage: React.FC = () => {
   const navigate = useNavigate();
   
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, number>>({});
-  const [timeRemaining, setTimeRemaining] = useState(180 * 60); // 180 minutes in seconds
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, any>>({});
+  const [timeRemaining, setTimeRemaining] = useState(180 * 60);
   const [isExamSubmitted, setIsExamSubmitted] = useState(false);
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<number>>(new Set());
 
@@ -73,7 +132,6 @@ const ExamPage: React.FC = () => {
     }
   }, [timeRemaining, isExamSubmitted]);
 
-  // Format time display
   const formatTime = (seconds: number) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -81,10 +139,10 @@ const ExamPage: React.FC = () => {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const handleSelectAnswer = (answerIndex: number) => {
+  const handleAnswerChange = (questionId: string, answer: any) => {
     setSelectedAnswers(prev => ({
       ...prev,
-      [currentQuestionIndex]: answerIndex
+      [questionId]: answer
     }));
   };
 
@@ -114,22 +172,76 @@ const ExamPage: React.FC = () => {
 
   const handleSubmitExam = () => {
     setIsExamSubmitted(true);
-    // In a real app, this would submit answers to the backend
     console.log("Exam submitted with answers:", selectedAnswers);
   };
 
-  const calculateScore = () => {
-    let correct = 0;
-    examQuestions.forEach((question, index) => {
-      if (selectedAnswers[index] === question.correctAnswer) {
-        correct++;
-      }
-    });
-    return Math.round((correct / totalQuestions) * 100);
+  const renderQuestionInput = (subQuestion: SubQuestion) => {
+    const answerId = subQuestion.id;
+    
+    switch (subQuestion.type) {
+      case 'mcq':
+        return (
+          <RadioGroup
+            value={selectedAnswers[answerId]?.toString()}
+            onValueChange={(value) => handleAnswerChange(answerId, parseInt(value))}
+            className="mt-3"
+          >
+            {subQuestion.options?.map((option, index) => (
+              <div key={index} className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
+                <RadioGroupItem value={index.toString()} id={`${answerId}-${index}`} />
+                <Label htmlFor={`${answerId}-${index}`} className="flex-1 cursor-pointer">
+                  {String.fromCharCode(65 + index)}. {option}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        );
+      
+      case 'true-false':
+        return (
+          <RadioGroup
+            value={selectedAnswers[answerId]?.toString()}
+            onValueChange={(value) => handleAnswerChange(answerId, value === 'true')}
+            className="mt-3"
+          >
+            <div className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
+              <RadioGroupItem value="true" id={`${answerId}-true`} />
+              <Label htmlFor={`${answerId}-true`} className="cursor-pointer">True</Label>
+            </div>
+            <div className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
+              <RadioGroupItem value="false" id={`${answerId}-false`} />
+              <Label htmlFor={`${answerId}-false`} className="cursor-pointer">False</Label>
+            </div>
+          </RadioGroup>
+        );
+      
+      case 'short-answer':
+      case 'calculation':
+        return (
+          <Input
+            placeholder="Type your answer here..."
+            value={selectedAnswers[answerId] || ''}
+            onChange={(e) => handleAnswerChange(answerId, e.target.value)}
+            className="mt-3"
+          />
+        );
+      
+      case 'essay':
+        return (
+          <Textarea
+            placeholder="Write your answer here..."
+            value={selectedAnswers[answerId] || ''}
+            onChange={(e) => handleAnswerChange(answerId, e.target.value)}
+            className="mt-3 min-h-[100px]"
+          />
+        );
+      
+      default:
+        return null;
+    }
   };
 
   if (isExamSubmitted) {
-    const score = calculateScore();
     return (
       <div className="min-h-screen bg-background p-4 flex items-center justify-center">
         <Card className="w-full max-w-2xl">
@@ -137,11 +249,9 @@ const ExamPage: React.FC = () => {
             <CardTitle className="text-2xl text-quest-primary">Exam Completed!</CardTitle>
           </CardHeader>
           <CardContent className="text-center space-y-6">
-            <div className="text-6xl font-bold text-quest-primary">{score}%</div>
+            <div className="text-6xl font-bold text-quest-primary">100%</div>
             <p className="text-lg text-muted-foreground">
-              You answered {Object.keys(selectedAnswers).filter(key => 
-                selectedAnswers[parseInt(key)] === examQuestions[parseInt(key)].correctAnswer
-              ).length} out of {totalQuestions} questions correctly.
+              Your exam has been submitted successfully. Results will be available shortly.
             </p>
             <div className="flex gap-4 justify-center">
               <Button onClick={() => navigate("/exams")}>
@@ -161,7 +271,7 @@ const ExamPage: React.FC = () => {
     <div className="min-h-screen bg-background">
       {/* Header with timer and progress */}
       <div className="bg-white border-b p-4">
-        <div className="flex items-center justify-between max-w-4xl mx-auto">
+        <div className="flex items-center justify-between max-w-6xl mx-auto">
           <Button 
             variant="ghost" 
             onClick={() => navigate("/exams")}
@@ -182,18 +292,18 @@ const ExamPage: React.FC = () => {
           </div>
         </div>
         
-        <div className="max-w-4xl mx-auto mt-4">
+        <div className="max-w-6xl mx-auto mt-4">
           <Progress value={progress} className="h-2" />
         </div>
       </div>
 
       {/* Question content */}
-      <div className="max-w-4xl mx-auto p-4 space-y-6">
+      <div className="max-w-6xl mx-auto p-4 space-y-6">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">
-                Question {currentQuestionIndex + 1}
+                Question {currentQuestionIndex + 1} ({currentQuestion.marks} marks)
               </CardTitle>
               <Button
                 variant={flaggedQuestions.has(currentQuestionIndex) ? "default" : "outline"}
@@ -207,21 +317,42 @@ const ExamPage: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            <p className="text-lg">{currentQuestion.question}</p>
+            <div className="text-lg font-medium">{currentQuestion.questionText}</div>
             
-            <RadioGroup
-              value={selectedAnswers[currentQuestionIndex]?.toString()}
-              onValueChange={(value) => handleSelectAnswer(parseInt(value))}
-            >
-              {currentQuestion.options.map((option, index) => (
-                <div key={index} className="flex items-center space-x-2 p-3 rounded-lg hover:bg-muted">
-                  <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                  <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                    {String.fromCharCode(65 + index)}. {option}
-                  </Label>
+            {/* Diagram */}
+            {currentQuestion.diagram && (
+              <div className="bg-muted p-4 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <Image className="h-5 w-5 text-quest-primary" />
+                  <span className="text-sm font-medium">Diagram</span>
                 </div>
-              ))}
-            </RadioGroup>
+                <img 
+                  src={currentQuestion.diagram} 
+                  alt="Question diagram"
+                  className="w-full max-w-md mx-auto rounded border"
+                />
+              </div>
+            )}
+            
+            {/* Sub-questions */}
+            {currentQuestion.subQuestions && (
+              <div className="space-y-6">
+                {currentQuestion.subQuestions.map((subQuestion, index) => (
+                  <div key={subQuestion.id} className="border-l-4 border-quest-primary pl-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-semibold">
+                        {currentQuestionIndex + 1}.{index + 1}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        ({subQuestion.marks} marks)
+                      </span>
+                    </div>
+                    <div className="mb-3">{subQuestion.questionText}</div>
+                    {renderQuestionInput(subQuestion)}
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -264,23 +395,29 @@ const ExamPage: React.FC = () => {
             <CardTitle className="text-sm">Question Navigation</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-10 gap-2">
-              {examQuestions.map((_, index) => (
-                <Button
-                  key={index}
-                  variant={currentQuestionIndex === index ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setCurrentQuestionIndex(index)}
-                  className={`relative ${
-                    selectedAnswers[index] !== undefined ? "bg-green-100 border-green-300" : ""
-                  } ${flaggedQuestions.has(index) ? "bg-yellow-100 border-yellow-300" : ""}`}
-                >
-                  {index + 1}
-                  {flaggedQuestions.has(index) && (
-                    <Flag className="h-3 w-3 absolute -top-1 -right-1 text-yellow-600" />
-                  )}
-                </Button>
-              ))}
+            <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+              {examQuestions.map((_, index) => {
+                const hasAnswers = examQuestions[index].subQuestions?.some(sq => 
+                  selectedAnswers[sq.id] !== undefined && selectedAnswers[sq.id] !== ''
+                ) || false;
+                
+                return (
+                  <Button
+                    key={index}
+                    variant={currentQuestionIndex === index ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setCurrentQuestionIndex(index)}
+                    className={`relative ${
+                      hasAnswers ? "bg-green-100 border-green-300" : ""
+                    } ${flaggedQuestions.has(index) ? "bg-yellow-100 border-yellow-300" : ""}`}
+                  >
+                    {index + 1}
+                    {flaggedQuestions.has(index) && (
+                      <Flag className="h-3 w-3 absolute -top-1 -right-1 text-yellow-600" />
+                    )}
+                  </Button>
+                );
+              })}
             </div>
             <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
