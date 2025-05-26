@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, Award, User, Medal } from "lucide-react";
+import { Home, BookOpen, Award, User, FileText } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,7 @@ const NavBar: React.FC = () => {
     { path: "/dashboard", icon: <Home size={24} />, label: "Home" },
     { path: "/curriculum", icon: <BookOpen size={24} />, label: "Learn" },
     { path: "/badges", icon: <Award size={24} />, label: "Badges" },
-    { path: "/leaderboards", icon: <Medal size={24} />, label: "Leaderboard" },
+    { path: "/exams", icon: <FileText size={24} />, label: "Exams" },
     { path: "/profile", icon: <User size={24} />, label: "Profile" },
   ];
 

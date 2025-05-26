@@ -16,7 +16,7 @@ import LearningModule from "./pages/LearningModule";
 import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
 import BadgesPage from "./pages/BadgesPage";
-import LeaderboardsPage from "./pages/LeaderboardsPage";
+import ExamsPage from "./pages/ExamsPage";
 import CAPSBuddyPage from "./pages/CAPSBuddyPage";
 import NotFound from "./pages/NotFound";
 
@@ -39,7 +39,7 @@ const App = () => (
               <Route path="/quiz/:subjectId/:topicId/:subtopicId" element={<QuizPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/badges" element={<BadgesPage />} />
-              <Route path="/leaderboards" element={<LeaderboardsPage />} />
+              <Route path="/exams" element={<ExamsPage />} />
               <Route path="/caps-buddy" element={<CAPSBuddyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
