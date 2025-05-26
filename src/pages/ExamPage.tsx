@@ -1,15 +1,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Clock, ArrowLeft, ArrowRight, Flag, CheckCircle, Image } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { ExamQuestion, SubQuestion } from "@/data/examModels";
+import { ExamQuestion } from "@/data/examModels";
+import ExamHeader from "@/components/exam/ExamHeader";
+import ExamQuestionComponent from "@/components/exam/ExamQuestion";
+import QuestionNavigation from "@/components/exam/QuestionNavigation";
 
 // Sample exam questions with different types and diagrams
 const examQuestions: ExamQuestion[] = [
@@ -118,7 +116,6 @@ const ExamPage: React.FC = () => {
 
   const currentQuestion = examQuestions[currentQuestionIndex];
   const totalQuestions = examQuestions.length;
-  const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
 
   // Timer effect
   useEffect(() => {
@@ -131,13 +128,6 @@ const ExamPage: React.FC = () => {
       handleSubmitExam();
     }
   }, [timeRemaining, isExamSubmitted]);
-
-  const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
 
   const handleAnswerChange = (questionId: string, answer: any) => {
     setSelectedAnswers(prev => ({
@@ -175,72 +165,6 @@ const ExamPage: React.FC = () => {
     console.log("Exam submitted with answers:", selectedAnswers);
   };
 
-  const renderQuestionInput = (subQuestion: SubQuestion) => {
-    const answerId = subQuestion.id;
-    
-    switch (subQuestion.type) {
-      case 'mcq':
-        return (
-          <RadioGroup
-            value={selectedAnswers[answerId]?.toString()}
-            onValueChange={(value) => handleAnswerChange(answerId, parseInt(value))}
-            className="mt-3"
-          >
-            {subQuestion.options?.map((option, index) => (
-              <div key={index} className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
-                <RadioGroupItem value={index.toString()} id={`${answerId}-${index}`} />
-                <Label htmlFor={`${answerId}-${index}`} className="flex-1 cursor-pointer">
-                  {String.fromCharCode(65 + index)}. {option}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        );
-      
-      case 'true-false':
-        return (
-          <RadioGroup
-            value={selectedAnswers[answerId]?.toString()}
-            onValueChange={(value) => handleAnswerChange(answerId, value === 'true')}
-            className="mt-3"
-          >
-            <div className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
-              <RadioGroupItem value="true" id={`${answerId}-true`} />
-              <Label htmlFor={`${answerId}-true`} className="cursor-pointer">True</Label>
-            </div>
-            <div className="flex items-center space-x-2 p-2 rounded hover:bg-muted">
-              <RadioGroupItem value="false" id={`${answerId}-false`} />
-              <Label htmlFor={`${answerId}-false`} className="cursor-pointer">False</Label>
-            </div>
-          </RadioGroup>
-        );
-      
-      case 'short-answer':
-      case 'calculation':
-        return (
-          <Input
-            placeholder="Type your answer here..."
-            value={selectedAnswers[answerId] || ''}
-            onChange={(e) => handleAnswerChange(answerId, e.target.value)}
-            className="mt-3"
-          />
-        );
-      
-      case 'essay':
-        return (
-          <Textarea
-            placeholder="Write your answer here..."
-            value={selectedAnswers[answerId] || ''}
-            onChange={(e) => handleAnswerChange(answerId, e.target.value)}
-            className="mt-3 min-h-[100px]"
-          />
-        );
-      
-      default:
-        return null;
-    }
-  };
-
   if (isExamSubmitted) {
     return (
       <div className="min-h-screen bg-background p-4 flex items-center justify-center">
@@ -269,92 +193,22 @@ const ExamPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header with timer and progress */}
-      <div className="bg-white border-b p-4">
-        <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate("/exams")}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Exit Exam
-          </Button>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-quest-primary font-semibold">
-              <Clock className="h-5 w-5" />
-              {formatTime(timeRemaining)}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Question {currentQuestionIndex + 1} of {totalQuestions}
-            </div>
-          </div>
-        </div>
-        
-        <div className="max-w-6xl mx-auto mt-4">
-          <Progress value={progress} className="h-2" />
-        </div>
-      </div>
+      <ExamHeader
+        timeRemaining={timeRemaining}
+        currentQuestionIndex={currentQuestionIndex}
+        totalQuestions={totalQuestions}
+      />
 
       {/* Question content */}
       <div className="max-w-6xl mx-auto p-4 space-y-6">
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg">
-                Question {currentQuestionIndex + 1} ({currentQuestion.marks} marks)
-              </CardTitle>
-              <Button
-                variant={flaggedQuestions.has(currentQuestionIndex) ? "default" : "outline"}
-                size="sm"
-                onClick={handleFlagQuestion}
-                className="flex items-center gap-2"
-              >
-                <Flag className="h-4 w-4" />
-                {flaggedQuestions.has(currentQuestionIndex) ? "Flagged" : "Flag"}
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="text-lg font-medium">{currentQuestion.questionText}</div>
-            
-            {/* Diagram */}
-            {currentQuestion.diagram && (
-              <div className="bg-muted p-4 rounded-lg">
-                <div className="flex items-center gap-2 mb-3">
-                  <Image className="h-5 w-5 text-quest-primary" />
-                  <span className="text-sm font-medium">Diagram</span>
-                </div>
-                <img 
-                  src={currentQuestion.diagram} 
-                  alt="Question diagram"
-                  className="w-full max-w-md mx-auto rounded border"
-                />
-              </div>
-            )}
-            
-            {/* Sub-questions */}
-            {currentQuestion.subQuestions && (
-              <div className="space-y-6">
-                {currentQuestion.subQuestions.map((subQuestion, index) => (
-                  <div key={subQuestion.id} className="border-l-4 border-quest-primary pl-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-semibold">
-                        {currentQuestionIndex + 1}.{index + 1}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        ({subQuestion.marks} marks)
-                      </span>
-                    </div>
-                    <div className="mb-3">{subQuestion.questionText}</div>
-                    {renderQuestionInput(subQuestion)}
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        <ExamQuestionComponent
+          question={currentQuestion}
+          questionIndex={currentQuestionIndex}
+          selectedAnswers={selectedAnswers}
+          flaggedQuestions={flaggedQuestions}
+          onAnswerChange={handleAnswerChange}
+          onFlagToggle={handleFlagQuestion}
+        />
 
         {/* Navigation */}
         <div className="flex items-center justify-between">
@@ -389,52 +243,13 @@ const ExamPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Question navigation grid */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm">Question Navigation</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
-              {examQuestions.map((_, index) => {
-                const hasAnswers = examQuestions[index].subQuestions?.some(sq => 
-                  selectedAnswers[sq.id] !== undefined && selectedAnswers[sq.id] !== ''
-                ) || false;
-                
-                return (
-                  <Button
-                    key={index}
-                    variant={currentQuestionIndex === index ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentQuestionIndex(index)}
-                    className={`relative ${
-                      hasAnswers ? "bg-green-100 border-green-300" : ""
-                    } ${flaggedQuestions.has(index) ? "bg-yellow-100 border-yellow-300" : ""}`}
-                  >
-                    {index + 1}
-                    {flaggedQuestions.has(index) && (
-                      <Flag className="h-3 w-3 absolute -top-1 -right-1 text-yellow-600" />
-                    )}
-                  </Button>
-                );
-              })}
-            </div>
-            <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-100 border border-green-300 rounded"></div>
-                Answered
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-100 border border-yellow-300 rounded"></div>
-                Flagged
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-white border border-gray-300 rounded"></div>
-                Not Answered
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <QuestionNavigation
+          examQuestions={examQuestions}
+          currentQuestionIndex={currentQuestionIndex}
+          selectedAnswers={selectedAnswers}
+          flaggedQuestions={flaggedQuestions}
+          onQuestionSelect={setCurrentQuestionIndex}
+        />
       </div>
     </div>
   );

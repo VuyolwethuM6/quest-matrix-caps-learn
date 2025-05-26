@@ -15,7 +15,7 @@ export interface ExamQuestion {
 export interface SubQuestion {
   id: string;
   questionText: string;
-  type: 'mcq' | 'short-answer' | 'calculation' | 'true-false';
+  type: 'mcq' | 'short-answer' | 'essay' | 'calculation' | 'true-false';
   marks: number;
   options?: string[];
   correctAnswer?: string | number | boolean;
