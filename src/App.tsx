@@ -17,6 +17,7 @@ import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
 import BadgesPage from "./pages/BadgesPage";
 import ExamsPage from "./pages/ExamsPage";
+import ExamPage from "./pages/ExamPage";
 import CAPSBuddyPage from "./pages/CAPSBuddyPage";
 import NotFound from "./pages/NotFound";
 
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/badges" element={<BadgesPage />} />
               <Route path="/exams" element={<ExamsPage />} />
+              <Route path="/exam/:examId" element={<ExamPage />} />
               <Route path="/caps-buddy" element={<CAPSBuddyPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

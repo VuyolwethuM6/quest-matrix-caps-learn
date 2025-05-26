@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import { FileText, Clock, BookOpen, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "@/components/NavBar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -68,6 +68,7 @@ const examPapers = [
 
 const ExamsPage: React.FC = () => {
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
+  const navigate = useNavigate();
   
   // Filter exams based on selected subject
   const filteredExams = selectedSubject === "all" 
@@ -160,10 +161,7 @@ const ExamsPage: React.FC = () => {
                           
                           <Button 
                             className="ml-4"
-                            onClick={() => {
-                              // In a real app, this would navigate to the exam
-                              console.log(`Starting exam: ${exam.id}`);
-                            }}
+                            onClick={() => navigate(`/exam/${exam.id}`)}
                           >
                             Start Exam
                             <ChevronRight className="ml-1 h-4 w-4" />
