@@ -8,6 +8,7 @@ import TopicCard from "@/components/TopicCard";
 import BadgeCard from "@/components/BadgeCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { subjects, getBadges } from "@/data/curriculum";
@@ -124,10 +125,30 @@ const Dashboard: React.FC = () => {
           </Link>
         </div>
         
-        <div className="grid grid-cols-3 gap-3">
+        <div className="hidden sm:grid sm:grid-cols-3 gap-3">
           {badges.map(badge => (
             <BadgeCard key={badge.id} badge={badge} />
           ))}
+        </div>
+        
+        <div className="sm:hidden">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {badges.map((badge) => (
+                <CarouselItem key={badge.id} className="pl-2 md:pl-4 basis-1/2">
+                  <BadgeCard badge={badge} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-0" />
+            <CarouselNext className="right-0" />
+          </Carousel>
         </div>
       </div>
       
