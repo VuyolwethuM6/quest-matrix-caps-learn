@@ -1,4 +1,5 @@
 import { Subject } from './models';
+import { Info, Lightbulb } from "lucide-react";
 
 export const subjects: Subject[] = [
   {
@@ -332,162 +333,440 @@ export const subjects: Subject[] = [
         {
           "id": "newtons-laws",
           "name": "Newton's Laws of Motion",
-          "description": "Learn how forces affect motion using Newton’s three laws.",
+          "description": "Learn how forces affect motion using Newton's three laws.",
           "subTopics": [
             {
               "id": "newtons-first-law",
-              "name": "Newton's First Law: Law of Inertia",
-              "description": "Objects stay still or keep moving unless a force changes that.",
+              "name": "Newton's First Law",
+              "description": "Objects stay still or keep moving straight unless a force changes things!",
               "content": [
                 {
                   "type": "text",
                   "id": "first-law-intro",
-                  "content": "Newton's First Law (Law of Inertia) says: An object at rest stays at rest, and an object in motion keeps moving at constant speed in a straight line — unless acted on by an unbalanced force."
+                  "content": "***Newton's First Law states:** *An object continues in a state of rest or uniform velocity (constant speed in a straight line) unless acted upon by a net (resultant) force.* \n\n *Newton’s first law of motion is sometimes referred to as the law of* **inertia.** \n\n"
+                },
+                {
+                  "type": "text",
+                  "id": "first-law-inertia",
+                  "content": "***Inertia:** *is the tendency of an object to resist any change in its state of rest or uniform motion. (Uniform motion is motion with constant velocity)*"
+                },
+                {
+                  "type": "text",
+                  "id": "first-law-mass",
+                  "content": "The **mass** of an object is the measure of its inertia"
                 },
                 {
                   "type": "example",
                   "id": "first-law-sa-example",
-                  "content": "Example: You're in a taxi on the N1. The driver brakes suddenly — you lurch forward. Why? Your body wants to keep moving (inertia), but the seatbelt applies the unbalanced force to stop you."
+                  "content": " In a Pretoria minibus taxi, when the driver suddenly accelerates, your body wants to stay at rest (thanks to **inertia**). You feel like you're sliding backward—not because you're really moving backward, but because your body is resisting the forward motion. The seat (and hopefully your seatbelt) applies a force to change your motion."
                 },
                 {
                   "type": "text",
-                  "id": "first-law-memory-aid",
-                  "content": "💡 Easy way to remember: ‘Things keep doing what they’re doing until something messes it up.’"
+                  "id": "resultant",
+                  "content": "📌**Tip:** *Refer to the diagram below for a visual summary of these points — it's a great way to understand what the law really means!*"
                 },
                 {
                   "type": "image",
-                  "id": "first-law-image",
-                  "content": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Inertia_Example.svg/512px-Inertia_Example.svg.png"
+                  "id": "resulant-force",
+                  "content": "/public/assests/resultant-force.PNG"
+                },
+                {
+                  "type": "text",
+                  "id": "first-law-practise-statement",
+                  "content": "**Now that we have learnt about Newtown law lets tackle some basic questions!**"
+                },
+                {
+                  "type": "practice",
+                  "id": "first-law-practice-1",
+                  "content": {
+                    "question": "A car is moving at a **constant velocity** of 60 km/h. What is the net force acting on the car?",
+                    "options": [
+                      "Zero - because constant velocity means balanced forces",
+                      "60 N in the direction of motion",
+                      "The weight of the car",
+                      "The force of the engine"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "According to Newton's First Law, an object moving at constant velocity has no net force acting on it. The forces are balanced - the engine force equals the opposing forces (friction, air resistance)."
+                  }
+                },
+                {
+                  "type": "practice",
+                  "id": "first-law-practice-2",
+                  "content": {
+                    "question": "When a moving car **suddenly stops**, why do passengers **continue to move** forward?",
+                    "options": [
+                      "The car's brakes push them forward",
+                      "They are trying to maintain their constant velocity (inertia)",
+                      "The seat pushes them forward",
+                      "Gravity pulls them forward"
+                    ],
+                    "correctAnswer": 1,
+                    "explanation": "This is a classic example of inertia (Newton's First Law). The passengers' bodies tend to maintain their constant velocity when the car stops. Without a seatbelt, there's no force to stop their forward motion."
+                  }
+                },
+                {
+                  "type": "practice",
+                  "id": "first-law-practice-3",
+                  "content": {
+                    "question": "How do safety belts help prevent injury during sudden stops?",
+                    "options": [
+                      "They make the car stop more slowly",
+                      "They provide the unbalanced force needed to stop the passenger's motion",
+                      "They reduce the car's speed",
+                      "They make the passenger lighter"
+                    ],
+                    "correctAnswer": 1,
+                    "explanation": "Safety belts provide the necessary unbalanced force to stop the passenger's forward motion (Newton's First Law). Without a seatbelt, the passenger would continue moving forward until hitting the dashboard or windshield."
+                  }
+                },
+                {
+                  "type": "practice",
+                  "id": "first-law-practice",
+                  "content": {
+                    "question": "A crate of oranges sits still on a Durban market stall. Why doesn’t it move?",
+                    "options": [
+                      "The stall’s upward force equals the crate’s weight",
+                      "The crate is glued to the stall",
+                      "The air holds it down",
+                      "The crate has no mass"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "The normal force from the stall balances the crate’s weight (gravity), so the net force is zero, and it stays at rest."
+                  }
+                },
+                {
+                  "type": "tip",
+                  "id": "first-law-memory-aid",
+                  "content": " **Things don’t move or stop unless something makes them!** \n *Like that ball you kicked in the street — it only stops because the road, a wall, or a parked car gets in the way*"
                 }
               ],
               "quiz": {
                 "id": "first-law-quiz",
-                "title": "First Law Quiz",
-                "description": "Test your knowledge of inertia and motion",
+                "title": "Newton's First Law Quiz",
+                "description": "Test your understanding of inertia and balanced forces!",
                 "questions": [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "You're playing soccer. The ball rolls and eventually stops. Why?",
+                    "text": "What is the net force on a car moving at a constant 80 km/h on the N1? (From document, page 8)",
                     "options": [
-                      "It runs out of energy",
-                      "Gravity pulls it down",
-                      "Friction with the ground slows it down",
-                      "It gets tired"
+                      "Zero",
+                      "100 N",
+                      "500 N",
+                      "Depends on the car’s mass"
                     ],
-                    "correctAnswer": 2,
-                    "explanation": "The ball would keep rolling forever if there was no friction. Friction is the unbalanced force that stops it."
+                    "correctAnswer": 0,
+                    "explanation": "A car at constant velocity has no net force (F_net = 0 N), as forces like engine and friction balance out. (From document, page 8)"
                   },
                   {
                     "id": "q2",
                     "type": "true-false",
-                    "text": "An object can change direction without a force acting on it.",
+                    "text": "An object can change direction without a net force acting on it.",
                     "correctAnswer": false,
-                    "explanation": "A force is required to change speed or direction — any change in motion!"
-                  }
+                    "explanation": "Newton’s First Law says any change in velocity (speed or direction) requires a net force. (From document, page 7)"
+                  },
+
                 ]
               }
             },
             {
               "id": "newtons-second-law",
               "name": "Newton's Second Law: Force = Mass × Acceleration",
-              "description": "Describes how force causes acceleration depending on mass.",
+              "description": "The push you give and the object’s heft decide how fast it zips!",
               "content": [
                 {
                   "type": "text",
                   "id": "second-law-intro",
-                  "content": "Newton’s Second Law explains how force causes motion. The greater the force, the greater the acceleration. But heavier objects accelerate less with the same force."
+                  "content": "Newton’s Second Law states: A net force (F_net) on an object causes it to accelerate in the direction of the force. The acceleration (a) is directly proportional to the force and inversely proportional to the mass (m). Formula: F_net = ma. (From document, page 4)"
                 },
                 {
                   "type": "formula",
                   "id": "second-law-formula",
-                  "content": "\\[ F = ma \\]\nWhere:\nF = Force (Newtons)\nm = mass (kg)\na = acceleration (m/s²)"
+                  "content": "\\[ F_{\\text{net}} = ma \\]\nWhere:\n- \\( F_{\\text{net}} \\) = Net force (Newtons, N)\n- \\( m \\) = Mass (kg)\n- \\( a \\) = Acceleration (m/s²)"
                 },
                 {
                   "type": "example",
-                  "id": "second-law-local-example",
-                  "content": "Example: You push a trolley with groceries (20 kg) at Shoprite. You use 40 N of force.\n\\( a = F/m = 40/20 = 2 \\text{ m/s}^2 \\)"
+                  "id": "second-law-sa-example",
+                  "content": "Example: At a Cape Town market, you push a 10 kg crate of fish with 32 N. Friction is 7 N. Net force = 32 N - 7 N = 25 N. Acceleration = \\( F_{\\text{net}}/m = 25/10 = 2.5 \\text{ m/s}^2 \\) to the right. (From document, page 8)"
+                },
+                {
+                  "type": "image",
+                  "id": "second-law-diagram",
+                  "content": "Free-body diagram: For the 10 kg crate, arrows show:\n- 32 N applied force right\n- 7 N friction left\n- Normal force up\n- Weight (10 × 9.8 = 98 N) down\nNet force = 25 N right. (From document, page 8)"
                 },
                 {
                   "type": "text",
                   "id": "second-law-memory-hook",
-                  "content": "🧠 Think: More push = more zoom. Heavy stuff = harder to zoom."
+                  "content": "🧠 Memory Trick: 'More push, more zoom! Heavier stuff, less zoom.' Think of pushing a light trolley vs. a heavy one at Pick n Pay!"
                 },
                 {
-                  "type": "text",
-                  "id": "second-law-exam-example",
-                  "content": "🧠 Think: More push = more zoom. Heavy stuff = harder to zoom."
+                  "type": "practice",
+                  "id": "second-law-practice",
+                  "content": {
+                    "question": "A 4.5 kg laundry cart is pushed with 60 N. What’s the acceleration? (Ignore friction) (From document, page 10)",
+                    "options": [
+                      "13.33 m/s²",
+                      "6 m/s²",
+                      "60 m/s²",
+                      "0.075 m/s²"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "\\( F_{\\text{net}} = ma \\), so \\( a = F/m = 60/4.5 = 13.33 \\text{ m/s}^2 \\). (From document, page 10)"
+                  }
+                },
+                {
+                  "type": "example",
+                  "id": "second-law-vertical-example",
+                  "content": "Example: A crane in Durban lifts a 335 kg pallet of bricks at 3.33 m/s². Net force = \\( F_{\\text{net}} = ma = 335 × 3.33 = 1115.55 \\text{ N} \\) upwards. (From document, page 11)"
                 }
               ],
               "quiz": {
                 "id": "second-law-quiz",
-                "title": "Second Law Quiz",
-                "description": "Test your understanding of how force affects acceleration",
+                "title": "Newton’s Second Law Quiz",
+                "description": "Test your skills with force, mass, and acceleration!",
                 "questions": [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "If you apply 30 N to a 3 kg object, what is its acceleration?",
-                    "options": ["10 m/s²", "33 m/s²", "0.1 m/s²", "15 m/s²"],
+                    "text": "A 380 kg pile of rubble is pushed with 900 kN. What’s the acceleration? (Ignore friction) (From document, page 17)",
+                    "options": [
+                      "2368.42 m/s²",
+                      "2.37 m/s²",
+                      "900 m/s²",
+                      "0.42 m/s²"
+                    ],
                     "correctAnswer": 0,
-                    "explanation": "a = F/m = 30 / 3 = 10 m/s²"
+                    "explanation": "\\( a = F/m = 900,000/380 = 2368.42 \\text{ m/s}^2 \\). (From document, page 17)"
                   },
                   {
                     "id": "q2",
                     "type": "true-false",
-                    "text": "A heavier object always moves faster when pushed.",
-                    "correctAnswer": false,
-                    "explanation": "Heavier objects require more force to accelerate — they usually move slower unless you apply a large force."
-                  }
+                    "text": "If mass doubles and force stays the same, acceleration halves. (From document, page 8)",
+                    "correctAnswer": true,
+                    "explanation": "\\( a = F/m \\), so if mass doubles, acceleration is halved (inversely proportional)."
+                  },
+
                 ]
               }
             },
             {
               "id": "newtons-third-law",
               "name": "Newton's Third Law: Action = Reaction",
-              "description": "Every force has an equal and opposite force.",
+              "description": "Every push gets an equal push back — on a different object!",
               "content": [
                 {
                   "type": "text",
                   "id": "third-law-intro",
-                  "content": "Newton’s Third Law states: For every action, there is an equal and opposite reaction. Forces always come in pairs."
+                  "content": "Newton’s Third Law states: When object A exerts a force on object B, object B exerts an equal and opposite force on object A. These forces are equal in magnitude, opposite in direction, act on different objects, and occur simultaneously. They don’t cancel out. (From document, page 4)"
                 },
                 {
                   "type": "example",
-                  "id": "third-law-example",
-                  "content": "Example: You jump off the ground. Your legs push down on Earth, and Earth pushes you up — that’s why you lift off."
+                  "id": "third-law-sa-example",
+                  "content": "Example: At a Soweto market, you push a cart of vegetables. Your hands push the cart (action), and the cart pushes your hands back (reaction). You move because your feet push on the ground, which pushes you back. (From document, page 9)"
                 },
                 {
                   "type": "text",
-                  "id": "third-law-hook",
-                  "content": "⚖️ Memory Aid: ‘Push back, push forward.’ Like bouncing on a trampoline!"
+                  "id": "third-law-properties",
+                  "content": "Properties of action-reaction pairs:\n• Equal magnitude\n• Opposite direction\n• Act on different objects\n• Simultaneous\n• Don’t cancel out (different objects)."
+                },
+                {
+                  "type": "text",
+                  "id": "third-law-points",
+                  "content": "Properties of action-reaction pairs:\n\n* Equal magnitude\n* Opposite direction\n* Act on different objects\n* Simultaneous\n* Don't cancel out (different objects)"
+                },
+                {
+                  "type": "image",
+                  "id": "third-law-diagram",
+                  "content": "Diagram: A learner presses a book against a table. Action: book pushes down on table. Reaction: table pushes up on book. (From document, page 17)"
+                },
+                {
+                  "type": "text",
+                  "id": "third-law-memory-hook",
+                  "content": "⚖️ Memory Trick: 'Push me, I push you back!' Like bouncing on a Cape Town trampoline — you push down, it pushes up!"
+                },
+                {
+                  "type": "practice",
+                  "id": "third-law-practice",
+                  "content": {
+                    "question": "A hammer hits a nail. What’s the reaction force? (From document, page 18)",
+                    "options": [
+                      "Nail pushes back on hammer",
+                      "Hammer pushes on ground",
+                      "Nail’s weight pulls down",
+                      "Air resists the hammer"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "Hammer exerts force on nail (action); nail exerts equal force back on hammer (reaction). (From document, page 18, Q1.3)"
+                  }
                 }
               ],
               "quiz": {
                 "id": "third-law-quiz",
-                "title": "Third Law Quiz",
-                "description": "Check your understanding of action-reaction forces",
+                "title": "Newton’s Third Law Quiz",
+                "description": "Can you identify action-reaction pairs?",
                 "questions": [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "Which is a correct action-reaction pair?",
+                    "text": "A brick on a scaffold is held up by the scaffold’s force. What’s the reaction force? (From document, page 18)",
                     "options": [
-                      "Earth pulls you down — you pull Earth down",
-                      "You stand on the floor — the air pushes you",
-                      "You run — your shoes make you go",
-                      "You push a wall — the wall disappears"
+                      "Earth pulls brick down",
+                      "Brick pushes down on scaffold",
+                      "Scaffold pushes Earth",
+                      "Air pushes brick"
                     ],
-                    "correctAnswer": 0,
-                    "explanation": "Gravity works both ways! You pull on the Earth just like it pulls you — though the Earth doesn't move much!"
+                    "correctAnswer": 1,
+                    "explanation": "Scaffold pushes up on brick (action); brick pushes down on scaffold (reaction). (From document, page 18, Q1.2)"
                   },
                   {
                     "id": "q2",
                     "type": "true-false",
-                    "text": "Forces always act in one direction only.",
+                    "text": "Action-reaction forces act on the same object and cancel out. (From document, page 10)",
                     "correctAnswer": false,
-                    "explanation": "For every force, there is an equal force in the opposite direction — that's Newton’s Third Law!"
+                    "explanation": "They act on different objects, so they don’t cancel out."
+                  },
+
+                ]
+              }
+            },
+            {
+              "id": "force-diagrams",
+              "name": "Force and Free-Body Diagrams",
+              "description": "Master drawing forces to ace your exams!",
+              "content": [
+                {
+                  "type": "text",
+                  "id": "diagrams-intro",
+                  "content": "Force diagrams show all forces acting on an object with arrows. Free-body diagrams replace the object with a dot, showing forces acting on it. Label forces correctly (e.g., F_applied, F_friction, w, N) and ensure arrows touch the dot in free-body diagrams. (From document, page 6)"
+                },
+                {
+                  "type": "example",
+                  "id": "diagrams-sa-example",
+                  "content": "Example: A 7 kg block is pushed with 250 N at 30° on a rough surface with 45 N friction. Force diagram: shows block with arrows for 250 N at 30°, friction left, weight down, normal force up. Free-body diagram: same forces on a dot. (From document, page 6)"
+                },
+                {
+                  "type": "image",
+                  "id": "diagrams-example",
+                  "content": "Diagram: For the 7 kg block:\n- Force diagram: Arrows for 250 N at 30°, 45 N friction left, weight (7 × 9.8 = 68.6 N) down, normal force up.\n- Free-body diagram: Same forces, but block is a dot. (From document, page 6)"
+                },
+                {
+                  "type": "text",
+                  "id": "diagrams-tips",
+                  "content": "Tips:\n- Label forces (e.g., F_applied, F_friction, w, N).\n- Arrows must touch the dot in free-body diagrams.\n- Match number of forces to marks (e.g., 4 marks = 4 forces).\n- Use SI units (kg, N, m/s²). (From document, page 1)"
+                },
+                {
+                  "type": "practice",
+                  "id": "diagrams-practice",
+                  "content": {
+                    "question": "A 10 kg toolbox is pushed with 23 N left. Which force is NOT in its free-body diagram? (From document, page 18)",
+                    "options": [
+                      "Normal force",
+                      "Weight",
+                      "Applied force",
+                      "Table’s force on floor"
+                    ],
+                    "correctAnswer": 3,
+                    "explanation": "Free-body diagram shows forces on the toolbox: normal force, weight (98 N), applied force (23 N), friction (if present). Table’s force on floor acts on the table. (From document, page 18, Q2)"
                   }
+                }
+              ],
+              "quiz": {
+                "id": "diagrams-quiz",
+                "title": "Force and Free-Body Diagrams Quiz",
+                "description": "Test your diagram-drawing skills!",
+                "questions": [
+                  {
+                    "id": "q1",
+                    "type": "mcq",
+                    "text": "A wheelbarrow is pushed with 35 N at 30° with 14 N friction. What’s the net force? (From document, page 18)",
+                    "options": [
+                      "49 N",
+                      "21 N",
+                      "16.31 N",
+                      "44.31 N"
+                    ],
+                    "correctAnswer": 2,
+                    "explanation": "Horizontal force = \\( 35 \\cos 30° = 30.31 \\text{ N} \\). Net force = \\( 30.31 - 14 = 16.31 \\text{ N} \\). (From document, page 18, Q1.4)"
+                  },
+                  {
+                    "id": "q2",
+                    "type": "true-false",
+                    "text": "In a free-body diagram, force arrows must touch the dot. (From document, page 1)",
+                    "correctAnswer": true,
+                    "explanation": "Arrows must touch the dot to show they act on the object, or marks are lost."
+                  },
+
+                ]
+              }
+            },
+            {
+              "id": "revision-concepts",
+              "name": "Revision: Key Forces and Concepts",
+              "description": "Brush up on forces like weight, friction, and tension!",
+              "content": [
+                {
+                  "type": "text",
+                  "id": "revision-intro",
+                  "content": "Key concepts from Grades 10 and 11:\n- **Mass**: Amount of matter (kg).\n- **Weight**: Gravitational force, \\( w = mg \\), g = 9.8 m/s².\n- **Normal force (N)**: Perpendicular force from a surface.\n- **Frictional force (F_f)**: Opposes motion; static (\\( f_s = \\mu_s F_N \\)) or kinetic (\\( f_k = \\mu_k F_N \\)).\n- **Tension (T)**: Force in a string or rope. (From document, page 5)"
+                },
+                {
+                  "type": "example",
+                  "id": "revision-weight-example",
+                  "content": "Example: A 10 kg crate in a Joburg warehouse has weight \\( w = mg = 10 × 9.8 = 98 \\text{ N} \\). If mass is given in grams, convert to kg first. (From document, page 5)"
+                },
+                {
+                  "type": "example",
+                  "id": "revision-angle-example",
+                  "content": "Example: A 250 N force at 30° to the horizontal is applied to a block. Horizontal component = \\( F_x = 250 \\cos 30° = 216.5 \\text{ N} \\). Vertical component = \\( F_y = 250 \\sin 30° = 125 \\text{ N} \\). (From document, page 6)"
+                },
+                {
+                  "type": "text",
+                  "id": "revision-memory-hook",
+                  "content": "🧠 Memory Trick: 'Weight pulls down, normal pushes up, friction fights motion!' Think of a heavy box sliding across a shop floor in Soweto."
+                },
+                {
+                  "type": "practice",
+                  "id": "revision-practice",
+                  "content": {
+                    "question": "What’s the weight of a 5 kg crate? (From document, page 5)",
+                    "options": [
+                      "49 N",
+                      "5 N",
+                      "50 N",
+                      "9.8 N"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "\\( w = mg = 5 × 9.8 = 49 \\text{ N} \\). Weight is the gravitational force. (From document, page 5)"
+                  }
+                }
+              ],
+              "quiz": {
+                "id": "revision-quiz",
+                "title": "Revision Concepts Quiz",
+                "description": "Test your knowledge of forces and calculations!",
+                "questions": [
+                  {
+                    "id": "q1",
+                    "type": "mcq",
+                    "text": "A 60 kg crate is pulled with 190 N at 30°. What’s the horizontal force component? (From document, page 20)",
+                    "options": [
+                      "164.54 N",
+                      "95 N",
+                      "190 N",
+                      "28 N"
+                    ],
+                    "correctAnswer": 0,
+                    "explanation": "\\( F_x = 190 \\cos 30° = 164.54 \\text{ N} \\). (From document, page 20)"
+                  },
+                  {
+                    "id": "q2",
+                    "type": "true-false",
+                    "text": "Weight and mass are the same thing. (From document, page 5)",
+                    "correctAnswer": false,
+                    "explanation": "Mass is the amount of matter (kg); weight is the gravitational force (\\( w = mg \\), in N)."
+                  },
+
                 ]
               }
             }
@@ -559,7 +838,7 @@ export const subjects: Subject[] = [
         //Momentum content
         {
           "id": "momentum",
-          "name": "Momentum",
+          "name": "Momentum & Impulse",
           "description": "Explore the principles of momentum and its conservation in isolated systems.",
           "subTopics": [
             {
@@ -639,7 +918,7 @@ export const subjects: Subject[] = [
                       "Explosive"
                     ],
                     "correctAnswer": 1,
-                    "explanation": "When objects stick together after collision, it’s an inelastic collision."
+                    "explanation": "When objects stick together after collision, it's an inelastic collision."
                   }
                 ]
               }
@@ -701,7 +980,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "work-memory-hook",
-                  "content": "⚙️ Remember: ‘Work is force with movement.’ No movement = no work!"
+                  "content": "⚙️ Remember: 'Work is force with movement.' No movement = no work!"
                 }
               ],
               "quiz": {
@@ -712,12 +991,12 @@ export const subjects: Subject[] = [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "What is the work done if 50 N of force is applied and the object doesn’t move?",
+                    "text": "What is the work done if 50 N of force is applied and the object doesn't move?",
                     "options": [
                       "50 J",
                       "0 J",
                       "25 J",
-                      "Can’t be determined"
+                      "Can't be determined"
                     ],
                     "correctAnswer": 1,
                     "explanation": "No movement means no work. W = Fd = 50 × 0 = 0 J."
@@ -767,7 +1046,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "example",
                   "id": "doppler-example-sa",
-                  "content": "Example: An ambulance in Soweto drives past. As it approaches, the siren sounds higher-pitched. As it passes and moves away, the pitch drops. That’s the Doppler Effect in action."
+                  "content": "Example: An ambulance in Soweto drives past. As it approaches, the siren sounds higher-pitched. As it passes and moves away, the pitch drops. That's the Doppler Effect in action."
                 },
                 {
                   "type": "formula",
@@ -782,7 +1061,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "doppler-memory-hook",
-                  "content": "👂 Think: ‘Closer = higher pitch, Farther = lower pitch.’ Like a passing taxi with loud music!"
+                  "content": "👂 Think: 'Closer = higher pitch, Farther = lower pitch.' Like a passing taxi with loud music!"
                 }
               ],
               "quiz": {
@@ -815,7 +1094,7 @@ export const subjects: Subject[] = [
                     "type": "mcq",
                     "text": "Which situation does **not** involve the Doppler Effect?",
                     "options": [
-                      "A moving police car’s siren",
+                      "A moving police car's siren",
                       "You walking toward a speaker",
                       "Watching a music video on TV",
                       "A car honking as it passes you"
@@ -837,7 +1116,7 @@ export const subjects: Subject[] = [
           "subTopics": [
             {
               "id": "electrostatic-principles",
-              "name": "Electric Charges and Coulomb’s Law",
+              "name": "Electric Charges and Coulomb's Law",
               "description": "Understand how like and unlike charges interact and how force depends on distance and charge size.",
               "content": [
                 {
@@ -858,7 +1137,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "electrostatics-memory-hook",
-                  "content": "⚡ Think: ‘Same signs fight, opposite signs unite.’ And the closer they are, the stronger the zap!"
+                  "content": "⚡ Think: 'Same signs fight, opposite signs unite.' And the closer they are, the stronger the zap!"
                 }
               ],
               "quiz": {
@@ -882,7 +1161,7 @@ export const subjects: Subject[] = [
                   {
                     "id": "q2",
                     "type": "true-false",
-                    "text": "Coulomb’s Law says the force increases if charges are brought closer.",
+                    "text": "Coulomb's Law says the force increases if charges are brought closer.",
                     "correctAnswer": true,
                     "explanation": "Yes — force is inversely proportional to the square of the distance: \\( F \\propto 1/r^2 \\)."
                   },
@@ -913,7 +1192,7 @@ export const subjects: Subject[] = [
           "subTopics": [
             {
               "id": "basic-circuit-principles",
-              "name": "Current, Voltage, Resistance & Ohm’s Law",
+              "name": "Current, Voltage, Resistance & Ohm's Law",
               "description": "Understand how electricity flows, what pushes it, and what resists it.",
               "content": [
                 {
@@ -934,7 +1213,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "circuit-memory-hook",
-                  "content": "🔌 Remember: ‘VIR triangle’ — Cover what you want to find!\n\\[ \\text{V} = \\text{I} \\times \\text{R}, \\quad \\text{I} = \\frac{\\text{V}}{\\text{R}}, \\quad \\text{R} = \\frac{\\text{V}}{\\text{I}} \\]"
+                  "content": "🔌 Remember: 'VIR triangle' — Cover what you want to find!\n\\[ \\text{V} = \\text{I} \\times \\text{R}, \\quad \\text{I} = \\frac{\\text{V}}{\\text{R}}, \\quad \\text{R} = \\frac{\\text{V}}{\\text{I}} \\]"
                 }
               ],
               "quiz": {
@@ -1000,7 +1279,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "example",
                   "id": "current-magnet-example",
-                  "content": "Example: Wrap a wire around a nail, connect it to a battery — you’ve made an electromagnet! It can pick up small metal objects."
+                  "content": "Example: Wrap a wire around a nail, connect it to a battery — you've made an electromagnet! It can pick up small metal objects."
                 },
                 {
                   "type": "text",
@@ -1010,7 +1289,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "electromagnetic-hook",
-                  "content": "🔁 Memory tip: ‘Electric makes Magnetic, Moving Magnetic makes Electric.’ This helps with motors and generators!"
+                  "content": "🔁 Memory tip: 'Electric makes Magnetic, Moving Magnetic makes Electric.' This helps with motors and generators!"
                 }
               ],
               "quiz": {
@@ -1034,7 +1313,7 @@ export const subjects: Subject[] = [
                   {
                     "id": "q2",
                     "type": "true-false",
-                    "text": "You can increase an electromagnet’s strength by adding more loops of wire.",
+                    "text": "You can increase an electromagnet's strength by adding more loops of wire.",
                     "correctAnswer": true,
                     "explanation": "More loops mean more magnetic field lines — a stronger electromagnet!"
                   }
@@ -1112,17 +1391,17 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "einstein-light-particle",
-                  "content": "Einstein explained that light comes in small energy packets (photons). If a photon’s energy is big enough, it can eject an electron from the metal."
+                  "content": "Einstein explained that light comes in small energy packets (photons). If a photon's energy is big enough, it can eject an electron from the metal."
                 },
                 {
                   "type": "formula",
                   "id": "photoelectric-formula",
-                  "content": "\\[ E_k = hf - \\phi \\]\nWhere:\n\\( E_k \\) = kinetic energy of the ejected electron,\n\\( h \\) = Planck’s constant (\\(6.63 \\times 10^{-34} \\) Js),\n\\( f \\) = frequency of the light,\n\\( \\phi \\) = work function (minimum energy needed to free an electron)."
+                  "content": "\\[ E_k = hf - \\phi \\]\nWhere:\n\\( E_k \\) = kinetic energy of the ejected electron,\n\\( h \\) = Planck's constant (\\(6.63 \\times 10^{-34} \\) Js),\n\\( f \\) = frequency of the light,\n\\( \\phi \\) = work function (minimum energy needed to free an electron)."
                 },
                 {
                   "type": "example",
                   "id": "photoelectric-sa-example",
-                  "content": "Example: Blue light can eject electrons from a metal, but red light can’t — even if red light is bright. Why? Because red light has lower frequency and energy. Only high-frequency photons have enough energy to knock electrons out."
+                  "content": "Example: Blue light can eject electrons from a metal, but red light can't — even if red light is bright. Why? Because red light has lower frequency and energy. Only high-frequency photons have enough energy to knock electrons out."
                 },
                 {
                   "type": "text",
@@ -1153,7 +1432,7 @@ export const subjects: Subject[] = [
                     "type": "true-false",
                     "text": "A dim UV light can eject electrons, but a bright red light might not.",
                     "correctAnswer": true,
-                    "explanation": "UV light has high frequency and energy. Red light has lower frequency — no matter how bright it is, the photons don’t have enough energy."
+                    "explanation": "UV light has high frequency and energy. Red light has lower frequency — no matter how bright it is, the photons don't have enough energy."
                   }
                 ]
               }

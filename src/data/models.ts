@@ -1,4 +1,3 @@
-
 export interface Subject {
   id: string;
   name: string;
@@ -23,12 +22,17 @@ export interface SubTopic {
   quiz: Quiz;
 }
 
-export type ContentBlockType = 'text' | 'image' | 'formula' | 'example';
+export type ContentBlockType = 'text' | 'image' | 'formula' | 'example' | 'video' | 'practice' | 'tip' | 'exam-tip';
 
 export interface ContentBlock {
   type: ContentBlockType;
   id: string;
-  content: string;
+  content: string | {
+    question: string;
+    options: string[];
+    correctAnswer: number;
+    explanation: string;
+  };
 }
 
 export interface Quiz {
