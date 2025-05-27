@@ -31,7 +31,7 @@ const CurriculumNavigator: React.FC = () => {
   
   const renderSubjects = () => (
     <>
-      <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+      <div className="sticky top-0 z-10 backdrop-blur-md bg-gradient-to-b from-quest-softPurple/80 to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4 shadow-lg">
         <h1 className="text-2xl font-bold mb-2 flex items-center gap-2">
           <GraduationCap className="text-quest-primary" />
           Subject Library
@@ -73,7 +73,7 @@ const CurriculumNavigator: React.FC = () => {
     
     return (
       <>
-        <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+        <div className="sticky top-0 z-10 backdrop-blur-md bg-gradient-to-b from-quest-softPurple/80 to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4 shadow-lg">
           <div className="flex items-center gap-3">
             <button
               onClick={() => {
@@ -110,7 +110,7 @@ const CurriculumNavigator: React.FC = () => {
     
     return (
       <>
-        <div className="bg-gradient-to-b from-quest-softPurple to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4">
+        <div className="sticky top-0 z-10 backdrop-blur-md bg-gradient-to-b from-quest-softPurple/80 to-transparent pt-6 pb-8 px-6 rounded-b-2xl mb-4 shadow-lg">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSelectedTopicId(null)}

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Award, ChevronRight, Brain, Rocket } from "lucide-react";
+import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Star, Shield, Compass} from "lucide-react";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
 import TopicCard from "@/components/TopicCard";
@@ -13,6 +13,7 @@ import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { subjects, getBadges } from "@/data/curriculum";
 import LevelUpModal from "@/components/LevelUpModal";
+
 
 const Dashboard: React.FC = () => {
   const { name, avatar, grade } = useUser();
@@ -45,10 +46,10 @@ const Dashboard: React.FC = () => {
   }, [recordLogin]);
   
   const avatarEmoji = avatar === "knight" 
-    ? "🛡️" 
+    ? <Shield size={24} />
     : avatar === "scholar" 
-    ? "🧙‍♂️" 
-    : "🧭";
+    ? <BookOpen size={24} />
+    : <Compass size={24} />;
     
   const recentTopics = [
     subjects[0].topics[0],
@@ -73,7 +74,7 @@ const Dashboard: React.FC = () => {
         
         <div className="flex items-center justify-between mt-6 gap-3">
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2 flex-1 shadow-sm">
-            <XPProgress size="sm" showText={false} />
+            <XPProgress size="sm" showText={false}/>
             <div className="text-sm">
               <p className="font-medium">Level {level}</p>
               <p className="text-xs opacity-90">{xp} XP total</p>
@@ -82,7 +83,7 @@ const Dashboard: React.FC = () => {
           
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center gap-2 flex-1 shadow-sm">
             <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center">
-              🔥
+            <Flame color="orange" size={24} />
             </div>
             <div className="text-sm">
               <p className="font-medium">{streakDays} day{streakDays !== 1 ? 's' : ''}</p>
@@ -91,7 +92,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-      
+            
       {/* Recent Topics */}
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
@@ -105,11 +106,16 @@ const Dashboard: React.FC = () => {
         
         <div className="space-y-3">
           {recentTopics.map((topic, index) => (
-            <TopicCard 
-              key={topic.id} 
-              topic={topic} 
-              subjectId={subjects[index].id} 
-            />
+            <Link 
+              key={topic.id}
+              to={`/learn/${subjects[index].id}/${topic.id}/${topic.subTopics[0].id}`}
+              className="block"
+            >
+              <TopicCard 
+                topic={topic} 
+                subjectId={subjects[index].id} 
+              />
+            </Link>
           ))}
         </div>
       </div>
@@ -171,7 +177,7 @@ const Dashboard: React.FC = () => {
                   variant="outline" 
                   className="bg-white/50 border-quest-blue text-quest-blue"
                 >
-                  Chat with CAPS Buddy
+                  Chat with Vito 
                 </Button>
               </Link>
             </div>

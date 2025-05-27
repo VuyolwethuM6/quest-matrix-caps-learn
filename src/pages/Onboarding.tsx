@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -6,35 +5,41 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/contexts/UserContext";
 import { getAvatars } from "@/data/curriculum";
+import { toast } from "react-hot-toast";
+import type { Avatar, Grade, Subject } from "@/contexts/UserContext";
 
 const steps = ["welcome", "grade", "subjects", "avatar"];
 
-const Onboarding: React.FC = () => {
+export default function Onboarding() {
   const navigate = useNavigate();
-  const { setName, setGrade, setAvatar, setSelectedSubjects, completeOnboarding } = useUser();
-  
+  const { completeOnboarding } = useUser();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [userName, setUserName] = useState("");
-  const [selectedGrade, setSelectedGrade] = useState<"10" | "11" | "12" | null>(null);
-  const [selectedAvatar, setSelectedAvatarState] = useState("");
+  const [grade, setGrade] = useState<Grade | null>(null);
+  const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([]);
+  const [avatar, setAvatar] = useState<Avatar>("knight");
   
   const currentStep = steps[currentStepIndex];
   const avatars = getAvatars();
   
-  const handleNext = () => {
-    if (currentStepIndex < steps.length - 1) {
-      setCurrentStepIndex(currentStepIndex + 1);
+  const handleNext = async () => {
+    if (currentStepIndex === 3) {
+      try {
+        const onboardingData = {
+          name: userName,
+          grade,
+          avatar,
+          selectedSubjects
+        };
+        
+        await completeOnboarding(onboardingData);
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Error completing onboarding:', error);
+        toast.error('Failed to save your information. Please try again.');
+      }
     } else {
-      // Save all the data and complete onboarding
-      setName(userName);
-      if (selectedGrade) setGrade(selectedGrade);
-      setAvatar(selectedAvatar as any);
-      setSelectedSubjects([
-        { id: "mathematics", name: "Mathematics" },
-        { id: "physical-sciences", name: "Physical Sciences" },
-      ]);
-      completeOnboarding();
-      navigate("/dashboard");
+      setCurrentStepIndex(prev => prev + 1);
     }
   };
   
@@ -43,11 +48,11 @@ const Onboarding: React.FC = () => {
       case "welcome":
         return userName.trim().length > 0;
       case "grade":
-        return selectedGrade !== null;
+        return grade !== null;
       case "subjects":
-        return true; // Pre-selected subjects for MVP
+        return selectedSubjects.length > 0;
       case "avatar":
-        return selectedAvatar !== "";
+        return avatar !== null;
       default:
         return false;
     }
@@ -109,17 +114,17 @@ const Onboarding: React.FC = () => {
               </p>
               
               <div className="grid grid-cols-3 gap-4">
-                {(["10", "11", "12"] as const).map((grade) => (
+                {(["10", "11", "12"] as const).map((g) => (
                   <button
-                    key={grade}
-                    onClick={() => setSelectedGrade(grade)}
+                    key={g}
+                    onClick={() => setGrade(g as Grade)}
                     className={`p-4 rounded-xl border-2 transition-all ${
-                      selectedGrade === grade
+                      grade === g
                         ? "border-quest-primary bg-quest-softPurple"
                         : "border-border hover:border-quest-primary"
                     }`}
                   >
-                    <span className="text-2xl font-bold block">Grade {grade}</span>
+                    <span className="text-2xl font-bold block">Grade {g}</span>
                   </button>
                 ))}
               </div>
@@ -134,15 +139,32 @@ const Onboarding: React.FC = () => {
               </p>
               
               <div className="space-y-4">
-                <div className="p-4 rounded-xl border-2 border-quest-primary bg-quest-softPurple flex items-center gap-3">
-                  <span className="text-xl">🧮</span>
-                  <span className="font-medium">Mathematics</span>
-                </div>
-                
-                <div className="p-4 rounded-xl border-2 border-quest-primary bg-quest-softPurple flex items-center gap-3">
-                  <span className="text-xl">⚗️</span>
-                  <span className="font-medium">Physical Sciences</span>
-                </div>
+                {[
+                  { id: "mathematics", name: "Mathematics" },
+                  { id: "physical-sciences", name: "Physical Sciences" },
+                  { id: "life-sciences", name: "Life Sciences" },
+                  { id: "english", name: "English" }
+                ].map((subject) => (
+                  <button
+                    key={subject.id}
+                    onClick={() => {
+                      setSelectedSubjects(prev => {
+                        const exists = prev.some(s => s.id === subject.id);
+                        if (exists) {
+                          return prev.filter(s => s.id !== subject.id);
+                        }
+                        return [...prev, subject];
+                      });
+                    }}
+                    className={`w-full p-4 rounded-xl border-2 transition-all ${
+                      selectedSubjects.some(s => s.id === subject.id)
+                        ? "border-quest-primary bg-quest-softPurple"
+                        : "border-border hover:border-quest-primary"
+                    }`}
+                  >
+                    {subject.name}
+                  </button>
+                ))}
               </div>
             </>
           )}
@@ -155,18 +177,18 @@ const Onboarding: React.FC = () => {
               </p>
               
               <div className="grid grid-cols-3 gap-4">
-                {avatars.map((avatar) => (
+                {avatars.map((avatarOption) => (
                   <button
-                    key={avatar.id}
-                    onClick={() => setSelectedAvatarState(avatar.id)}
+                    key={avatarOption.id}
+                    onClick={() => setAvatar(avatarOption.id as Avatar)}
                     className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center ${
-                      selectedAvatar === avatar.id
+                      avatar === avatarOption.id
                         ? "border-quest-primary bg-quest-softPurple"
                         : "border-border hover:border-quest-primary"
                     }`}
                   >
-                    <span className="text-4xl mb-2">{avatar.image}</span>
-                    <span className="text-sm font-medium">{avatar.name}</span>
+                    <span className="text-4xl mb-2">{avatarOption.image}</span>
+                    <span className="text-sm font-medium">{avatarOption.name}</span>
                   </button>
                 ))}
               </div>
@@ -187,6 +209,4 @@ const Onboarding: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Onboarding;
+}

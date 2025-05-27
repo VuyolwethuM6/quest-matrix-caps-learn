@@ -99,25 +99,27 @@ const ExamsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">Exam Papers</h1>
-        <p className="opacity-90">Practice with past exam papers to prepare for your tests</p>
-      </div>
-      
-      {/* Subject Filter */}
-      <div className="px-4 relative -mt-6 mb-6">
-        <Card className="p-4 shadow-sm bg-white">
-          <Tabs defaultValue="all" onValueChange={setSelectedSubject}>
-            <TabsList className="w-full">
-              <TabsTrigger value="all" className="flex-1">All Subjects</TabsTrigger>
-              {subjects.map(subject => (
-                <TabsTrigger key={subject.id} value={subject.id} className="flex-1">
-                  {subject.name.split(' ')[0]}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-        </Card>
+      <div className="sticky top-0 z-10">
+        <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-6 text-white">
+          <h1 className="text-2xl font-bold mb-2">Exam Papers</h1>
+          <p className="opacity-90">Practice with past exam papers to prepare for your tests</p>
+        </div>
+        
+        {/* Subject Filter */}
+        <div className="px-4 relative -mt-6 mb-6">
+          <Card className="p-4 shadow-sm bg-white">
+            <Tabs defaultValue="all" onValueChange={setSelectedSubject}>
+              <TabsList className="w-full">
+                <TabsTrigger value="all" className="flex-1">All Subjects</TabsTrigger>
+                {subjects.map(subject => (
+                  <TabsTrigger key={subject.id} value={subject.id} className="flex-1">
+                    {subject.name.split(' ')[0]}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </Card>
+        </div>
       </div>
       
       {/* Exam Papers */}
@@ -137,9 +139,9 @@ const ExamsPage: React.FC = () => {
                   .map(exam => (
                     <Card key={exam.id} className="hover:shadow-md transition-shadow">
                       <CardContent className="p-4">
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                           <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex flex-wrap items-center gap-2 mb-2">
                               <h3 className="font-semibold">{exam.subject}</h3>
                               <Badge variant="outline">Paper {exam.paper}</Badge>
                               <Badge className={getDifficultyColor(exam.difficulty)}>
@@ -147,7 +149,7 @@ const ExamsPage: React.FC = () => {
                               </Badge>
                             </div>
                             
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                               <div className="flex items-center gap-1">
                                 <Clock className="h-4 w-4" />
                                 {exam.duration} min
@@ -160,7 +162,7 @@ const ExamsPage: React.FC = () => {
                           </div>
                           
                           <Button 
-                            className="ml-4"
+                            className="w-full sm:w-auto"
                             onClick={() => navigate(`/exam/${exam.id}`)}
                           >
                             Start Exam
@@ -185,7 +187,9 @@ const ExamsPage: React.FC = () => {
         )}
       </div>
       
-      <NavBar />
+      <div className="fixed bottom-0 left-0 right-0">
+        <NavBar />
+      </div>
     </div>
   );
 };

@@ -44,7 +44,7 @@ const examQuestions: ExamQuestion[] = [
   },
   {
     id: "q2",
-    questionText: "Solve the quadratic equation: x² - 5x + 6 = 0",
+    questionText: "Solve the quadratic equation: $$x^2 - 5x + 6 = 0$$",
     type: "calculation",
     marks: 8,
     subQuestions: [

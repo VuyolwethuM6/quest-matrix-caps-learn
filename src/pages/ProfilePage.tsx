@@ -29,7 +29,7 @@ const ProfilePage: React.FC = () => {
     });
     
     // Redirect to splash screen
-    navigate("/");
+    navigate("/login", { replace: true });
   };
   
   const stats = [
