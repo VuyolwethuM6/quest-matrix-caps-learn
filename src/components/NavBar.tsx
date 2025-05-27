@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
     { path: "/curriculum", icon: <BookOpen size={24} />, label: "Learn" },
     { 
       path: "/tutor", 
-      icon: <UserIcon size={32} />, 
+      icon: <UserIcon size={28} />, 
       label: "Tutor",
       isDominant: true
     },
@@ -28,27 +28,33 @@ const NavBar: React.FC = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-10">
-      <div className="flex justify-between items-center p-2">
+      <div className="flex justify-between items-end p-2">
         {navItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
             className={cn(
               "flex flex-col items-center p-2 rounded-lg transition-all",
-              item.isDominant && "bg-quest-primary/10 border border-quest-primary/20",
+              item.isDominant && "-mb-2 relative",
               isActive(item.path)
                 ? item.isDominant 
-                  ? "text-quest-primary bg-quest-primary/20" 
+                  ? "text-quest-primary" 
                   : "text-quest-primary"
                 : item.isDominant
-                  ? "text-quest-primary hover:bg-quest-primary/20"
+                  ? "text-quest-primary"
                   : "text-muted-foreground hover:text-foreground"
             )}
           >
-            {item.icon}
+            <div className={cn(
+              item.isDominant && "w-12 h-12 rounded-full bg-quest-primary/10 border-2 border-quest-primary/20 flex items-center justify-center mb-1",
+              item.isDominant && isActive(item.path) && "bg-quest-primary/20 border-quest-primary/30"
+            )}>
+              {item.icon}
+            </div>
+            {!item.isDominant && item.icon}
             <span className={cn(
               "text-xs mt-1",
-              item.isDominant && "font-semibold"
+              item.isDominant && "font-semibold text-xs"
             )}>
               {item.label}
             </span>
