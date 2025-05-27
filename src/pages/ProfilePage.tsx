@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Trophy, BookOpen, Award, LogOut, Calendar } from "lucide-react";
+import { Trophy, BookOpen, Award, LogOut, Calendar, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
@@ -8,7 +8,7 @@ import BadgeCard from "@/components/BadgeCard";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getAvatars, getBadges } from "@/data/curriculum";
 
 const ProfilePage: React.FC = () => {
@@ -20,6 +20,7 @@ const ProfilePage: React.FC = () => {
   const avatarObj = getAvatars().find(a => a.id === avatar);
   const avatarEmoji = avatarObj?.image || "🛡️";
   const badges = getBadges();
+  const recentBadges = badges.slice(0, 2);
   
   const handleLogout = () => {
     // Clear localStorage
@@ -78,23 +79,21 @@ const ProfilePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Badges Section */}
+      {/* Recent Badges Section */}
       <div className="px-6 mb-6">
-        <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-          <Award size={18} className="text-quest-orange" /> Your Badges
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold flex items-center gap-2">
+            <Award size={18} className="text-quest-orange" /> Recent Badges
+          </h2>
+          <Link to="/badges" className="text-quest-primary text-sm flex items-center font-medium">
+            View More <ChevronRight size={16} />
+          </Link>
+        </div>
         <div className="grid grid-cols-2 gap-4">
-          {badges.slice(0, 6).map(badge => (
+          {recentBadges.map(badge => (
             <BadgeCard key={badge.id} badge={badge} />
           ))}
         </div>
-        {badges.length > 6 && (
-          <div className="text-center mt-4">
-            <p className="text-sm text-muted-foreground">
-              +{badges.length - 6} more badges available
-            </p>
-          </div>
-        )}
       </div>
       
       {/* Account Section */}

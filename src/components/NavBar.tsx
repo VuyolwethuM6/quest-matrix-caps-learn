@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, BookOpen, GraduationCap, User, FileText } from "lucide-react";
+import { Home, BookOpen, User as UserIcon, FileText, User } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +16,12 @@ const NavBar: React.FC = () => {
   const navItems = [
     { path: "/dashboard", icon: <Home size={24} />, label: "Home" },
     { path: "/curriculum", icon: <BookOpen size={24} />, label: "Learn" },
-    { path: "/tutor", icon: <GraduationCap size={24} />, label: "Tutor" },
+    { 
+      path: "/tutor", 
+      icon: <UserIcon size={32} />, 
+      label: "Tutor",
+      isDominant: true
+    },
     { path: "/exams", icon: <FileText size={24} />, label: "Exams" },
     { path: "/profile", icon: <User size={24} />, label: "Profile" },
   ];
@@ -29,14 +34,24 @@ const NavBar: React.FC = () => {
             key={item.path}
             to={item.path}
             className={cn(
-              "flex flex-col items-center p-2 rounded-lg",
+              "flex flex-col items-center p-2 rounded-lg transition-all",
+              item.isDominant && "bg-quest-primary/10 border border-quest-primary/20",
               isActive(item.path)
-                ? "text-quest-primary"
-                : "text-muted-foreground hover:text-foreground"
+                ? item.isDominant 
+                  ? "text-quest-primary bg-quest-primary/20" 
+                  : "text-quest-primary"
+                : item.isDominant
+                  ? "text-quest-primary hover:bg-quest-primary/20"
+                  : "text-muted-foreground hover:text-foreground"
             )}
           >
             {item.icon}
-            <span className="text-xs mt-1">{item.label}</span>
+            <span className={cn(
+              "text-xs mt-1",
+              item.isDominant && "font-semibold"
+            )}>
+              {item.label}
+            </span>
           </Link>
         ))}
       </div>
