@@ -27,7 +27,7 @@ const CAPSBuddyPage: React.FC = () => {
       setMessages([
         {
           id: "welcome",
-          content: `Hi ${name}! I'm CAPS Buddy, your AI learning assistant. How can I help you with your studies today?`,
+          content: `Hi ${name}! I'm Vito, your AI learning assistant. How can I help you with your studies today?`,
           sender: "assistant",
           timestamp: new Date(),
         },
@@ -88,24 +88,26 @@ const CAPSBuddyPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-quest-primary to-quest-purple p-4 text-white shadow-md">
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(-1)}
-            className="text-white hover:bg-white/20"
-          >
-            <ArrowLeft size={20} />
-          </Button>
-          
+      <div className="sticky top-0 z-10">
+        <div className="bg-gradient-to-r from-quest-primary/90 to-quest-purple/90 p-4 text-white shadow-md backdrop-blur-md">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-              <Brain size={20} className="text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold">CAPS Buddy</h1>
-              <p className="text-sm opacity-90">Your AI learning assistant</p>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(-1)}
+              className="text-white hover:bg-white/20"
+            >
+              <ArrowLeft size={20} />
+            </Button>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                <Brain size={20} className="text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold">CAPS Buddy</h1>
+                <p className="text-sm opacity-90">Your AI learning assistant</p>
+              </div>
             </div>
           </div>
         </div>

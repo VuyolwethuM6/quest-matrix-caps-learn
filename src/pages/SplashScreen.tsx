@@ -52,7 +52,7 @@ const SplashScreen: React.FC = () => {
         </div>
         
         <h1 className="text-4xl font-bold text-white mb-3">Viva</h1>
-        <h2 className="text-xl text-white opacity-90">Study Smarter. Rise Higher.</h2>
+        <h2 className="text-xl text-white opacity-90">Strive For Excellence</h2>
       </motion.div>
     </div>
   );

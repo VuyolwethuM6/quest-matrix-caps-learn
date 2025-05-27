@@ -36,32 +36,34 @@ const TutorPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-4 text-white">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-            <User size={24} />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold">Tutor Support</h1>
-            <p className="text-sm opacity-90">Expert help when you need it</p>
-          </div>
-        </div>
-        
-        <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Star className="text-yellow-300" size={20} />
-              <div>
-                <p className="text-sm font-medium">Expert Tutors</p>
-                <p className="text-xs opacity-90">Math • Physics • Chemistry</p>
-              </div>
+      <div className="sticky top-0 z-10">
+        <div className="bg-gradient-to-br from-quest-primary/90 to-quest-purple/90 p-4 text-white backdrop-blur-md shadow-md">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+              <User size={24} />
             </div>
-            <div className="text-right">
-              <p className="text-xs opacity-90">Response</p>
-              <p className="text-sm font-bold flex items-center gap-1">
-                <Clock size={14} />
-                &lt; 2hrs
-              </p>
+            <div>
+              <h1 className="text-xl font-bold">Tutor Support</h1>
+              <p className="text-sm opacity-90">Expert help when you need it</p>
+            </div>
+          </div>
+          
+          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Star className="text-yellow-300" size={20} />
+                <div>
+                  <p className="text-sm font-medium">Expert Tutors</p>
+                  <p className="text-xs opacity-90">Math • Physics • Chemistry</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-xs opacity-90">Response</p>
+                <p className="text-sm font-bold flex items-center gap-1">
+                  <Clock size={14} />
+                  &lt; 2hrs
+                </p>
+              </div>
             </div>
           </div>
         </div>

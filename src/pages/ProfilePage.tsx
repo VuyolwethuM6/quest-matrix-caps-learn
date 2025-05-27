@@ -126,7 +126,7 @@ const ProfilePage: React.FC = () => {
         
         {/* App Info */}
         <div className="text-center text-xs text-muted-foreground mt-8">
-          <p>CAPS Quest: Master the Matrix</p>
+          <p>Viva: Strive for Excellence</p>
           <p>Version 1.0.0 (MVP)</p>
         </div>
       </div>
