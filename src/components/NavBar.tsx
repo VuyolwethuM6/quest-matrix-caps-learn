@@ -45,13 +45,16 @@ const NavBar: React.FC = () => {
                   : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <div className={cn(
-              item.isDominant && "w-12 h-12 rounded-full bg-quest-primary/10 border-2 border-quest-primary/20 flex items-center justify-center mb-1",
-              item.isDominant && isActive(item.path) && "bg-quest-primary/20 border-quest-primary/30"
-            )}>
-              {item.icon}
-            </div>
-            {!item.isDominant && item.icon}
+            {item.isDominant ? (
+              <div className={cn(
+                "w-12 h-12 rounded-full bg-quest-primary/10 border-2 border-quest-primary/20 flex items-center justify-center mb-1",
+                isActive(item.path) && "bg-quest-primary/20 border-quest-primary/30"
+              )}>
+                {item.icon}
+              </div>
+            ) : (
+              item.icon
+            )}
             <span className={cn(
               "text-xs mt-1",
               item.isDominant && "font-semibold text-xs"
