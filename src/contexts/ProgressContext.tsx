@@ -1,14 +1,16 @@
-
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useAuth } from "./AuthContext";
+import { doc, getDoc, updateDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface ProgressContextType {
   xp: number;
   level: number;
   streakDays: number;
-  lastLoginDate: string | null;
   completedLessons: string[];
-  completedQuizzes: Record<string, number>;
+  completedQuizzes: { [key: string]: number };
   earnedBadges: string[];
+  lastLoginDate: string | null;
   addXP: (amount: number) => void;
   completeLesson: (lessonId: string) => void;
   completeQuiz: (quizId: string, score: number) => void;
@@ -16,19 +18,14 @@ interface ProgressContextType {
   recordLogin: () => void;
 }
 
-const calculateLevel = (xp: number): number => {
-  // Simple level calculation - each level requires 100 * level XP
-  return Math.floor(Math.sqrt(xp / 50)) + 1;
-};
-
 const defaultContext: ProgressContextType = {
   xp: 0,
   level: 1,
   streakDays: 0,
-  lastLoginDate: null,
   completedLessons: [],
   completedQuizzes: {},
   earnedBadges: [],
+  lastLoginDate: null,
   addXP: () => {},
   completeLesson: () => {},
   completeQuiz: () => {},
@@ -41,70 +38,136 @@ const ProgressContext = createContext<ProgressContextType>(defaultContext);
 export const useProgress = () => useContext(ProgressContext);
 
 export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [xp, setXp] = useState<number>(() => {
-    const saved = localStorage.getItem("caps_progress_xp");
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  
-  const [level, setLevel] = useState<number>(() => {
-    return calculateLevel(xp);
-  });
-  
-  const [streakDays, setStreakDays] = useState<number>(() => {
-    const saved = localStorage.getItem("caps_progress_streak");
-    return saved ? parseInt(saved, 10) : 0;
-  });
-  
-  const [lastLoginDate, setLastLoginDate] = useState<string | null>(() => {
-    return localStorage.getItem("caps_progress_last_login");
-  });
-  
-  const [completedLessons, setCompletedLessons] = useState<string[]>(() => {
-    const saved = localStorage.getItem("caps_progress_lessons");
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [completedQuizzes, setCompletedQuizzes] = useState<Record<string, number>>(() => {
-    const saved = localStorage.getItem("caps_progress_quizzes");
-    return saved ? JSON.parse(saved) : {};
-  });
-  
-  const [earnedBadges, setEarnedBadges] = useState<string[]>(() => {
-    const saved = localStorage.getItem("caps_progress_badges");
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  // Update level when XP changes
+  const { user } = useAuth();
+  const [xp, setXp] = useState(0);
+  const [streakDays, setStreakDays] = useState(0);
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [completedQuizzes, setCompletedQuizzes] = useState<{ [key: string]: number }>({});
+  const [earnedBadges, setEarnedBadges] = useState<string[]>([]);
+  const [lastLoginDate, setLastLoginDate] = useState<string | null>(null);
+
+  // Calculate level based on XP
+  const calculateLevel = (xp: number): number => {
+    if (xp <= 0) return 1;
+    return Math.floor(Math.sqrt(xp / 50)) + 1;
+  };
+
+  // Calculate current level
+  const level = calculateLevel(xp);
+
+  // Initialize progress document if it doesn't exist
   useEffect(() => {
-    const newLevel = calculateLevel(xp);
-    if (newLevel !== level) {
-      setLevel(newLevel);
-    }
-  }, [xp, level]);
-  
-  // Save to localStorage when state changes
+    const initializeProgress = async () => {
+      if (!user) return;
+
+      try {
+        const progressRef = doc(db, 'users', user.uid, 'progress', 'overall');
+        const progressDoc = await getDoc(progressRef);
+
+        if (!progressDoc.exists()) {
+          await setDoc(progressRef, {
+            xp: 0,
+            streakDays: 0,
+            completedLessons: [],
+            completedQuizzes: {},
+            earnedBadges: [],
+            lastLoginDate: null,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+        }
+      } catch (error) {
+        console.error('Error initializing progress:', error);
+      }
+    };
+
+    initializeProgress();
+  }, [user]);
+
+  // Fetch progress from Firestore when user changes
   useEffect(() => {
-    localStorage.setItem("caps_progress_xp", String(xp));
-    localStorage.setItem("caps_progress_streak", String(streakDays));
-    localStorage.setItem("caps_progress_lessons", JSON.stringify(completedLessons));
-    localStorage.setItem("caps_progress_quizzes", JSON.stringify(completedQuizzes));
-    localStorage.setItem("caps_progress_badges", JSON.stringify(earnedBadges));
-    if (lastLoginDate) {
-      localStorage.setItem("caps_progress_last_login", lastLoginDate);
-    }
-  }, [xp, streakDays, completedLessons, completedQuizzes, earnedBadges, lastLoginDate]);
-  
+    const fetchProgress = async () => {
+      if (!user) {
+        setXp(0);
+        setStreakDays(0);
+        setCompletedLessons([]);
+        setCompletedQuizzes({});
+        setEarnedBadges([]);
+        setLastLoginDate(null);
+        return;
+      }
+
+      try {
+        const progressDoc = await getDoc(doc(db, 'users', user.uid, 'progress', 'overall'));
+        if (progressDoc.exists()) {
+          const data = progressDoc.data();
+          setXp(data.xp || 0);
+          setStreakDays(data.streakDays || 0);
+          setCompletedLessons(data.completedLessons || []);
+          setCompletedQuizzes(data.completedQuizzes || {});
+          setEarnedBadges(data.earnedBadges || []);
+          setLastLoginDate(data.lastLoginDate || null);
+        }
+      } catch (error) {
+        console.error('Error fetching progress:', error);
+      }
+    };
+
+    fetchProgress();
+  }, [user]);
+
+  // Update Firestore when progress changes
+  useEffect(() => {
+    const updateProgress = async () => {
+      if (!user) return;
+
+      try {
+        const progressRef = doc(db, 'users', user.uid, 'progress', 'overall');
+        const progressDoc = await getDoc(progressRef);
+
+        if (!progressDoc.exists()) {
+          // Create the document if it doesn't exist
+          await setDoc(progressRef, {
+            xp,
+            streakDays,
+            completedLessons,
+            completedQuizzes,
+            earnedBadges,
+            lastLoginDate,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+        } else {
+          // Update existing document
+          await updateDoc(progressRef, {
+            xp,
+            streakDays,
+            completedLessons,
+            completedQuizzes,
+            earnedBadges,
+            lastLoginDate,
+            updatedAt: serverTimestamp()
+          });
+        }
+      } catch (error) {
+        console.error('Error updating progress:', error);
+      }
+    };
+
+    updateProgress();
+  }, [user, xp, streakDays, completedLessons, completedQuizzes, earnedBadges, lastLoginDate]);
+
   const addXP = (amount: number) => {
     setXp((prev) => prev + amount);
   };
-  
+
   const completeLesson = (lessonId: string) => {
     if (!completedLessons.includes(lessonId)) {
       setCompletedLessons([...completedLessons, lessonId]);
       addXP(20); // Award XP for completing a lesson
     }
   };
-  
+
   const completeQuiz = (quizId: string, score: number) => {
     const prevScore = completedQuizzes[quizId] || 0;
     const newScore = Math.max(prevScore, score);
@@ -117,14 +180,14 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       addXP(xpGain);
     }
   };
-  
+
   const earnBadge = (badgeId: string) => {
     if (!earnedBadges.includes(badgeId)) {
       setEarnedBadges([...earnedBadges, badgeId]);
       addXP(50); // Award XP for earning a badge
     }
   };
-  
+
   const recordLogin = () => {
     const today = new Date().toISOString().split('T')[0];
     
@@ -151,22 +214,22 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setLastLoginDate(today);
     }
   };
-  
+
   return (
     <ProgressContext.Provider
       value={{
         xp,
         level,
         streakDays,
-        lastLoginDate,
         completedLessons,
         completedQuizzes,
         earnedBadges,
+        lastLoginDate,
         addXP,
         completeLesson,
         completeQuiz,
         earnBadge,
-        recordLogin,
+        recordLogin
       }}
     >
       {children}

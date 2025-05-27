@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from "react";
 import { useAuth } from "./AuthContext";
-import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, serverTimestamp, collection, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export type Avatar = "knight" | "scholar" | "explorer";
@@ -9,6 +9,16 @@ export type Grade = "10" | "11" | "12";
 export interface Subject {
   id: string;
   name: string;
+}
+
+export interface Progress {
+  subjectId: string;
+  completedLessons: string[];
+  quizScores: {
+    [quizId: string]: number;
+  };
+  lastAccessed: Date;
+  totalTimeSpent: number; // in minutes
 }
 
 interface OnboardingData {
@@ -29,6 +39,8 @@ interface UserContextType {
   setSelectedSubjects: (subjects: Subject[]) => void;
   isOnboarded: boolean;
   completeOnboarding: (data: OnboardingData) => Promise<void>;
+  updateProgress: (subjectId: string, progress: Partial<Progress>) => Promise<void>;
+  getProgress: (subjectId: string) => Promise<Progress | null>;
 }
 
 const defaultContext: UserContextType = {
@@ -42,6 +54,8 @@ const defaultContext: UserContextType = {
   setSelectedSubjects: () => {},
   isOnboarded: false,
   completeOnboarding: async () => {},
+  updateProgress: async () => {},
+  getProgress: async () => null,
 };
 
 const UserContext = createContext<UserContextType>(defaultContext);
@@ -108,6 +122,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         updatedAt: serverTimestamp()
       });
 
+      // Initialize progress for each selected subject
+      const progressPromises = data.selectedSubjects.map(subject => {
+        const initialProgress: Progress = {
+          subjectId: subject.id,
+          completedLessons: [],
+          quizScores: {},
+          lastAccessed: new Date(),
+          totalTimeSpent: 0
+        };
+        return setDoc(doc(db, 'users', user.uid, 'progress', subject.id), initialProgress);
+      });
+
+      await Promise.all(progressPromises);
       setIsOnboarded(true);
     } catch (error) {
       console.error('Error saving onboarding data:', error);
@@ -115,7 +142,52 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
   };
 
-  
+  const updateProgress = async (subjectId: string, progress: Partial<Progress>) => {
+    if (!user) return;
+
+    try {
+      const progressRef = doc(db, 'users', user.uid, 'progress', subjectId);
+      const progressDoc = await getDoc(progressRef);
+
+      if (!progressDoc.exists()) {
+        // Initialize progress if it doesn't exist
+        const initialProgress: Progress = {
+          subjectId,
+          completedLessons: [],
+          quizScores: {},
+          lastAccessed: new Date(),
+          totalTimeSpent: 0,
+          ...progress
+        };
+        await setDoc(progressRef, initialProgress);
+      } else {
+        // Update existing progress
+        await updateDoc(progressRef, {
+          ...progress,
+          lastAccessed: serverTimestamp()
+        });
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error);
+      throw error;
+    }
+  };
+
+  const getProgress = async (subjectId: string): Promise<Progress | null> => {
+    if (!user) return null;
+
+    try {
+      const progressDoc = await getDoc(doc(db, 'users', user.uid, 'progress', subjectId));
+      if (progressDoc.exists()) {
+        return progressDoc.data() as Progress;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error fetching progress:', error);
+      throw error;
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -129,6 +201,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         setSelectedSubjects,
         isOnboarded,
         completeOnboarding,
+        updateProgress,
+        getProgress,
       }}
     >
       {children}

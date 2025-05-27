@@ -1,4 +1,3 @@
-
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -15,9 +14,9 @@ const XPProgress: React.FC<XPProgressProps> = ({ size = "md", showText = true })
   // Calculate XP required for next level
   const xpForCurrentLevel = 50 * (level - 1) * (level - 1);
   const xpForNextLevel = 50 * level * level;
-  const xpInCurrentLevel = xp - xpForCurrentLevel;
+  const xpInCurrentLevel = Math.max(0, xp - xpForCurrentLevel);
   const xpRequiredForNextLevel = xpForNextLevel - xpForCurrentLevel;
-  const progress = (xpInCurrentLevel / xpRequiredForNextLevel) * 100;
+  const progress = Math.min(100, Math.max(0, (xpInCurrentLevel / xpRequiredForNextLevel) * 100));
   
   const sizeClasses = {
     sm: "w-8 h-8",

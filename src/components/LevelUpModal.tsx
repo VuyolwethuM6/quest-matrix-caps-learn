@@ -1,8 +1,7 @@
-
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { useProgress } from "@/contexts/ProgressContext";
+import Confetti from 'react-confetti';
 
 interface LevelUpModalProps {
   isOpen: boolean;
@@ -11,9 +10,52 @@ interface LevelUpModalProps {
 }
 
 const LevelUpModal: React.FC<LevelUpModalProps> = ({ isOpen, onClose, newLevel }) => {
+  // Add state for confetti
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Show confetti when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setShowConfetti(true);
+      // Stop confetti after 5 seconds
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="border-quest-primary bg-gradient-to-br from-quest-softPurple to-white">
+        {/* Add confetti */}
+        {showConfetti && (
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            recycle={false}
+            numberOfPieces={200}
+            gravity={0.3}
+          />
+        )}
+        
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold text-quest-primary">
             Level Up!

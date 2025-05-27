@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,7 +16,30 @@
     <meta name="twitter:site" content="@vuyolwethu_mableka" />
     <meta name="twitter:image" content="/public/viva-logo.png" />
     
-    <!-- MathJax for rendering mathematical expressions -->
+    <!-- MathJax Configuration -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)']],
+          displayMath: [['\\[', '\\]']],
+          processEscapes: true,
+          processEnvironments: true,
+          processRefs: true,
+          packages: ['base', 'ams', 'noerrors', 'noundefined']
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          ignoreHtmlClass: 'tex2jax_ignore',
+          processHtmlClass: 'tex2jax_process'
+        },
+        startup: {
+          ready: () => {
+            console.log('MathJax is loaded and ready');
+            MathJax.startup.defaultReady();
+          }
+        }
+      };
+    </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>

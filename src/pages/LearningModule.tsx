@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ChevronLeft, BookOpen, CheckCircle, PenTool } from "lucide-react";
@@ -66,7 +65,7 @@ const LearningModule: React.FC = () => {
       case 'text':
         return (
           <div key={block.id} className="mb-6">
-            <p className="text-foreground leading-relaxed">{block.content}</p>
+            <MathDisplay content={block.content} className="text-foreground leading-relaxed" />
           </div>
         );
         
@@ -83,7 +82,7 @@ const LearningModule: React.FC = () => {
             <h3 className="font-medium mb-2 text-quest-blue flex items-center gap-2">
               <PenTool size={16} /> Example:
             </h3>
-            <pre className="whitespace-pre-wrap text-sm">{block.content}</pre>
+            <MathDisplay content={block.content} className="whitespace-pre-wrap text-sm" />
           </div>
         );
         

@@ -46,10 +46,10 @@ const Dashboard: React.FC = () => {
   }, [recordLogin]);
   
   const avatarEmoji = avatar === "knight" 
-    ? <Shield size={24} />
+    ? <Shield size={24} color="green"/>
     : avatar === "scholar" 
-    ? <BookOpen size={24} />
-    : <Compass size={24} />;
+    ? <BookOpen size={24} color="red"/>
+    : <Compass size={24} color="blue"/>;
     
   const recentTopics = [
     subjects[0].topics[0],
