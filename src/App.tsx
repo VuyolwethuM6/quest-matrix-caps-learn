@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,7 +17,7 @@ import CurriculumNavigator from "./pages/CurriculumNavigator";
 import LearningModule from "./pages/LearningModule";
 import QuizPage from "./pages/QuizPage";
 import ProfilePage from "./pages/ProfilePage";
-import BadgesPage from "./pages/BadgesPage";
+import TutorPage from "./pages/TutorPage";
 import ExamsPage from "./pages/ExamsPage";
 import ExamPage from "./pages/ExamPage";
 import CAPSBuddyPage from "./pages/CAPSBuddyPage";
@@ -44,7 +45,7 @@ const App = () => (
                 <Route path="/learn/:subjectId/:topicId/:subtopicId" element={<ProtectedRoute><LearningModule /></ProtectedRoute>} />
                 <Route path="/quiz/:subjectId/:topicId/:subtopicId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
                 <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                <Route path="/badges" element={<ProtectedRoute><BadgesPage /></ProtectedRoute>} />
+                <Route path="/tutor" element={<ProtectedRoute><TutorPage /></ProtectedRoute>} />
                 <Route path="/exams" element={<ProtectedRoute><ExamsPage /></ProtectedRoute>} />
                 <Route path="/exam/:examId" element={<ProtectedRoute><ExamPage /></ProtectedRoute>} />
                 <Route path="/caps-buddy" element={<ProtectedRoute><CAPSBuddyPage /></ProtectedRoute>} />

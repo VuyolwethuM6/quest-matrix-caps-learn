@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Star, Shield, Compass} from "lucide-react";
@@ -55,8 +54,6 @@ const Dashboard: React.FC = () => {
     subjects[0].topics[0],
     subjects[1].topics[0]
   ];
-  
-  const badges = getBadges().slice(0, 3);
   
   return (
     <div className="min-h-screen bg-background pb-20">
@@ -120,44 +117,6 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
       
-      {/* Badges */}
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold flex items-center gap-2">
-            <Award size={18} className="text-quest-orange" /> Recent Badges
-          </h2>
-          <Link to="/badges" className="text-quest-primary text-sm flex items-center font-medium">
-            View all <ChevronRight size={16} />
-          </Link>
-        </div>
-        
-        <div className="hidden sm:grid sm:grid-cols-3 gap-3">
-          {badges.map(badge => (
-            <BadgeCard key={badge.id} badge={badge} />
-          ))}
-        </div>
-        
-        <div className="sm:hidden">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-2 md:-ml-4">
-              {badges.map((badge) => (
-                <CarouselItem key={badge.id} className="pl-2 md:pl-4 basis-1/2">
-                  <BadgeCard badge={badge} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-0" />
-            <CarouselNext className="right-0" />
-          </Carousel>
-        </div>
-      </div>
-      
       {/* CAPS Buddy */}
       <div className="p-4">
         <Card className="bg-gradient-to-br from-quest-softBlue to-white border-quest-blue/30 overflow-hidden">
@@ -195,10 +154,10 @@ const Dashboard: React.FC = () => {
             </div>
           </Link>
           
-          <Link to="/badges" className="bg-quest-softPeach hover:bg-quest-softPeach/90 transition-colors rounded-xl p-4 shadow-sm">
+          <Link to="/tutor" className="bg-quest-softPeach hover:bg-quest-softPeach/90 transition-colors rounded-xl p-4 shadow-sm">
             <div className="flex flex-col items-center">
               <Award size={32} className="text-quest-orange mb-2" />
-              <span className="font-medium">View Badges</span>
+              <span className="font-medium">Get Tutoring</span>
             </div>
           </Link>
         </div>
