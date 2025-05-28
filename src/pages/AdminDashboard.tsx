@@ -118,6 +118,7 @@ interface ActivityLog {
     lessonName?: string;
     subjectName?: string;
     topicName?: string;
+    subtopicName?: string;
     xpAmount?: number;
     badgeId?: string;
     score?: number;
@@ -870,10 +871,11 @@ const AdminDashboard: React.FC = () => {
       // Log the activity
       await logActivity({
         type: 'system_event',
-        description: `Alert ${newStatus}`,
+        
         userId: user?.uid,
         userEmail: user?.email,
         details: {
+          description: `Alert ${newStatus}`,
           alertId,
           newStatus
         }
