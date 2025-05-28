@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,6 +23,7 @@ import CAPSBuddyPage from "./pages/CAPSBuddyPage";
 import BadgesPage from "./pages/BadgesPage";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +42,7 @@ const App = () => (
                 <Route path="/onboarding" element={<Onboarding />} />
                 {/* Protected Routes */}
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
                 <Route path="/curriculum" element={<ProtectedRoute><CurriculumNavigator /></ProtectedRoute>} />
                 <Route path="/learn/:subjectId/:topicId/:subtopicId" element={<ProtectedRoute><LearningModule /></ProtectedRoute>} />
                 <Route path="/quiz/:subjectId/:topicId/:subtopicId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />

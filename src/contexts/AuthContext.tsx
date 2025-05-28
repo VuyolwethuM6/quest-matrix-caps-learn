@@ -66,6 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: userCredential.user.email,
         createdAt: serverTimestamp(),
         isOnboarded: false,
+        isAdmin: false,
       });
       
       // Reset onboarding state for new users

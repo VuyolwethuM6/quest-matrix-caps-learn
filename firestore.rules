@@ -1,34 +1,61 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to check if user is authenticated
+    // Helper functions
     function isAuthenticated() {
       return request.auth != null;
     }
     
-    // Helper function to check if user owns the document
-    function isOwner(userId) {
-      return request.auth.uid == userId;
+    function isAdmin() {
+      return isAuthenticated() && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
     
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
     // Users collection
     match /users/{userId} {
-      allow read, write: if isAuthenticated() && isOwner(userId);
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow write: if isAuthenticated() && (isOwner(userId) || isAdmin());
       
       // Progress subcollection
       match /progress/{progressId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
+        allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+        allow write: if isAuthenticated() && isOwner(userId);
       }
     }
-    
-    // Modules collection
+
+    // Subjects collection
+    match /subjects/{subjectId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isAdmin();
+      
+      // Topics subcollection
+      match /topics/{topicId} {
+        allow read: if isAuthenticated();
+        allow write: if isAuthenticated() && isAdmin();
+        
+        // Subtopics subcollection
+        match /subtopics/{subtopicId} {
+          allow read: if isAuthenticated();
+          allow write: if isAuthenticated() && isAdmin();
+        }
+      }
+    }
+
+    // Modules collection (content blocks)
     match /modules/{moduleId} {
       allow read: if isAuthenticated();
-      
-      // Lessons subcollection
-      match /lessons/{lessonId} {
-        allow read: if isAuthenticated();
-      }
+      allow write: if isAuthenticated() && isAdmin();
+    }
+
+    // Quizzes collection
+    match /quizzes/{quizId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isAdmin();
     }
   }
 } 
