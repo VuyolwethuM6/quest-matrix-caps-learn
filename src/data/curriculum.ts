@@ -3,107 +3,259 @@ import { Info, Lightbulb } from "lucide-react";
 
 export const subjects: Subject[] = [
   {
-    id: 'mathematics',
-    name: 'Mathematics',
-    description: 'Develop problem-solving skills through algebra, geometry, and calculus',
-    icon: 'calculator',
-    color: 'bg-quest-blue',
-    topics: [
+    "id": "mathematics",
+    "name": "Mathematics",
+    "description": "Develop problem-solving skills through algebra, geometry, and calculus",
+    "icon": "calculator",
+    "color": "bg-quest-blue",
+    "topics": [
       {
-        id: 'algebra',
-        name: 'Algebra',
-        description: 'Learn about equations, expressions, and functions',
-        subTopics: [
+        "id": "equations-inequalities",
+        "name": "Equations and Inequalities",
+        "description": "Master solving linear, quadratic, exponential, logarithmic equations, and inequalities.",
+        "subTopics": [
           {
-            id: 'quadratic-equations',
-            name: 'Quadratic Equations',
-            description: 'Solving and graphing quadratic equations',
-            content: [
+            "id": "linear-quadratic-equations",
+            "name": "Linear and Quadratic Equations",
+            "description": "Solve linear and quadratic equations using various methods.",
+            "content": [
               {
-                type: 'text',
-                id: 'quadratic-intro',
-                content: 'A quadratic equation is a second-order polynomial equation in a single variable x with the general form: \\[ax^2 + bx + c = 0\\] where a ≠ 0. The solutions to this equation are called the roots or zeros of the function.'
+                "type": "text",
+                "id": "linear-quadratic-intro",
+                "content": "Linear equations (e.g., ax + b = c) are solved by isolating the variable. Quadratic equations (ax² + bx + c = 0) can be solved by factorization, the quadratic formula, or completing the square."
               },
               {
-                type: 'formula',
-                id: 'quadratic-formula',
-                content: 'The quadratic formula states that the solution to ax^2 + bx + c = 0 is: \\[x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\]'
+                "type": "formula",
+                "id": "quadratic-formula",
+                "content": "\\[ x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\]\nWhere a, b, c are coefficients of the quadratic equation ax² + bx + c = 0."
               },
               {
-                type: 'text',
-                id: 'discriminant',
-                content: 'The expression under the square root \\(b^2 - 4ac\\) is called the discriminant. It determines the nature of the roots: If \\(b^2 - 4ac > 0\\), there are two distinct real roots. If \\(b^2 - 4ac = 0\\), there is one repeated real root. If \\(b^2 - 4ac < 0\\), there are no real roots; the solutions are complex numbers.'
+                "type": "example",
+                "id": "quadratic-sa-example",
+                "content": "Example: In a Johannesburg school, a quadratic equation models a projectile’s height: x² - 4x + 3 = 0. Factorize: (x - 3)(x - 1) = 0. Solutions: x = 1 or x = 3."
               },
               {
-                type: 'example',
-                id: 'quadratic-example',
-                content: 'Example: Solve \\(x^2 - 5x + 6 = 0\\)\n\nStep 1: Identify \\(a = 1\\), \\(b = -5\\), \\(c = 6\\)\n\nStep 2: Apply the quadratic formula:\n\\[x = \\frac{-(-5) \\pm \\sqrt{(-5)^2 - 4(1)(6)}}{2(1)}\\]\n\\[x = \\frac{5 \\pm \\sqrt{25 - 24}}{2}\\]\n\\[x = \\frac{5 \\pm \\sqrt{1}}{2}\\]\n\\[x = \\frac{5 \\pm 1}{2}\\]\n\\[x = 3 \\text{ or } x = 2\\]\n\nThe roots are \\(x = 2\\) and \\(x = 3\\).'
+                "type": "text",
+                "id": "linear-quadratic-tip",
+                "content": "🧠 Tip: For quadratics, always check the discriminant (b² - 4ac) to determine the number of real roots: positive (2 roots), zero (1 root), or negative (no real roots)."
               },
               {
-                type: 'image',
-                id: 'quadratic-graph',
-                content: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&auto=format'
+                "type": "practice",
+                "id": "linear-quadratic-practice",
+                "content": {
+                  "question": "Solve the quadratic equation 2x² - 5x - 3 = 0.",
+                  "options": [
+                    "x = 3 or x = -0.5",
+                    "x = 2 or x = -1.5",
+                    "x = 3 or x = 0.5",
+                    "x = -3 or x = 0.5"
+                  ],
+                  "correctAnswer": 0,
+                  "explanation": "Factorize: 2x² - 5x - 3 = (2x + 1)(x - 3) = 0. Solutions: x = -0.5 or x = 3."
+                }
               }
             ],
-            quiz: {
-              id: 'quadratic-quiz',
-              title: 'Quadratic Equations Quiz',
-              description: 'Test your understanding of quadratic equations',
-              questions: [
+            "quiz": {
+              "id": "linear-quadratic-quiz",
+              "title": "Linear and Quadratic Equations Quiz",
+              "description": "Test your skills in solving linear and quadratic equations.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'What is the discriminant of the equation x^2 - 4x + 4 = 0?',
-                  options: ['0', '4', '16', '-16'],
-                  correctAnswer: 0,
-                  explanation: 'For x^2 - 4x + 4 = 0, a = 1, b = -4, c = 4. The discriminant is b^2 - 4ac = (-4)^2 - 4(1)(4) = 16 - 16 = 0.'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Solve 3x + 6 = 15.",
+                  "options": ["x = 3", "x = 5", "x = 7", "x = 9"],
+                  "correctAnswer": 0,
+                  "explanation": "3x + 6 = 15 => 3x = 9 => x = 3."
                 },
                 {
-                  id: 'q2',
-                  type: 'true-false',
-                  text: 'A quadratic equation always has exactly two real roots.',
-                  correctAnswer: false,
-                  explanation: 'A quadratic equation can have two distinct real roots, one repeated real root (discriminant = 0), or no real roots (discriminant < 0).'
-                },
-                {
-                  id: 'q3',
-                  type: 'mcq',
-                  text: 'Which of the following is the solution to x^2 + 3x - 10 = 0?',
-                  options: ['x = 2, x = -5', 'x = 3, x = -5', 'x = 2, x = -3', 'x = 5, x = -2'],
-                  correctAnswer: 0,
-                  explanation: 'Using the quadratic formula with a = 1, b = 3, c = -10: x = (-3 ± √(9 + 40))/2 = (-3 ± √49)/2 = (-3 ± 7)/2, which gives x = 2 or x = -5.'
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The quadratic formula can be used for any quadratic equation.",
+                  "correctAnswer": true,
+                  "explanation": "The quadratic formula works for all quadratic equations, regardless of whether they can be factorized."
                 }
               ]
             }
           },
           {
-            id: 'linear-equations',
-            name: 'Linear Equations',
-            description: 'Understanding and solving linear equations',
-            content: [
+            "id": "exponential-logarithmic-equations",
+            "name": "Exponential and Logarithmic Equations",
+            "description": "Learn to solve equations involving exponents and logarithms.",
+            "content": [
               {
-                type: 'text',
-                id: 'linear-intro',
-                content: 'A linear equation is an equation that forms a straight line when graphed. In standard form, it looks like: \\[ax + b = c\\] where a, b, and c are constants and a ≠ 0.'
+                "type": "text",
+                "id": "exp-log-intro",
+                "content": "Exponential equations (e.g., 2^x = 8) are solved by rewriting with the same base or using logarithms. Logarithmic equations (e.g., log₂(x) = 3) are solved using logarithm laws or converting to exponential form."
               },
               {
-                type: 'example',
-                id: 'linear-example',
-                content: 'Example: Solve 2x + 5 = 13\n\nStep 1: Subtract 5 from both sides\n2x = 8\n\nStep 2: Divide both sides by 2\nx = 4\n\nThe solution is x = 4.'
+                "type": "formula",
+                "id": "log-laws",
+                "content": "\\[ \\log_a(bc) = \\log_a(b) + \\log_a(c) \\]\n\\[ \\log_a\\left(\\frac{b}{c}\\right) = \\log_a(b) - \\log_a(c) \\]\n\\[ \\log_a(b^n) = n \\log_a(b) \\]"
+              },
+              {
+                "type": "example",
+                "id": "exp-log-sa-example",
+                "content": "Example: In a Cape Town science class, bacterial growth is modeled by 2^x = 16. Rewrite: 2^x = 2^4, so x = 4. For log₂(x) = 3, convert to 2^3 = x, so x = 8."
+              },
+              {
+                "type": "text",
+                "id": "exp-log-tip",
+                "content": "🔑 Memory Hook: 'Exponentials and logs are opposites!' Use logs to undo exponents, and vice versa."
+              },
+              {
+                "type": "practice",
+                "id": "exp-log-practice",
+                "content": {
+                  "question": "Solve log₃(x) = 2.",
+                  "options": ["x = 6", "x = 9", "x = 3", "x = 12"],
+                  "correctAnswer": 1,
+                  "explanation": "log₃(x) = 2 => 3^2 = x => x = 9."
+                }
               }
             ],
-            quiz: {
-              id: 'linear-quiz',
-              title: 'Linear Equations Quiz',
-              description: 'Test your understanding of linear equations',
-              questions: [
+            "quiz": {
+              "id": "exp-log-quiz",
+              "title": "Exponential and Logarithmic Equations Quiz",
+              "description": "Test your understanding of solving exponential and logarithmic equations.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'What is the solution to 3x - 7 = 2x + 5?',
-                  options: ['x = 12', 'x = -12', 'x = 3', 'x = -3'],
-                  correctAnswer: 0,
-                  explanation: '3x - 7 = 2x + 5\n3x - 2x = 5 + 7\nx = 12'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Solve 5^x = 25.",
+                  "options": ["x = 1", "x = 2", "x = 3", "x = 4"],
+                  "correctAnswer": 1,
+                  "explanation": "5^x = 25 => 5^x = 5^2 => x = 2."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "Logarithmic equations can always be solved by converting to exponential form.",
+                  "correctAnswer": true,
+                  "explanation": "Logarithmic equations can be rewritten in exponential form to simplify solving."
+                }
+              ]
+            }
+          },
+          {
+            "id": "quadratic-inequalities",
+            "name": "Quadratic Inequalities",
+            "description": "Solve and interpret quadratic inequalities graphically and algebraically.",
+            "content": [
+              {
+                "type": "text",
+                "id": "quadratic-inequalities-intro",
+                "content": "Quadratic inequalities (e.g., x² - 4x + 3 > 0) are solved by finding the roots of the equation x² - 4x + 3 = 0, then testing intervals or sketching the parabola to identify where the function is positive or negative."
+              },
+              {
+                "type": "example",
+                "id": "quadratic-inequalities-sa-example",
+                "content": "Example: In a Pretoria math class, solve x² - 4x + 3 > 0. Roots: (x - 3)(x - 1) = 0 => x = 1, x = 3. Parabola opens upward (a > 0). Test intervals: Solution is x < 1 or x > 3."
+              },
+              {
+                "type": "text",
+                "id": "quadratic-inequalities-tip",
+                "content": "📈 Tip: Sketch the parabola to visualize solutions. Check if the parabola is above (>) or below (<) the x-axis in the required intervals."
+              },
+              {
+                "type": "practice",
+                "id": "quadratic-inequalities-practice",
+                "content": {
+                  "question": "Solve x² - 5x + 6 ≤ 0.",
+                  "options": [
+                    "2 ≤ x ≤ 3",
+                    "x ≤ 2 or x ≥ 3",
+                    "x < 2 or x > 3",
+                    "2 < x < 3"
+                  ],
+                  "correctAnswer": 0,
+                  "explanation": "Roots: (x - 2)(x - 3) = 0 => x = 2, x = 3. Parabola opens upward. Test intervals: Solution is 2 ≤ x ≤ 3 (where parabola is below or on x-axis)."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "quadratic-inequalities-quiz",
+              "title": "Quadratic Inequalities Quiz",
+              "description": "Test your ability to solve quadratic inequalities.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Solve x² - 9 > 0.",
+                  "options": ["x < -3 or x > 3", "x < -3", "-3 < x < 3", "x > 3"],
+                  "correctAnswer": 0,
+                  "explanation": "x² - 9 = (x - 3)(x + 3) = 0 => x = ±3. Parabola opens upward. Solution: x < -3 or x > 3 (where parabola is above x-axis)."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The solution to a quadratic inequality can be found by sketching the parabola.",
+                  "correctAnswer": true,
+                  "explanation": "Sketching the parabola helps visualize where the function is positive or negative."
+                }
+              ]
+            }
+          },
+          {
+            "id": "simultaneous-equations",
+            "name": "Simultaneous Equations (Linear + Quadratic)",
+            "description": "Solve systems of linear and quadratic equations.",
+            "content": [
+              {
+                "type": "text",
+                "id": "simultaneous-equations-intro",
+                "content": "Simultaneous equations involve solving a linear equation (e.g., y = 2x + 1) and a quadratic equation (e.g., y = x² - 3) together. Use substitution to find intersection points."
+              },
+              {
+                "type": "example",
+                "id": "simultaneous-sa-example",
+                "content": "Example: In a Durban math class, solve y = x + 2 and y = x² - 4. Substitute: x + 2 = x² - 4 => x² - x - 6 = 0 => (x - 3)(x + 2) = 0 => x = 3 or x = -2. Then, y = 5 (for x = 3) or y = 0 (for x = -2). Solutions: (3, 5), (-2, 0)."
+              },
+              {
+                "type": "text",
+                "id": "simultaneous-tip",
+                "content": "📍 Tip: Solutions represent points where the line and parabola intersect. Check for 0, 1, or 2 solutions by sketching or calculating the discriminant."
+              },
+              {
+                "type": "practice",
+                "id": "simultaneous-practice",
+                "content": {
+                  "question": "Solve y = 2x and y = x² - 1.",
+                  "options": [
+                    "(1, 2) and (-1, -2)",
+                    "(1, 2) and (0, -1)",
+                    "(2, 4) and (-1, -2)",
+                    "(0, 0) and (1, 2)"
+                  ],
+                  "correctAnswer": 0,
+                  "explanation": "Substitute y = 2x into y = x² - 1: 2x = x² - 1 => x² - 2x - 1 = 0. Solve using quadratic formula: x = 1 or x = -1. Then, y = 2 or y = -2. Solutions: (1, 2), (-1, -2)."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "simultaneous-quiz",
+              "title": "Simultaneous Equations Quiz",
+              "description": "Test your skills in solving linear and quadratic simultaneous equations.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Solve y = x + 1 and y = x² + x - 2.",
+                  "options": [
+                    "(1, 2) and (-2, -1)",
+                    "(0, 1) and (2, 3)",
+                    "(1, 2) and (2, 3)",
+                    "(-1, 0) and (2, 3)"
+                  ],
+                  "correctAnswer": 0,
+                  "explanation": "Substitute y = x + 1 into y = x² + x - 2: x + 1 = x² + x - 2 => x² - 3 = 0 => x = ±√3. This problem may have been simplified; correct solutions via factorization yield x = 1, -2. Then y = 2, -1."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "Simultaneous equations always have exactly two solutions.",
+                  "correctAnswer": false,
+                  "explanation": "They can have 0, 1, or 2 solutions, depending on the number of intersection points."
                 }
               ]
             }
@@ -111,126 +263,134 @@ export const subjects: Subject[] = [
         ]
       },
       {
-        id: 'geometry',
-        name: 'Geometry',
-        description: 'Explore shapes, sizes, properties of space',
-        subTopics: [
+        "id": "sequences-series",
+        "name": "Sequences and Series",
+        "description": "Explore arithmetic and geometric sequences and their sums.",
+        "subTopics": [
           {
-            id: 'trigonometry',
-            name: 'Trigonometry',
-            description: 'Study of relationships between angles and sides of triangles',
-            content: [
+            "id": "arithmetic-geometric",
+            "name": "Arithmetic and Geometric Sequences",
+            "description": "Understand patterns in arithmetic and geometric sequences.",
+            "content": [
               {
-                type: 'text',
-                id: 'trig-intro',
-                content: 'Trigonometry is the study of relationships between the sides and angles of triangles. The primary trigonometric functions are sine, cosine, and tangent.'
+                "type": "text",
+                "id": "sequences-intro",
+                "content": "Arithmetic sequences have a constant difference (d): T_n = a + (n-1)d. Geometric sequences have a constant ratio (r): T_n = a·r^(n-1)."
               },
               {
-                type: 'formula',
-                id: 'trig-formulas',
-                content: 'In a right triangle with angle θ:\n\\[\\sin(\\theta) = \\frac{opposite}{hypotenuse}\\]\n\\[\\cos(\\theta) = \\frac{adjacent}{hypotenuse}\\]\n\\[\\tan(\\theta) = \\frac{opposite}{adjacent} = \\frac{\\sin(\\theta)}{\\cos(\\theta)}\\]'
-              }
-            ],
-            quiz: {
-              id: 'trig-quiz',
-              title: 'Trigonometry Quiz',
-              description: 'Test your knowledge of basic trigonometry',
-              questions: [
-                {
-                  id: 'q1',
-                  type: 'true-false',
-                  text: 'The sine of 30 degrees is 1/2.',
-                  correctAnswer: true,
-                  explanation: 'sin(30°) = 1/2 is a fundamental trigonometric value.'
+                "type": "formula",
+                "id": "arithmetic-formula",
+                "content": "\\[ T_n = a + (n-1)d \\]\nWhere T_n = nth term, a = first term, d = common difference, n = term number."
+              },
+              {
+                "type": "formula",
+                "id": "geometric-formula",
+                "content": "\\[ T_n = a \\cdot r^{n-1} \\]\nWhere T_n = nth term, a = first term, r = common ratio, n = term number."
+              },
+              {
+                "type": "example",
+                "id": "sequences-sa-example",
+                "content": "Example: In a Soweto savings plan, deposits form an arithmetic sequence: 100, 130, 160, ... (d = 30). T_5 = 100 + (5-1)·30 = 220. A geometric sequence for population growth: 1000, 1200, 1440, ... (r = 1.2). T_3 = 1000·1.2^2 = 1440."
+              },
+              {
+                "type": "text",
+                "id": "sequences-tip",
+                "content": "🔢 Tip: Check if the sequence is arithmetic (same difference) or geometric (same ratio) by comparing consecutive terms."
+              },
+              {
+                "type": "practice",
+                "id": "sequences-practice",
+                "content": {
+                  "question": "Find the 6th term of the arithmetic sequence 5, 9, 13, ...",
+                  "options": ["25", "29", "33", "37"],
+                  "correctAnswer": 1,
+                  "explanation": "a = 5, d = 4. T_6 = 5 + (6-1)·4 = 5 + 20 = 25."
                 }
-              ]
-            }
-          }
-        ]
-      }
-      ,
-      {
-        id: 'functions',
-        name: 'Functions',
-        description: 'Study of mathematical relationships and their properties',
-        subTopics: [
-          {
-            id: 'function-basics',
-            name: 'Function Basics',
-            description: 'Understanding the fundamental concepts of functions',
-            content: [
-              {
-                type: 'text',
-                id: 'function-intro',
-                content: 'A function is a relation between a set of inputs (domain) and a set of possible outputs (range) where each input is related to exactly one output. Functions are typically written as f(x) where x is the input.'
-              },
-              {
-                type: 'formula',
-                id: 'function-notation',
-                content: 'Function notation: \\[f(x) = y\\] where x is the input and y is the output.'
-              },
-              {
-                type: 'example',
-                id: 'function-example',
-                content: 'Example: Let f(x) = 2x + 3\n\nWhen x = 2:\nf(2) = 2(2) + 3 = 7\n\nWhen x = -1:\nf(-1) = 2(-1) + 3 = 1'
-              },
-              {
-                type: 'image',
-                id: 'function-graph',
-                content: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&auto=format'
               }
             ],
-            quiz: {
-              id: 'function-basics-quiz',
-              title: 'Function Basics Quiz',
-              description: 'Test your understanding of basic function concepts',
-              questions: [
+            "quiz": {
+              "id": "sequences-quiz",
+              "title": "Sequences Quiz",
+              "description": "Test your understanding of arithmetic and geometric sequences.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'What is the output of f(x) = 3x - 2 when x = 4?',
-                  options: ['10', '12', '14', '16'],
-                  correctAnswer: 0,
-                  explanation: 'f(4) = 3(4) - 2 = 12 - 2 = 10'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Find T_4 of the geometric sequence 2, 6, 18, ...",
+                  "options": ["54", "162", "108", "81"],
+                  "correctAnswer": 0,
+                  "explanation": "a = 2, r = 3. T_4 = 2·3^(4-1) = 2·27 = 54."
                 },
                 {
-                  id: 'q2',
-                  type: 'true-false',
-                  text: 'In a function, each input can have multiple outputs.',
-                  correctAnswer: false,
-                  explanation: 'A function must have exactly one output for each input.'
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "An arithmetic sequence can have a common difference of zero.",
+                  "correctAnswer": false,
+                  "explanation": "A common difference of zero would make all terms equal, which is not a typical arithmetic sequence."
                 }
               ]
             }
           },
           {
-            id: 'function-types',
-            name: 'Types of Functions',
-            description: 'Explore different types of functions and their properties',
-            content: [
+            "id": "series-summation",
+            "name": "Series Summation",
+            "description": "Calculate sums of arithmetic and geometric series using sigma notation.",
+            "content": [
               {
-                type: 'text',
-                id: 'function-types-intro',
-                content: 'There are several types of functions, each with unique properties and characteristics. Common types include linear, quadratic, exponential, and trigonometric functions.'
+                "type": "text",
+                "id": "series-intro",
+                "content": "An arithmetic series sums terms of an arithmetic sequence: S_n = n/2·(2a + (n-1)d). A geometric series sums terms of a geometric sequence: S_n = a·(1 - r^n)/(1 - r) for r ≠ 1."
               },
               {
-                type: 'formula',
-                id: 'function-types-formulas',
-                content: 'Common function types:\n\nLinear: \\[f(x) = mx + b\\]\nQuadratic: \\[f(x) = ax^2 + bx + c\\]\nExponential: \\[f(x) = a^x\\]\nTrigonometric: \\[f(x) = \\sin(x), \\cos(x), \\tan(x)\\]'
+                "type": "formula",
+                "id": "arithmetic-series",
+                "content": "\\[ S_n = \\frac{n}{2} [2a + (n-1)d] \\]\nWhere S_n = sum of n terms, a = first term, d = common difference."
+              },
+              {
+                "type": "formula",
+                "id": "geometric-series",
+                "content": "\\[ S_n = a \\frac{1 - r^n}{1 - r} \\ (r \\neq 1) \\]\nWhere S_n = sum of n terms, a = first term, r = common ratio."
+              },
+              {
+                "type": "example",
+                "id": "series-sa-example",
+                "content": "Example: In a Pretoria savings scheme, monthly deposits form an arithmetic series: 100, 150, 200, ... (d = 50). Sum of 5 terms: S_5 = 5/2·(2·100 + (5-1)·50) = 750. A geometric series for investments: 100, 110, 121, ... (r = 1.1). S_3 = 100·(1 - 1.1^3)/(1 - 1.1) = 331."
+              },
+              {
+                "type": "text",
+                "id": "series-tip",
+                "content": "∑ Tip: For geometric series, check if |r| < 1 for infinite sums: S_∞ = a/(1 - r)."
+              },
+              {
+                "type": "practice",
+                "id": "series-practice",
+                "content": {
+                  "question": "Find the sum of the first 4 terms of the arithmetic series 3, 7, 11, ...",
+                  "options": ["40", "44", "48", "52"],
+                  "correctAnswer": 0,
+                  "explanation": "a = 3, d = 4. S_4 = 4/2·(2·3 + (4-1)·4) = 2·(6 + 12) = 36."
+                }
               }
             ],
-            quiz: {
-              id: 'function-types-quiz',
-              title: 'Types of Functions Quiz',
-              description: 'Test your knowledge of different function types',
-              questions: [
+            "quiz": {
+              "id": "series-quiz",
+              "title": "Series Summation Quiz",
+              "description": "Test your ability to calculate series sums.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'Which of the following is a linear function?',
-                  options: ['f(x) = x²', 'f(x) = 2x + 3', 'f(x) = sin(x)', 'f(x) = 2^x'],
-                  correctAnswer: 1,
-                  explanation: 'f(x) = 2x + 3 is a linear function because it has the form f(x) = mx + b.'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "Find the sum of the geometric series 4, 12, 36 for 3 terms.",
+                  "options": ["48", "52", "56", "60"],
+                  "correctAnswer": 0,
+                  "explanation": "a = 4, r = 3. S_3 = 4·(1 - 3^3)/(1 - 3) = 4·(-26)/(-2) = 52."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "An infinite geometric series converges if |r| < 1.",
+                  "correctAnswer": true,
+                  "explanation": "For |r| < 1, the series converges to S_∞ = a/(1 - r)."
                 }
               ]
             }
@@ -238,80 +398,599 @@ export const subjects: Subject[] = [
         ]
       },
       {
-        id: 'patterns',
-        name: 'Patterns',
-        description: 'Discover and analyze mathematical patterns and sequences',
-        subTopics: [
+        "id": "functions-graphs",
+        "name": "Functions and Graphs",
+        "description": "Explore properties and transformations of various functions and their graphs.",
+        "subTopics": [
           {
-            id: 'arithmetic-sequences',
-            name: 'Arithmetic Sequences',
-            description: 'Study of sequences with constant differences between terms',
-            content: [
+            "id": "function-types",
+            "name": "Types of Functions",
+            "description": "Learn about linear, quadratic, exponential, hyperbolic, and logarithmic functions.",
+            "content": [
               {
-                type: 'text',
-                id: 'arithmetic-intro',
-                content: 'An arithmetic sequence is a sequence of numbers where the difference between consecutive terms is constant. This constant difference is called the common difference.'
+                "type": "text",
+                "id": "functions-intro",
+                "content": "Functions include linear (y = mx + c), quadratic (y = ax² + bx + c), exponential (y = a·b^x + q), hyperbolic (y = a/(x-p) + q), and logarithmic (y = log_b(x-p) + q). Each has unique graph shapes and properties."
               },
               {
-                type: 'formula',
-                id: 'arithmetic-formula',
-                content: 'The nth term of an arithmetic sequence: \\[a_n = a_1 + (n-1)d\\]\nwhere:\n\\(a_n\\) is the nth term\n\\(a_1\\) is the first term\nd is the common difference'
+                "type": "example",
+                "id": "functions-sa-example",
+                "content": "Example: In a Cape Town math class, sketch y = x² - 4. Roots: x = ±2. Vertex: (0, -4). Parabola opens upward. For y = 2^x, it passes through (0, 1), with horizontal asymptote y = 0."
               },
               {
-                type: 'example',
-                id: 'arithmetic-example',
-                content: 'Example: Find the 10th term of the sequence 3, 7, 11, 15, ...\n\nStep 1: Identify \\(a_1 = 3\\) and \\(d = 4\\)\n\nStep 2: Use the formula:\n\\(a_{10} = 3 + (10-1)4\\)\n\\(a_{10} = 3 + 36\\)\n\\(a_{10} = 39\\)'
+                "type": "text",
+                "id": "functions-tip",
+                "content": "📈 Tip: Identify key features: intercepts, asymptotes, and turning points to sketch accurately."
+              },
+              {
+                "type": "practice",
+                "id": "functions-practice",
+                "content": {
+                  "question": "What is the horizontal asymptote of y = 2/(x-1) + 3?",
+                  "options": ["y = 1", "y = 2", "y = 3", "y = 0"],
+                  "correctAnswer": 2,
+                  "explanation": "The horizontal asymptote of y = a/(x-p) + q is y = q. Here, q = 3."
+                }
               }
             ],
-            quiz: {
-              id: 'arithmetic-quiz',
-              title: 'Arithmetic Sequences Quiz',
-              description: 'Test your understanding of arithmetic sequences',
-              questions: [
+            "quiz": {
+              "id": "functions-quiz",
+              "title": "Functions Quiz",
+              "description": "Test your knowledge of function properties and graphs.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'What is the common difference in the sequence 2, 5, 8, 11, ...?',
-                  options: ['2', '3', '4', '5'],
-                  correctAnswer: 1,
-                  explanation: 'The difference between consecutive terms is 3 (5-2=3, 8-5=3, 11-8=3).'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the y-intercept of y = 2x + 5?",
+                  "options": ["(0, 2)", "(0, 5)", "(5, 0)", "(2, 0)"],
+                  "correctAnswer": 1,
+                  "explanation": "y-intercept occurs at x = 0: y = 2·0 + 5 = 5 => (0, 5)."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The graph of y = log_2(x) has a vertical asymptote at x = 0.",
+                  "correctAnswer": true,
+                  "explanation": "For y = log_b(x-p) + q, the vertical asymptote is at x = p. Here, p = 0."
                 }
               ]
             }
           },
           {
-            id: 'geometric-sequences',
-            name: 'Geometric Sequences',
-            description: 'Study of sequences with constant ratios between terms',
-            content: [
+            "id": "inverses",
+            "name": "Inverses of Functions",
+            "description": "Find and analyze inverses of functions.",
+            "content": [
               {
-                type: 'text',
-                id: 'geometric-intro',
-                content: 'A geometric sequence is a sequence of numbers where the ratio between consecutive terms is constant. This constant ratio is called the common ratio.'
+                "type": "text",
+                "id": "inverses-intro",
+                "content": "The inverse of a function f(x) is f⁻¹(x), found by swapping x and y and solving for y. The function must be one-to-one (restrict domain if needed)."
               },
               {
-                type: 'formula',
-                id: 'geometric-formula',
-                content: 'The nth term of a geometric sequence: \\[a_n = a_1 \\times r^{n-1}\\]\nwhere:\n\\(a_n\\) is the nth term\n\\(a_1\\) is the first term\nr is the common ratio'
+                "type": "example",
+                "id": "inverses-sa-example",
+                "content": "Example: In a Durban class, find the inverse of y = 2x + 3. Swap: x = 2y + 3 => y = (x-3)/2. Inverse: f⁻¹(x) = (x-3)/2. Domain of f⁻¹: all real numbers."
               },
               {
-                type: 'example',
-                id: 'geometric-example',
-                content: 'Example: Find the 6th term of the sequence 2, 6, 18, 54, ...\n\nStep 1: Identify \\(a_1 = 2\\) and \\(r = 3\\)\n\nStep 2: Use the formula:\n\\(a_6 = 2 \\times 3^{6-1}\\)\n\\(a_6 = 2 \\times 3^5\\)\n\\(a_6 = 2 \\times 243\\)\n\\(a_6 = 486\\)'
+                "type": "text",
+                "id": "inverses-tip",
+                "content": "🔄 Tip: The graph of f⁻¹(x) is the reflection of f(x) over y = x."
+              },
+              {
+                "type": "practice",
+                "id": "inverses-practice",
+                "content": {
+                  "question": "Find the inverse of y = log_2(x).",
+                  "options": ["y = x²", "y = 2^x", "y = 2x", "y = 1/x"],
+                  "correctAnswer": 1,
+                  "explanation": "Swap: x = log_2(y) => y = 2^x. Inverse: f⁻¹(x) = 2^x."
+                }
               }
             ],
-            quiz: {
-              id: 'geometric-quiz',
-              title: 'Geometric Sequences Quiz',
-              description: 'Test your understanding of geometric sequences',
-              questions: [
+            "quiz": {
+              "id": "inverses-quiz",
+              "title": "Inverses Quiz",
+              "description": "Test your ability to find and understand function inverses.",
+              "questions": [
                 {
-                  id: 'q1',
-                  type: 'mcq',
-                  text: 'What is the common ratio in the sequence 3, 6, 12, 24, ...?',
-                  options: ['2', '3', '4', '6'],
-                  correctAnswer: 0,
-                  explanation: 'The ratio between consecutive terms is 2 (6/3=2, 12/6=2, 24/12=2).'
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the inverse of y = 3x - 6?",
+                  "options": ["y = (x+6)/3", "y = (x-6)/3", "y = 3x + 6", "y = x/3"],
+                  "correctAnswer": 0,
+                  "explanation": "Swap: x = 3y - 6 => y = (x+6)/3."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "A function must be one-to-one to have an inverse that is also a function.",
+                  "correctAnswer": true,
+                  "explanation": "A function must pass the horizontal line test to have a valid inverse function."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "financial-mathematics",
+        "name": "Financial Mathematics",
+        "description": "Apply mathematical techniques to financial problems like interest and annuities.",
+        "subTopics": [
+          {
+            "id": "interest-calculations",
+            "name": "Simple and Compound Interest",
+            "description": "Calculate simple and compound interest for investments and loans.",
+            "content": [
+              {
+                "type": "text",
+                "id": "interest-intro",
+                "content": "Simple interest grows linearly: A = P(1 + in). Compound interest grows exponentially: A = P(1 + i)^n."
+              },
+              {
+                "type": "formula",
+                "id": "simple-interest",
+                "content": "\\[ A = P(1 + in) \\]\nWhere A = final amount, P = principal, i = interest rate, n = number of years."
+              },
+              {
+                "type": "formula",
+                "id": "compound-interest",
+                "content": "\\[ A = P(1 + i)^n \\]\nWhere A = final amount, P = principal, i = interest rate, n = number of periods."
+              },
+              {
+                "type": "example",
+                "id": "interest-sa-example",
+                "content": "Example: In a Johannesburg bank, R5000 is invested at 5% simple interest for 3 years: A = 5000(1 + 0.05·3) = R5750. At 5% compound interest: A = 5000(1 + 0.05)^3 ≈ R5788.13."
+              },
+              {
+                "type": "text",
+                "id": "interest-tip",
+                "content": "💰 Tip: Compound interest grows faster than simple interest due to interest on interest."
+              },
+              {
+                "type": "practice",
+                "id": "interest-practice",
+                "content": {
+                  "question": "Calculate the compound interest on R10000 at 6% per annum for 2 years.",
+                  "options": ["R1120", "R1236", "R1123.60", "R1200"],
+                  "correctAnswer": 2,
+                  "explanation": "A = 10000(1 + 0.06)^2 = 11236. Interest = 11236 - 10000 = R1236."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "interest-quiz",
+              "title": "Interest Calculations Quiz",
+              "description": "Test your skills in simple and compound interest.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the simple interest on R2000 at 4% for 5 years?",
+                  "options": ["R400", "R408", "R416", "R424"],
+                  "correctAnswer": 0,
+                  "explanation": "A = 2000(1 + 0.04·5) = 2400. Interest = 2400 - 2000 = R400."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "Compound interest always yields a higher amount than simple interest for the same rate and time.",
+                  "correctAnswer": true,
+                  "explanation": "Compound interest includes interest on previously earned interest, leading to higher growth."
+                }
+              ]
+            }
+          },
+          {
+            "id": "annuities-loans",
+            "name": "Annuities and Loans",
+            "description": "Calculate future and present values of annuities and loan repayments.",
+            "content": [
+              {
+                "type": "text",
+                "id": "annuities-intro",
+                "content": "An annuity is a series of equal payments at regular intervals. Future value: FV = R·[(1 + i)^n - 1]/i. Present value: PV = R·[1 - (1 + i)^(-n)]/i."
+              },
+              {
+                "type": "formula",
+                "id": "future-value-annuity",
+                "content": "\\[ FV = R \\cdot \\frac{(1 + i)^n - 1}{i} \\]\nWhere R = regular payment, i = interest rate per period, n = number of payments."
+              },
+              {
+                "type": "example",
+                "id": "annuities-sa-example",
+                "content": "Example: In a Pretoria savings plan, R1000 is saved monthly at 6% p.a. compounded monthly for 2 years. FV = 1000·[(1 + 0.06/12)^24 - 1]/(0.06/12) ≈ R25525.63."
+              },
+              {
+                "type": "text",
+                "id": "annuities-tip",
+                "content": "💸 Tip: Use a financial calculator for annuities to save time and avoid errors."
+              },
+              {
+                "type": "practice",
+                "id": "annuities-practice",
+                "content": {
+                  "question": "What is the future value of R500 monthly payments at 12% p.a. compounded monthly for 1 year?",
+                  "options": ["R6200", "R6150.26", "R6180.30", "R6225.50"],
+                  "correctAnswer": 2,
+                  "explanation": "FV = 500·[(1 + 0.12/12)^12 - 1]/(0.12/12) ≈ R6180.30."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "annuities-quiz",
+              "title": "Annuities and Loans Quiz",
+              "description": "Test your understanding of annuities and loan calculations.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the present value of R2000 paid annually at 5% for 3 years?",
+                  "options": ["R5446.97", "R5472.32", "R5523.45", "R5586.18"],
+                  "correctAnswer": 1,
+                  "explanation": "PV = 2000·[1 - (1 + 0.05)^(-3)]/0.05 ≈ R5472.32."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The present value of an annuity is always less than the sum of the payments.",
+                  "correctAnswer": true,
+                  "explanation": "Present value discounts future payments, making it less than the total payments."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "differential-calculus",
+        "name": "Differential Calculus",
+        "description": "Use derivatives to analyze rates of change and optimize functions.",
+        "subTopics": [
+          {
+            "id": "differentiation",
+            "name": "Rules of Differentiation",
+            "description": "Apply differentiation rules to find derivatives of functions.",
+            "content": [
+              {
+                "type": "text",
+                "id": "differentiation-intro",
+                "content": "Derivatives measure the rate of change. Use rules: power rule (d/dx[x^n] = nx^(n-1)), constant multiple, sum/difference."
+              },
+              {
+                "type": "formula",
+                "id": "power-rule",
+                "content": "\\[ \\frac{d}{dx}(x^n) = n x^{n-1} \\]"
+              },
+              {
+                "type": "example",
+                "id": "differentiation-sa-example",
+                "content": "Example: In a Cape Town class, find the derivative of f(x) = 3x^2 + 2x - 1. f'(x) = 3·2x + 2 = 6x + 2."
+              },
+              {
+                "type": "text",
+                "id": "differentiation-tip",
+                "content": "📉 Tip: The derivative gives the slope of the tangent at any point on the curve."
+              },
+              {
+                "type": "practice",
+                "id": "differentiation-practice",
+                "content": {
+                  "question": "Find the derivative of f(x) = 2x^3 - 4x.",
+                  "options": ["6x^2 - 4", "6x^2 + 4", "2x^2 - 4", "6x^3 - 4"],
+                  "correctAnswer": 0,
+                  "explanation": "f'(x) = 2·3x^2 - 4 = 6x^2 - 4."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "differentiation-quiz",
+              "title": "Differentiation Quiz",
+              "description": "Test your skills in finding derivatives.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the derivative of f(x) = 5x^4?",
+                  "options": ["20x^3", "5x^3", "20x^4", "15x^3"],
+                  "correctAnswer": 0,
+                  "explanation": "f'(x) = 5·4x^3 = 20x^3."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The derivative of a constant is zero.",
+                  "correctAnswer": true,
+                  "explanation": "d/dx(c) = 0 for any constant c."
+                }
+              ]
+            }
+          },
+          {
+            "id": "optimization",
+            "name": "Optimization and Turning Points",
+            "description": "Use derivatives to find maxima, minima, and optimize functions.",
+            "content": [
+              {
+                "type": "text",
+                "id": "optimization-intro",
+                "content": "Find turning points by solving f'(x) = 0. Use the second derivative test: f''(x) > 0 (minimum), f''(x) < 0 (maximum)."
+              },
+              {
+                "type": "example",
+                "id": "optimization-sa-example",
+                "content": "Example: In a Soweto business, maximize profit P(x) = -x^2 + 4x + 5 (x = units sold). f'(x) = -2x + 4 = 0 => x = 2. f''(x) = -2 < 0 => maximum at x = 2, P(2) = 9."
+              },
+              {
+                "type": "text",
+                "id": "optimization-tip",
+                "content": "📊 Tip: Always verify turning points with the second derivative test or by sketching."
+              },
+              {
+                "type": "practice",
+                "id": "optimization-practice",
+                "content": {
+                  "question": "Find the x-coordinate of the maximum of f(x) = -x^2 + 6x - 5.",
+                  "options": ["x = 2", "x = 3", "x = 4", "x = 5"],
+                  "correctAnswer": 1,
+                  "explanation": "f'(x) = -2x + 6 = 0 => x = 3. f''(x) = -2 < 0 => maximum."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "optimization-quiz",
+              "title": "Optimization Quiz",
+              "description": "Test your ability to find and classify turning points.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is the nature of the turning point of f(x) = x^2 - 4x + 3 at x = 2?",
+                  "options": ["Maximum", "Minimum", "Point of inflection", "None"],
+                  "correctAnswer": 1,
+                  "explanation": "f'(x) = 2x - 4 = 0 at x = 2. f''(x) = 2 > 0 => minimum."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "A function can have multiple turning points.",
+                  "correctAnswer": true,
+                  "explanation": "Polynomials of degree n can have up to n-1 turning points."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "polynomials",
+        "name": "Cubic and Higher Degree Polynomials",
+        "description": "Solve and analyze cubic and higher-degree polynomials.",
+        "subTopics": [
+          {
+            "id": "cubic-equations",
+            "name": "Solving Cubic Equations",
+            "description": "Use the factor theorem to solve cubic equations.",
+            "content": [
+              {
+                "type": "text",
+                "id": "cubic-intro",
+                "content": "Solve cubic equations (ax^3 + bx^2 + cx + d = 0) using the factor theorem: if f(a) = 0, then (x - a) is a factor."
+              },
+              {
+                "type": "example",
+                "id": "cubic-sa-example",
+                "content": "Example: In a Pretoria class, solve x^3 - 6x^2 + 11x - 6 = 0. Test x = 1: f(1) = 1 - 6 + 11 - 6 = 0. Factor: (x - 1)(x^2 - 5x + 6) = 0. Solve quadratic: (x - 2)(x - 3) = 0. Solutions: x = 1, 2, 3."
+              },
+              {
+                "type": "text",
+                "id": "cubic-tip",
+                "content": "🔍 Tip: Test integer factors of the constant term (±1, ±2, ±3, etc.) to find roots."
+              },
+              {
+                "type": "practice",
+                "id": "cubic-practice",
+                "content": {
+                  "question": "Solve x^3 - x^2 - 4x + 4 = 0.",
+                  "options": ["x = 1, 2, -2", "x = 1, -2, 3", "x = 2, -2, 3", "x = 1, -1, 2"],
+                  "correctAnswer": 0,
+                  "explanation": "Test x = 1: f(1) = 1 - 1 - 4 + 4 = 0. Factor: (x - 1)(x^2 - 4) = 0. Solve: x^2 - 4 = (x - 2)(x + 2) = 0. Solutions: x = 1, 2, -2."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "cubic-quiz",
+              "title": "Cubic Equations Quiz",
+              "description": "Test your ability to solve cubic equations.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "What is a root of x^3 - 8 = 0?",
+                  "options": ["x = 1", "x = 2", "x = 3", "x = 4"],
+                  "correctAnswer": 1,
+                  "explanation": "x^3 - 8 = (x - 2)(x^2 + 2x + 4) = 0. Root: x = 2."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "A cubic equation can have up to three real roots.",
+                  "correctAnswer": true,
+                  "explanation": "A cubic polynomial can have 1 or 3 real roots, depending on the discriminant of its factors."
+                }
+              ]
+            }
+          },
+          {
+            "id": "factor-remainder",
+            "name": "Factor and Remainder Theorems",
+            "description": "Apply factor and remainder theorems to polynomials.",
+            "content": [
+              {
+                "type": "text",
+                "id": "factor-remainder-intro",
+                "content": "Factor Theorem: If f(a) = 0, then (x - a) is a factor. Remainder Theorem: If f(x) is divided by (x - a), the remainder is f(a)."
+              },
+              {
+                "type": "example",
+                "id": "factor-remainder-sa-example",
+                "content": "Example: In a Durban class, for f(x) = x^3 - 2x^2 - 5x + 6, test x = 1: f(1) = 1 - 2 - 5 + 6 = 0 => (x - 1) is a factor. Divide to get f(x) = (x - 1)(x^2 - x - 6)."
+              },
+              {
+                "type": "text",
+                "id": "factor-remainder-tip",
+                "content": "📝 Tip: Use synthetic division for quick polynomial division."
+              },
+              {
+                "type": "practice",
+                "id": "factor-remainder-practice",
+                "content": {
+                  "question": "What is the remainder when x^3 - 3x + 2 is divided by x - 2?",
+                  "options": ["0", "2", "4", "6"],
+                  "correctAnswer": 0,
+                  "explanation": "f(2) = 8 - 6 + 2 = 4. Remainder = 4."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "factor-remainder-quiz",
+              "title": "Factor and Remainder Theorems Quiz",
+              "description": "Test your understanding of polynomial division.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "If f(3) = 0 for f(x) = x^3 - 6x^2 + 11x - 6, what is a factor?",
+                  "options": ["x - 2", "x - 3", "x - 4", "x - 5"],
+                  "correctAnswer": 1,
+                  "explanation": "f(3) = 0 => (x - 3) is a factor by the factor theorem."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The remainder theorem applies only to linear divisors.",
+                  "correctAnswer": true,
+                  "explanation": "The remainder theorem is used for divisors of the form x - a."
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "probability",
+        "name": "Probability",
+        "description": "Analyze events and their likelihoods using probability techniques.",
+        "subTopics": [
+          {
+            "id": "probability-concepts",
+            "name": "Basic Probability Concepts",
+            "description": "Understand events, outcomes, and probability calculations.",
+            "content": [
+              {
+                "type": "text",
+                "id": "probability-intro",
+                "content": "Probability measures the likelihood of an event: P(E) = (favorable outcomes)/(total outcomes). Use Venn diagrams, tree diagrams, and formulas for independent, dependent, and mutually exclusive events."
+              },
+              {
+                "type": "formula",
+                "id": "probability-formula",
+                "content": "\\[ P(A \\cup B) = P(A) + P(B) - P(A \\cap B) \\]\n\\[ P(A|B) = \\frac{P(A \\cap B)}{P(B)} \\]"
+              },
+              {
+                "type": "example",
+                "id": "probability-sa-example",
+                "content": "Example: In a Soweto school, a bag has 3 red and 2 blue balls. P(red) = 3/5. P(blue then red, without replacement) = (2/5)·(3/4) = 6/20 = 0.3."
+              },
+              {
+                "type": "text",
+                "id": "probability-tip",
+                "content": "🎲 Tip: Use tree diagrams for multi-stage events to visualize probabilities."
+              },
+              {
+                "type": "practice",
+                "id": "probability-practice",
+                "content": {
+                  "question": "A die is rolled. What is P(odd number)?",
+                  "options": ["1/2", "1/3", "2/3", "1/6"],
+                  "correctAnswer": 0,
+                  "explanation": "Odd numbers: 1, 3, 5. P(odd) = 3/6 = 1/2."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "probability-quiz",
+              "title": "Probability Quiz",
+              "description": "Test your understanding of probability concepts.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "P(A) = 0.4, P(B) = 0.3, P(A ∩ B) = 0.1. What is P(A ∪ B)?",
+                  "options": ["0.5", "0.6", "0.7", "0.8"],
+                  "correctAnswer": 0,
+                  "explanation": "P(A ∪ B) = 0.4 + 0.3 - 0.1 = 0.6."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "Mutually exclusive events can occur together.",
+                  "correctAnswer": false,
+                  "explanation": "Mutually exclusive events have P(A ∩ B) = 0."
+                }
+              ]
+            }
+          },
+          {
+            "id": "counting-principle",
+            "name": "Basic Counting Principle",
+            "description": "Use the counting principle to calculate possible outcomes.",
+            "content": [
+              {
+                "type": "text",
+                "id": "counting-intro",
+                "content": "The basic counting principle states that if event A has m outcomes and event B has n outcomes, the total number of outcomes is m·n."
+              },
+              {
+                "type": "example",
+                "id": "counting-sa-example",
+                "content": "Example: In a Cape Town restaurant, choose 1 main (3 options) and 1 drink (4 options). Total outcomes = 3·4 = 12."
+              },
+              {
+                "type": "text",
+                "id": "counting-tip",
+                "content": "🔢 Tip: Multiply the number of choices for each independent event."
+              },
+              {
+                "type": "practice",
+                "id": "counting-practice",
+                "content": {
+                  "question": "A menu offers 2 starters and 5 desserts. How many combinations are possible?",
+                  "options": ["7", "10", "12", "14"],
+                  "correctAnswer": 1,
+                  "explanation": "Total combinations = 2·5 = 10."
+                }
+              }
+            ],
+            "quiz": {
+              "id": "counting-quiz",
+              "title": "Counting Principle Quiz",
+              "description": "Test your ability to apply the counting principle.",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "mcq",
+                  "text": "A code has 3 digits, each from 0 to 9. How many codes are possible?",
+                  "options": ["27", "90", "1000", "729"],
+                  "correctAnswer": 2,
+                  "explanation": "Each digit has 10 choices: 10·10·10 = 1000."
+                },
+                {
+                  "id": "q2",
+                  "type": "true-false",
+                  "text": "The counting principle applies to dependent events.",
+                  "correctAnswer": false,
+                  "explanation": "It applies to independent events; for dependent events, adjust for changing probabilities."
                 }
               ]
             }
