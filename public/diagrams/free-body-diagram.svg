@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="220" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ground line -->
+  <line x1="40" y1="180" x2="280" y2="180" stroke="#888" stroke-width="3"/>
+  <!-- Box -->
+  <rect x="120" y="120" width="80" height="60" fill="#e0e7ff" stroke="#6366f1" stroke-width="3"/>
+  <!-- Normal force (up) -->
+  <line x1="160" y1="120" x2="160" y2="60" stroke="#10b981" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="170" y="80" font-size="16" fill="#10b981" font-family="Arial">N</text>
+  <!-- Weight (down) -->
+  <line x1="160" y1="180" x2="160" y2="210" stroke="#ef4444" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="170" y="200" font-size="16" fill="#ef4444" font-family="Arial">W</text>
+  <!-- Applied force (right) -->
+  <line x1="200" y1="150" x2="260" y2="150" stroke="#2563eb" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="230" y="140" font-size="16" fill="#2563eb" font-family="Arial">Fₐ</text>
+  <!-- Friction (left) -->
+  <line x1="120" y1="150" x2="60" y2="150" stroke="#f59e42" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="70" y="140" font-size="16" fill="#f59e42" font-family="Arial">f</text>
+  <!-- Arrowhead definition -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="currentColor"/>
+    </marker>
+  </defs>
+</svg>

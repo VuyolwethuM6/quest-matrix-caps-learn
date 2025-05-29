@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Flag, Image } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +12,7 @@ interface ExamQuestionProps {
   flaggedQuestions: Set<number>;
   onAnswerChange: (questionId: string, answer: any) => void;
   onFlagToggle: () => void;
+  isReviewMode?: boolean;
 }
 
 const ExamQuestionComponent: React.FC<ExamQuestionProps> = ({
@@ -22,6 +22,7 @@ const ExamQuestionComponent: React.FC<ExamQuestionProps> = ({
   flaggedQuestions,
   onAnswerChange,
   onFlagToggle,
+  isReviewMode = false,
 }) => {
   return (
     <Card>
@@ -59,29 +60,48 @@ const ExamQuestionComponent: React.FC<ExamQuestionProps> = ({
           </div>
         )}
         
-        {/* Sub-questions */}
         {question.subQuestions && (
-          <div className="space-y-6">
-            {question.subQuestions.map((subQuestion, index) => (
-              <div key={subQuestion.id} className="border-l-4 border-quest-primary pl-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="font-semibold">
-                    {questionIndex + 1}.{index + 1}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    ({subQuestion.marks} marks)
-                  </span>
+  <div className="space-y-6">
+    {question.subQuestions.map((subQuestion, index) => (
+      <div key={subQuestion.id} className="border-l-4 border-quest-primary pl-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="font-semibold">
+            {questionIndex + 1}.{index + 1}
+          </span>
+          <span className="text-sm text-muted-foreground">
+            ({subQuestion.marks} marks)
+          </span>
+        </div>
+        <div className="mb-3">
+          {subQuestion.questionText.split('[DIAGRAM]').map((part, i, arr) => (
+            <div key={i}>
+              {part}
+              {i < arr.length - 1 && subQuestion.diagram && (
+                <div className="bg-muted p-4 rounded-lg my-3">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Image className="h-5 w-5 text-quest-primary" />
+                    <span className="text-sm font-medium">Diagram</span>
+                  </div>
+                  <img 
+                    src={subQuestion.diagram} 
+                    alt="Question diagram"
+                    className="w-full max-w-md mx-auto rounded border"
+                  />
                 </div>
-                <div className="mb-3">{subQuestion.questionText}</div>
-                <QuestionInput
-                  subQuestion={subQuestion}
-                  selectedAnswers={selectedAnswers}
-                  onAnswerChange={onAnswerChange}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+              )}
+            </div>
+          ))}
+        </div>
+        <QuestionInput
+          subQuestion={subQuestion}
+          selectedAnswers={selectedAnswers}
+          onAnswerChange={onAnswerChange}
+          isReviewMode={isReviewMode}
+        />
+      </div>
+    ))}
+  </div>
+)}
       </CardContent>
     </Card>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Star, Shield, Compass} from "lucide-react";
+import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Star, Shield, Compass, Target, FileText } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
 import TopicCard from "@/components/TopicCard";
@@ -163,6 +163,33 @@ const Dashboard: React.FC = () => {
             </div>
           </Link>
         </div>
+      </div>
+
+      {/* Topic Practice */}
+      <div className="p-4">
+        <Card className="bg-gradient-to-br from-quest-purple/20 via-quest-primary/20 to-quest-purple/20 border-quest-purple/30 overflow-hidden shadow-lg hover:shadow-quest-purple/20 transition-all duration-300">
+          <CardContent className="p-5">
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-quest-purple/20 flex items-center justify-center mb-3 ring-4 ring-quest-purple/10">
+                <Target size={24} className="text-quest-purple" />
+              </div>
+              
+              <h3 className="text-lg font-bold mb-1 text-quest-purple">Topic Practice</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Practice specific topics to improve your understanding
+              </p>
+              
+              <Link to="/topics">
+                <Button
+                  variant="outline" 
+                  className="bg-white/50 border-quest-purple text-quest-purple hover:bg-quest-purple/10 hover:text-quest-purple transition-colors"
+                >
+                  Start Practice
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
       
       {/* Level Up Modal */}

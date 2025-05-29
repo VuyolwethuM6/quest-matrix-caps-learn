@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
@@ -8,101 +7,8 @@ import { ExamQuestion } from "@/data/examModels";
 import ExamHeader from "@/components/exam/ExamHeader";
 import ExamQuestionComponent from "@/components/exam/ExamQuestion";
 import QuestionNavigation from "@/components/exam/QuestionNavigation";
-
-// Sample exam questions with different types and diagrams
-const examQuestions: ExamQuestion[] = [
-  {
-    id: "q1",
-    questionText: "Study the circuit diagram below and answer the questions that follow:",
-    diagram: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
-    type: "mcq",
-    marks: 10,
-    subQuestions: [
-      {
-        id: "q1a",
-        questionText: "What is the total resistance in the circuit?",
-        type: "mcq",
-        marks: 3,
-        options: ["10Ω", "20Ω", "30Ω", "40Ω"],
-        correctAnswer: 1
-      },
-      {
-        id: "q1b", 
-        questionText: "Calculate the current flowing through resistor R2.",
-        type: "short-answer",
-        marks: 4,
-        correctAnswer: "0.5A"
-      },
-      {
-        id: "q1c",
-        questionText: "Explain why the voltage across parallel resistors is the same.",
-        type: "essay",
-        marks: 3,
-        correctAnswer: "In parallel circuits, all components share the same two connection points, so they experience the same potential difference."
-      }
-    ]
-  },
-  {
-    id: "q2",
-    questionText: "Solve the quadratic equation: $$x^2 - 5x + 6 = 0$$",
-    type: "calculation",
-    marks: 8,
-    subQuestions: [
-      {
-        id: "q2a",
-        questionText: "Use the factoring method to solve the equation.",
-        type: "short-answer",
-        marks: 4,
-        correctAnswer: "x = 2 or x = 3"
-      },
-      {
-        id: "q2b",
-        questionText: "Verify your answer by substitution.",
-        type: "calculation",
-        marks: 4,
-        correctAnswer: "Substituting x=2: 4-10+6=0 ✓, Substituting x=3: 9-15+6=0 ✓"
-      }
-    ]
-  },
-  {
-    id: "q3",
-    questionText: "The graph below shows the motion of an object:",
-    diagram: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop",
-    type: "mcq", 
-    marks: 12,
-    subQuestions: [
-      {
-        id: "q3a",
-        questionText: "What type of motion is represented in section A-B?",
-        type: "mcq",
-        marks: 2,
-        options: ["Uniform motion", "Accelerated motion", "Decelerated motion", "No motion"],
-        correctAnswer: 0
-      },
-      {
-        id: "q3b",
-        questionText: "Calculate the acceleration in section B-C.",
-        type: "calculation",
-        marks: 5,
-        correctAnswer: "2 m/s²"
-      },
-      {
-        id: "q3c",
-        questionText: "The object is moving at constant velocity in section A-B.",
-        type: "true-false",
-        marks: 2,
-        correctAnswer: true
-      },
-      {
-        id: "q3d",
-        questionText: "Describe the physical meaning of the area under the velocity-time graph.",
-        type: "essay",
-        marks: 3,
-        correctAnswer: "The area under a velocity-time graph represents the displacement or distance traveled by the object."
-      }
-    ]
-  }
-];
+import ExamResults from "@/components/exam/ExamResults";
+import { exams } from "@/data/examData";
 
 const ExamPage: React.FC = () => {
   const { examId } = useParams<{ examId: string }>();
@@ -113,9 +19,41 @@ const ExamPage: React.FC = () => {
   const [timeRemaining, setTimeRemaining] = useState(180 * 60);
   const [isExamSubmitted, setIsExamSubmitted] = useState(false);
   const [flaggedQuestions, setFlaggedQuestions] = useState<Set<number>>(new Set());
+  const [examStartTime, setExamStartTime] = useState<number>(Date.now());
+  const [showResults, setShowResults] = useState(false);
+  const [examScore, setExamScore] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [isReviewMode, setIsReviewMode] = useState(false);
 
-  const currentQuestion = examQuestions[currentQuestionIndex];
-  const totalQuestions = examQuestions.length;
+  // Find the current exam
+  const currentExam = exams.find(exam => exam.id === examId);
+  
+  if (!currentExam) {
+    return (
+      <div className="min-h-screen bg-background p-4 flex items-center justify-center">
+        <Card className="p-8 text-center">
+          <CardContent>
+            <h1 className="text-2xl font-bold mb-4">Exam Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              The exam you're looking for doesn't exist.
+            </p>
+            <Button onClick={() => navigate("/exams")}>
+              Back to Exams
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const currentQuestion = currentExam.questions[currentQuestionIndex];
+  const totalQuestions = currentExam.questions.length;
+
+  // Initialize exam start time and duration when component mounts
+  useEffect(() => {
+    setExamStartTime(Date.now());
+    setTimeRemaining(currentExam.duration * 60);
+  }, [currentExam.duration]);
 
   // Timer effect
   useEffect(() => {
@@ -128,6 +66,33 @@ const ExamPage: React.FC = () => {
       handleSubmitExam();
     }
   }, [timeRemaining, isExamSubmitted]);
+
+  const calculateScore = () => {
+    let totalCorrect = 0;
+    let totalMarks = 0;
+
+    currentExam.questions.forEach(question => {
+      if (question.subQuestions) {
+        question.subQuestions.forEach(subQuestion => {
+          totalMarks += subQuestion.marks;
+          const userAnswer = selectedAnswers[subQuestion.id];
+          if (userAnswer === subQuestion.correctAnswer) {
+            totalCorrect += subQuestion.marks;
+          }
+        });
+      } else {
+        totalMarks += question.marks;
+        const userAnswer = selectedAnswers[question.id];
+        if (userAnswer === question.correctAnswer) {
+          totalCorrect += question.marks;
+        }
+      }
+    });
+
+    const score = Math.round((totalCorrect / totalMarks) * 100);
+    setExamScore(score);
+    setCorrectAnswers(totalCorrect);
+  };
 
   const handleAnswerChange = (questionId: string, answer: any) => {
     setSelectedAnswers(prev => ({
@@ -161,32 +126,41 @@ const ExamPage: React.FC = () => {
   };
 
   const handleSubmitExam = () => {
+    calculateScore();
+    setShowResults(true);
     setIsExamSubmitted(true);
-    console.log("Exam submitted with answers:", selectedAnswers);
   };
 
-  if (isExamSubmitted) {
+  const handleReviewAnswers = () => {
+    setShowResults(false);
+    setIsReviewMode(true);
+  };
+
+  const handleRetakeExam = () => {
+    setSelectedAnswers({});
+    setCurrentQuestionIndex(0);
+    setTimeRemaining(currentExam.duration * 60);
+    setExamStartTime(Date.now());
+    setShowResults(false);
+    setIsExamSubmitted(false);
+    setIsReviewMode(false);
+    setExamScore(0);
+    setCorrectAnswers(0);
+  };
+
+  if (isExamSubmitted && showResults) {
     return (
       <div className="min-h-screen bg-background p-4 flex items-center justify-center">
-        <Card className="w-full max-w-2xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-quest-primary">Exam Completed!</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-6">
-            <div className="text-6xl font-bold text-quest-primary">100%</div>
-            <p className="text-lg text-muted-foreground">
-              Your exam has been submitted successfully. Results will be available shortly.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Button onClick={() => navigate("/exams")}>
-                Back to Exams
-              </Button>
-              <Button variant="outline" onClick={() => window.location.reload()}>
-                Retake Exam
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <ExamResults
+          score={examScore}
+          correctAnswers={correctAnswers}
+          totalQuestions={currentExam.questions.length}
+          timeTaken={Math.floor((Date.now() - examStartTime) / 1000)}
+          examQuestions={currentExam.questions}
+          userAnswers={selectedAnswers}
+          onRetakeExam={handleRetakeExam}
+          onReviewAnswers={handleReviewAnswers}
+        />
       </div>
     );
   }
@@ -208,6 +182,7 @@ const ExamPage: React.FC = () => {
           flaggedQuestions={flaggedQuestions}
           onAnswerChange={handleAnswerChange}
           onFlagToggle={handleFlagQuestion}
+          isReviewMode={isReviewMode}
         />
 
         {/* Navigation */}
@@ -244,7 +219,7 @@ const ExamPage: React.FC = () => {
         </div>
 
         <QuestionNavigation
-          examQuestions={examQuestions}
+          examQuestions={currentExam.questions}
           currentQuestionIndex={currentQuestionIndex}
           selectedAnswers={selectedAnswers}
           flaggedQuestions={flaggedQuestions}

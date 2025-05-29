@@ -19,6 +19,8 @@ import ProfilePage from "./pages/ProfilePage";
 import TutorPage from "./pages/TutorPage";
 import ExamsPage from "./pages/ExamsPage";
 import ExamPage from "./pages/ExamPage";
+import TopicsPage from "./pages/TopicsPage";
+import TopicPracticePage from "./pages/TopicPracticePage";
 import CAPSBuddyPage from "./pages/CAPSBuddyPage";
 import BadgesPage from "./pages/BadgesPage";
 import NotFound from "./pages/NotFound";
@@ -51,6 +53,8 @@ const App = () => (
                 <Route path="/badges" element={<ProtectedRoute><BadgesPage /></ProtectedRoute>} />
                 <Route path="/exams" element={<ProtectedRoute><ExamsPage /></ProtectedRoute>} />
                 <Route path="/exam/:examId" element={<ProtectedRoute><ExamPage /></ProtectedRoute>} />
+                <Route path="/topics" element={<ProtectedRoute><TopicsPage /></ProtectedRoute>} />
+                <Route path="/topic-practice/:practiceId" element={<ProtectedRoute><TopicPracticePage /></ProtectedRoute>} />
                 <Route path="/caps-buddy" element={<ProtectedRoute><CAPSBuddyPage /></ProtectedRoute>} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

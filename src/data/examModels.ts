@@ -17,6 +17,7 @@ export interface SubQuestion {
   questionText: string;
   type: 'mcq' | 'short-answer' | 'essay' | 'calculation' | 'true-false';
   marks: number;
+  diagram?: string; // URL to diagram image
   options?: string[];
   correctAnswer?: string | number | boolean;
   explanation?: string;

@@ -7,64 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { subjects } from "@/data/curriculum";
-
-// Sample exam data - in a real app this would come from a database
-const examPapers = [
-  {
-    id: "math-2023-p1",
-    subject: "Mathematics",
-    year: 2023,
-    paper: 1,
-    duration: 180,
-    questions: 15,
-    difficulty: "Medium"
-  },
-  {
-    id: "math-2023-p2",
-    subject: "Mathematics", 
-    year: 2023,
-    paper: 2,
-    duration: 180,
-    questions: 12,
-    difficulty: "Hard"
-  },
-  {
-    id: "math-2022-p1",
-    subject: "Mathematics",
-    year: 2022,
-    paper: 1,
-    duration: 180,
-    questions: 15,
-    difficulty: "Medium"
-  },
-  {
-    id: "math-2022-p2",
-    subject: "Mathematics",
-    year: 2022,
-    paper: 2,
-    duration: 180,
-    questions: 12,
-    difficulty: "Hard"
-  },
-  {
-    id: "physics-2023-p1",
-    subject: "Physical Sciences",
-    year: 2023,
-    paper: 1,
-    duration: 180,
-    questions: 20,
-    difficulty: "Medium"
-  },
-  {
-    id: "physics-2023-p2",
-    subject: "Physical Sciences",
-    year: 2023,
-    paper: 2,
-    duration: 180,
-    questions: 15,
-    difficulty: "Hard"
-  }
-];
+import { exams } from "@/data/examData";
 
 const ExamsPage: React.FC = () => {
   const [selectedSubject, setSelectedSubject] = useState<string>("all");
@@ -72,8 +15,8 @@ const ExamsPage: React.FC = () => {
   
   // Filter exams based on selected subject
   const filteredExams = selectedSubject === "all" 
-    ? examPapers 
-    : examPapers.filter(exam => {
+    ? exams 
+    : exams.filter(exam => {
         const subject = subjects.find(s => s.name === exam.subject);
         return subject?.id === selectedSubject;
       });
@@ -85,7 +28,7 @@ const ExamsPage: React.FC = () => {
     }
     acc[exam.year].push(exam);
     return acc;
-  }, {} as Record<number, typeof examPapers>);
+  }, {} as Record<number, typeof exams>);
   
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -123,7 +66,7 @@ const ExamsPage: React.FC = () => {
       </div>
       
       {/* Exam Papers */}
-      <div className="px-4 space-y-6">
+      <div className="p-4 space-y-8">
         {Object.entries(examsByYear)
           .sort(([a], [b]) => Number(b) - Number(a))
           .map(([year, exams]) => (
@@ -140,35 +83,33 @@ const ExamsPage: React.FC = () => {
                     <Card key={exam.id} className="hover:shadow-md transition-shadow">
                       <CardContent className="p-4">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                          <div className="flex-1">
-                            <div className="flex flex-wrap items-center gap-2 mb-2">
-                              <h3 className="font-semibold">{exam.subject}</h3>
-                              <Badge variant="outline">Paper {exam.paper}</Badge>
-                              <Badge className={getDifficultyColor(exam.difficulty)}>
-                                {exam.difficulty}
-                              </Badge>
-                            </div>
-                            
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                              <div className="flex items-center gap-1">
-                                <Clock className="h-4 w-4" />
-                                {exam.duration} min
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <BookOpen className="h-4 w-4" />
-                                {exam.questions} questions
-                              </div>
-                            </div>
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <h3 className="font-semibold">{exam.subject}</h3>
+                            <Badge variant="outline">Paper {exam.paper}</Badge>
+                            <Badge className={getDifficultyColor(exam.difficulty)}>
+                              {exam.difficulty}
+                            </Badge>
                           </div>
                           
-                          <Button 
-                            className="w-full sm:w-auto"
-                            onClick={() => navigate(`/exam/${exam.id}`)}
-                          >
-                            Start Exam
-                            <ChevronRight className="ml-1 h-4 w-4" />
-                          </Button>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-1">
+                              <Clock className="h-4 w-4" />
+                              {exam.duration} min
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <BookOpen className="h-4 w-4" />
+                              {exam.totalMarks} marks
+                            </div>
+                          </div>
                         </div>
+                        
+                        <Button 
+                          className="w-full sm:w-auto mt-4"
+                          onClick={() => navigate(`/exam/${exam.id}`)}
+                        >
+                          Start Exam
+                          <ChevronRight className="ml-1 h-4 w-4" />
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}
@@ -176,7 +117,7 @@ const ExamsPage: React.FC = () => {
             </div>
           ))}
         
-        {filteredExams.length === 0 && (
+        {Object.keys(examsByYear).length === 0 && (
           <Card className="p-8 text-center">
             <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-semibold mb-2">No Exam Papers Available</h3>

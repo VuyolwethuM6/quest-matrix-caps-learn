@@ -4,7 +4,6 @@ import { Home, BookOpen, User as UserIcon, FileText, User } from "lucide-react";
 import { useProgress } from "@/contexts/ProgressContext";
 import { cn } from "@/lib/utils";
 
-// ... existing code ...
 const NavBar: React.FC = () => {
   const location = useLocation();
   const { level, xp } = useProgress();
@@ -34,38 +33,38 @@ const NavBar: React.FC = () => {
             key={item.path}
             to={item.path}
             className={cn(
-              "flex flex-col items-center relative transition-all duration-200 group", // Added group class
+              "flex flex-col items-center relative transition-all duration-200 group",
               item.isDominant ? "flex-1" : "flex-[0.8]",
               isActive(item.path) && !item.isDominant && "text-quest-primary"
             )}
           >
-            {/* Modified rendering for dominant item */}
             {item.isDominant ? (
-              <div className="flex flex-col items-center -mt-6"> {/* Lifted container using negative margin */}
+              <div className="flex flex-col items-center -mt-6">
                 <div className={cn(
-                  "w-14 h-14 rounded-full bg-gradient-to-b from-quest-primary to-quest-purple shadow-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-100", // Added group-hover
+                  "w-14 h-14 rounded-full bg-gradient-to-b from-quest-primary to-quest-purple shadow-lg flex items-center justify-center transition-transform duration-200 group-hover:scale-100",
                   isActive(item.path) ? "scale-100" : "scale-95"
                 )}>
-                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-quest-primary"> {/* Added text-quest-primary for icon color */}
+                  <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-quest-primary">
                     {item.icon}
                   </div>
                 </div>
                 <span className={cn(
-                  "text-xs font-medium mt-1", // Adjusted margin-top
-                  isActive(item.path) ? "text-quest-primary" : "text-muted-foreground group-hover:text-foreground" // Adjusted text color based on active state and hover
+                  "text-xs font-medium mt-1",
+                  isActive(item.path) ? "text-quest-primary" : "text-muted-foreground group-hover:text-foreground"
                 )}>
                   {item.label}
                 </span>
               </div>
             ) : (
-              // Existing rendering for non-dominant items
-              <div className={cn(
-                "flex flex-col items-center gap-1 py-1.5",
-                isActive(item.path) && "text-quest-primary"
-              )}>
+              <>
                 {item.icon}
-                <span className="text-xs font-medium">{item.label}</span>
-              </div>
+                <span className={cn(
+                  "text-xs font-medium mt-1",
+                  isActive(item.path) ? "text-quest-primary" : "text-muted-foreground group-hover:text-foreground"
+                )}>
+                  {item.label}
+                </span>
+              </>
             )}
           </Link>
         ))}
