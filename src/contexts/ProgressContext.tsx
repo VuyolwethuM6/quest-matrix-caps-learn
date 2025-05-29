@@ -11,11 +11,14 @@ interface ProgressContextType {
   completedQuizzes: { [key: string]: number };
   earnedBadges: string[];
   lastLoginDate: string | null;
+  showLevelUp: boolean;
+  newLevel: number;
   addXP: (amount: number) => void;
   completeLesson: (lessonId: string) => void;
   completeQuiz: (quizId: string, score: number) => void;
   earnBadge: (badgeId: string) => void;
   recordLogin: () => void;
+  setShowLevelUp: (show: boolean) => void;
 }
 
 const defaultContext: ProgressContextType = {
@@ -26,11 +29,14 @@ const defaultContext: ProgressContextType = {
   completedQuizzes: {},
   earnedBadges: [],
   lastLoginDate: null,
+  showLevelUp: false,
+  newLevel: 1,
   addXP: () => {},
   completeLesson: () => {},
   completeQuiz: () => {},
   earnBadge: () => {},
   recordLogin: () => {},
+  setShowLevelUp: () => {},
 };
 
 const ProgressContext = createContext<ProgressContextType>(defaultContext);
@@ -45,6 +51,9 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [completedQuizzes, setCompletedQuizzes] = useState<{ [key: string]: number }>({});
   const [earnedBadges, setEarnedBadges] = useState<string[]>([]);
   const [lastLoginDate, setLastLoginDate] = useState<string | null>(null);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [newLevel, setNewLevel] = useState(1);
+  const [prevLevel, setPrevLevel] = useState(1);
 
   // Calculate level based on XP
   const calculateLevel = (xp: number): number => {
@@ -54,6 +63,15 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Calculate current level
   const level = calculateLevel(xp);
+
+  // Check for level up
+  useEffect(() => {
+    if (level > prevLevel) {
+      setNewLevel(level);
+      setShowLevelUp(true);
+      setPrevLevel(level);
+    }
+  }, [level, prevLevel]);
 
   // Initialize progress document if it doesn't exist
   useEffect(() => {
@@ -225,11 +243,14 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         completedQuizzes,
         earnedBadges,
         lastLoginDate,
+        showLevelUp,
+        newLevel,
         addXP,
         completeLesson,
         completeQuiz,
         earnBadge,
-        recordLogin
+        recordLogin,
+        setShowLevelUp
       }}
     >
       {children}

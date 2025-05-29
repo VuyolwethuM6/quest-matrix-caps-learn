@@ -10,6 +10,7 @@ import MathDisplay from "@/components/MathDisplay";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { Loader2 } from "lucide-react";
 
 const LearningModule: React.FC = () => {
   const { subjectId = "", topicId = "", subtopicId = "" } = useParams();
@@ -20,23 +21,36 @@ const LearningModule: React.FC = () => {
   const [topic, setTopic] = useState<Topic | null>(null);
   const [subTopic, setSubTopic] = useState<SubTopic | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState(true);
   
   // Find the selected content
   useEffect(() => {
-    const selectedSubject = subjects.find(s => s.id === subjectId);
-    if (selectedSubject) {
-      setSubject({ name: selectedSubject.name, id: selectedSubject.id });
-      
-      const selectedTopic = selectedSubject.topics.find(t => t.id === topicId);
-      if (selectedTopic) {
-        setTopic(selectedTopic);
-        
-        const selectedSubTopic = selectedTopic.subTopics.find(st => st.id === subtopicId);
-        if (selectedSubTopic) {
-          setSubTopic(selectedSubTopic);
+    const loadContent = async () => {
+      setIsLoading(true);
+      try {
+        const selectedSubject = subjects.find(s => s.id === subjectId);
+        if (selectedSubject) {
+          setSubject({ name: selectedSubject.name, id: selectedSubject.id });
+          
+          const selectedTopic = selectedSubject.topics.find(t => t.id === topicId);
+          if (selectedTopic) {
+            setTopic(selectedTopic);
+            
+            const selectedSubTopic = selectedTopic.subTopics.find(st => st.id === subtopicId);
+            if (selectedSubTopic) {
+              setSubTopic(selectedSubTopic);
+            }
+          }
         }
+      } finally {
+        // Add a small delay to prevent flickering
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
       }
-    }
+    };
+
+    loadContent();
   }, [subjectId, topicId, subtopicId]);
   
   const handleCompleteLesson = () => {
@@ -45,8 +59,16 @@ const LearningModule: React.FC = () => {
       completeLesson(lessonId);
       
       toast({
-        title: "Lesson Completed!",
+        title: "Lesson Completed",
         description: "You've earned XP for completing this lesson.",
+        duration: 3000, // 3 seconds
+        className: "bg-quest-softPurple/20 border-quest-primary",
+        style: {
+          background: "rgba(155, 135, 245, 0.1)", // quest-softPurple with 10% opacity
+          borderColor: "var(--quest-primary)",
+          color: "var(--quest-primary)",
+          backdropFilter: "blur(8px)",
+        },
       });
     }
   };
@@ -57,6 +79,18 @@ const LearningModule: React.FC = () => {
       [blockId]: selectedIndex
     }));
   };
+  
+  // If content is loading
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-quest-primary" />
+          <p className="text-muted-foreground">Loading content...</p>
+        </div>
+      </div>
+    );
+  }
   
   // If content is not found
   if (!subject || !topic || !subTopic) {

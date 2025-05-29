@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProgress } from "@/contexts/ProgressContext";
@@ -36,19 +35,27 @@ const QuizPage: React.FC = () => {
   const quiz = subtopic?.quiz;
 
   useEffect(() => {
-    if (showResults) {
+    if (showResults && subject && topic && subtopic) {
       const score = Math.round((correctAnswers / (quiz?.questions.length || 1)) * 100);
+      const quizId = `${subject.id}-${topic.id}-${subtopic.id}-quiz`;
+      
+      // Show toast with custom styling
       toast({
-        title: "Quiz Completed!",
+        title: "Quiz Completed",
         description: `You scored ${score}% on the quiz.`,
+        duration: 3000, // 3 seconds
+        className: "bg-quest-softPurple/20 border-quest-primary",
+        style: {
+          background: "rgba(155, 135, 245, 0.1)", // quest-softPurple with 10% opacity
+          borderColor: "var(--quest-primary)",
+          color: "var(--quest-primary)",
+          backdropFilter: "blur(8px)",
+        },
       });
       
-      if (subject && topic && subtopic) {
-        const quizId = `${subject.id}-${topic.id}-${subtopic.id}-quiz`;
-        completeQuiz(quizId, score);
-      }
+      completeQuiz(quizId, score);
     }
-  }, [showResults, correctAnswers, quiz?.questions.length, toast, subject, topic, subtopic, completeQuiz]);
+  }, [showResults]); // Only run when showResults changes
 
   const handleStartQuiz = () => {
     setQuizStarted(true);
