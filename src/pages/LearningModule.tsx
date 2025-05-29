@@ -15,7 +15,7 @@ import { Loader2 } from "lucide-react";
 const LearningModule: React.FC = () => {
   const { subjectId = "", topicId = "", subtopicId = "" } = useParams();
   const { toast } = useToast();
-  const { completeLesson } = useProgress();
+  const { completeLesson, completedLessons } = useProgress();
   
   const [subject, setSubject] = useState<{name: string, id: string} | null>(null);
   const [topic, setTopic] = useState<Topic | null>(null);
@@ -79,6 +79,10 @@ const LearningModule: React.FC = () => {
       [blockId]: selectedIndex
     }));
   };
+
+  const isLessonCompleted = subject && topic && subTopic 
+    ? completedLessons.includes(`${subject.id}-${topic.id}-${subTopic.id}`)
+    : false;
   
   // If content is loading
   if (isLoading) {
@@ -131,30 +135,30 @@ const LearningModule: React.FC = () => {
           </div>
         );
         
-        case 'example':
-          return (
-            <div key={block.id} className="mb-6 bg-quest-softBlue/30 p-5 rounded-lg border border-quest-blue/20">
-              <h3 className="font-medium mb-2 text-quest-blue flex items-center gap-2">
-                <PenTool size={16} /> Example:
-              </h3>
-              <div className="prose">
-                <ReactMarkdown 
-                  remarkPlugins={[remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                  components={{
-                    p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
-                  }}
-                >
-                  {block.content as string}
-                </ReactMarkdown>
-              </div>
+      case 'example':
+        return (
+          <div key={block.id} className="mb-6 bg-quest-softBlue/30 p-5 rounded-lg border border-quest-blue/20">
+            <h3 className="font-medium mb-2 text-quest-blue flex items-center gap-2">
+              <PenTool size={16} /> Example:
+            </h3>
+            <div className="prose">
+              <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                  p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
+                }}
+              >
+                {block.content as string}
+              </ReactMarkdown>
             </div>
-          );
+          </div>
+        );
         
       case 'image':
         return (
           <div key={block.id} className="mb-6">
-            <div className="rounded-lg overflow-hidden ">
+            <div className="rounded-lg overflow-hidden">
               <img 
                 src={block.content as string}
                 alt={`Figure ${block.id}`}
@@ -187,14 +191,55 @@ const LearningModule: React.FC = () => {
           </div>
         );
 
-        case 'practice':
-          const practiceContent = typeof block.content === 'string' ? JSON.parse(block.content) : block.content;
-          return (
-            <div key={block.id} className="mb-6 bg-quest-softPurple/20 p-5 rounded-lg border border-quest-purple/20">
-              <h3 className="font-medium mb-2 text-quest-purple flex items-center gap-2">
-                <PenTool size={16} /> Practice:
-              </h3>
-              <div className="mb-4 prose">
+      case 'practice':
+        const practiceContent = typeof block.content === 'string' ? JSON.parse(block.content) : block.content;
+        return (
+          <div key={block.id} className="mb-6 bg-quest-softPurple/20 p-5 rounded-lg border border-quest-purple/20">
+            <h3 className="font-medium mb-2 text-quest-purple flex items-center gap-2">
+              <PenTool size={16} /> Practice:
+            </h3>
+            <div className="mb-4 prose">
+              <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                  p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
+                }}
+              >
+                {practiceContent.question}
+              </ReactMarkdown>
+            </div>
+            <div className="space-y-2">
+              {practiceContent.options.map((option: string, index: number) => (
+                <button
+                  key={index}
+                  onClick={() => handlePracticeAnswer(block.id, index, practiceContent.correctAnswer)}
+                  className={`w-full p-3 text-left rounded-lg transition-colors ${
+                    selectedAnswers[block.id] === index
+                      ? selectedAnswers[block.id] === practiceContent.correctAnswer
+                        ? 'bg-green-100 border-green-500'
+                        : 'bg-red-100 border-red-500'
+                      : 'bg-white hover:bg-quest-softPurple/30'
+                  } border`}
+                >
+                  <ReactMarkdown 
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                    components={{
+                      p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
+                    }}
+                  >
+                    {option}
+                  </ReactMarkdown>
+                </button>
+              ))}
+            </div>
+            {selectedAnswers[block.id] !== undefined && (
+              <div className={`mt-4 p-3 rounded-lg ${
+                selectedAnswers[block.id] === practiceContent.correctAnswer
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}>
                 <ReactMarkdown 
                   remarkPlugins={[remarkMath]}
                   rehypePlugins={[rehypeKatex]}
@@ -202,93 +247,52 @@ const LearningModule: React.FC = () => {
                     p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
                   }}
                 >
-                  {practiceContent.question}
+                  {practiceContent.explanation}
                 </ReactMarkdown>
               </div>
-              <div className="space-y-2">
-                {practiceContent.options.map((option: string, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePracticeAnswer(block.id, index, practiceContent.correctAnswer)}
-                    className={`w-full p-3 text-left rounded-lg transition-colors ${
-                      selectedAnswers[block.id] === index
-                        ? selectedAnswers[block.id] === practiceContent.correctAnswer
-                          ? 'bg-green-100 border-green-500'
-                          : 'bg-red-100 border-red-500'
-                        : 'bg-white hover:bg-quest-softPurple/30'
-                    } border`}
-                  >
-                    <ReactMarkdown 
-                      remarkPlugins={[remarkMath]}
-                      rehypePlugins={[rehypeKatex]}
-                      components={{
-                        p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
-                      }}
-                    >
-                      {option}
-                    </ReactMarkdown>
-                  </button>
-                ))}
-              </div>
-              {selectedAnswers[block.id] !== undefined && (
-                <div className={`mt-4 p-3 rounded-lg ${
-                  selectedAnswers[block.id] === practiceContent.correctAnswer
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
-                }`}>
-                  <ReactMarkdown 
-                    remarkPlugins={[remarkMath]}
-                    rehypePlugins={[rehypeKatex]}
-                    components={{
-                      p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
-                    }}
-                  >
-                    {practiceContent.explanation}
-                  </ReactMarkdown>
-                </div>
-              )}
-            </div>
-          );
+            )}
+          </div>
+        );
 
-          case 'tip':
-            return (
-              <div key={block.id} className="mb-6 bg-amber-50 p-5 rounded-lg border border-amber-200">
-                <h3 className="font-medium mb-2 text-amber-700 flex items-center gap-2">
-                  <Lightbulb size={16} className="text-amber-500" /> Memory Tip:
-                </h3>
-                <div className="text-amber-600 prose">
-                  <ReactMarkdown 
-                    remarkPlugins={[remarkMath]}
-                    rehypePlugins={[rehypeKatex]}
-                    components={{
-                      p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
-                    }}
-                  >
-                    {block.content as string}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            );
-            
-          case 'exam-tip':
-            return (
-              <div key={block.id} className="mb-6 bg-quest-softPurple/20 p-5 rounded-lg border border-quest-purple/20">
-                <h3 className="font-medium mb-2 text-quest-purple flex items-center gap-2">
-                  <BookOpen size={16} /> Exam Tips:
-                </h3>
-                <div className="prose">
-                  <ReactMarkdown 
-                    remarkPlugins={[remarkMath]}
-                    rehypePlugins={[rehypeKatex]}
-                    components={{
-                      p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
-                    }}
-                  >
-                    {block.content as string}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            );
+      case 'tip':
+        return (
+          <div key={block.id} className="mb-6 bg-amber-50 p-5 rounded-lg border border-amber-200">
+            <h3 className="font-medium mb-2 text-amber-700 flex items-center gap-2">
+              <Lightbulb size={16} className="text-amber-500" /> Memory Tip:
+            </h3>
+            <div className="text-amber-600 prose">
+              <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                  p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
+                }}
+              >
+                {block.content as string}
+              </ReactMarkdown>
+            </div>
+          </div>
+        );
+        
+      case 'exam-tip':
+        return (
+          <div key={block.id} className="mb-6 bg-quest-softPurple/20 p-5 rounded-lg border border-quest-purple/20">
+            <h3 className="font-medium mb-2 text-quest-purple flex items-center gap-2">
+              <BookOpen size={16} /> Exam Tips:
+            </h3>
+            <div className="prose">
+              <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                  p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
+                }}
+              >
+                {block.content as string}
+              </ReactMarkdown>
+            </div>
+          </div>
+        );
         
       default:
         return null;
@@ -317,18 +321,30 @@ const LearningModule: React.FC = () => {
       
       {/* Content */}
       <div className="p-6 max-w-3xl mx-auto">
-        {/* <h2 className="text-2xl font-bold mb-6">{subTopic.name}</h2> */}
-        {subTopic.content.map(renderContentBlock)}
+        {subTopic.content.map((block, index) => renderContentBlock(block, index))}
       </div>
       
       {/* Quiz Button */}
-      <div className="p-6 border-t sticky bottom-0 bg-background/95 backdrop-blur-sm">
+      <div className="sticky bottom-0 bg-background border-t p-4">
         <div className="flex gap-4 max-w-3xl mx-auto">
           <Button 
             onClick={handleCompleteLesson}
-            className="flex-1 bg-quest-primary hover:bg-quest-secondary gap-2"
+            disabled={isLessonCompleted}
+            className={`flex-1 gap-2 ${
+              isLessonCompleted 
+                ? 'bg-green-100 text-green-800 hover:bg-green-100 cursor-not-allowed'
+                : 'bg-quest-primary hover:bg-quest-secondary'
+            }`}
           >
-            <CheckCircle size={18} /> Mark as Complete
+            {isLessonCompleted ? (
+              <>
+                <CheckCircle size={18} className="text-green-600" /> Completed
+              </>
+            ) : (
+              <>
+                <CheckCircle size={18} /> Mark as Complete
+              </>
+            )}
           </Button>
           
           <Link 

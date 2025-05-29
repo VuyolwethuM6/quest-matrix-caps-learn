@@ -14,7 +14,7 @@ const XPProgress: React.FC<XPProgressProps> = ({ size = "md", showText = true })
   // Calculate XP required for next level
   const xpForCurrentLevel = 50 * (level - 1) * (level - 1);
   const xpForNextLevel = 50 * level * level;
-  const xpInCurrentLevel = Math.max(0, xp - xpForCurrentLevel);
+  const xpInCurrentLevel = xp - xpForCurrentLevel;
   const xpRequiredForNextLevel = xpForNextLevel - xpForCurrentLevel;
   const progress = Math.min(100, Math.max(0, (xpInCurrentLevel / xpRequiredForNextLevel) * 100));
   

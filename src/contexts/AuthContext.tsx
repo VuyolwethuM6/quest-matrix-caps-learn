@@ -32,15 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
-      
-      // Reset onboarding state when user logs out
-      if (!user) {
-        localStorage.removeItem("caps_user_onboarded");
-        localStorage.removeItem("caps_user_name");
-        localStorage.removeItem("caps_user_grade");
-        localStorage.removeItem("caps_user_avatar");
-        localStorage.removeItem("caps_user_subjects");
-      }
     });
 
     // Cleanup subscription
@@ -69,8 +60,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAdmin: false,
       });
       
-      // Reset onboarding state for new users
-      localStorage.removeItem("caps_user_onboarded");
       return userCredential;
     } catch (error) {
       console.error('Error signing up:', error);
@@ -81,12 +70,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = async () => {
     try {
       await signOut(auth);
-      // Reset onboarding state on logout
-      localStorage.removeItem("caps_user_onboarded");
-      localStorage.removeItem("caps_user_name");
-      localStorage.removeItem("caps_user_grade");
-      localStorage.removeItem("caps_user_avatar");
-      localStorage.removeItem("caps_user_subjects");
     } catch (error) {
       console.error('Error signing out:', error);
       throw error;

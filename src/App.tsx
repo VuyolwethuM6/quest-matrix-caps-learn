@@ -8,6 +8,7 @@ import { ProgressProvider, useProgress } from "./contexts/ProgressContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LevelUpModal from "./components/LevelUpModal";
+import BadgeEarnedModal from "@/components/BadgeEarnedModal";
 
 // Pages
 import SplashScreen from "./pages/SplashScreen";
@@ -31,7 +32,14 @@ import AdminDashboard from "./pages/AdminDashboard";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  const { showLevelUp, setShowLevelUp, newLevel } = useProgress();
+  const { 
+    showLevelUp, 
+    setShowLevelUp, 
+    newLevel,
+    showBadgeEarned,
+    setShowBadgeEarned,
+    newBadgeId 
+  } = useProgress();
 
   return (
     <TooltipProvider>
@@ -41,6 +49,11 @@ const AppContent = () => {
         isOpen={showLevelUp} 
         onClose={() => setShowLevelUp(false)} 
         newLevel={newLevel}
+      />
+      <BadgeEarnedModal
+        isOpen={showBadgeEarned}
+        onClose={() => setShowBadgeEarned(false)}
+        badgeId={newBadgeId || ''}
       />
       <BrowserRouter>
         <Routes>

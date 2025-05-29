@@ -32,7 +32,7 @@ export const subjects: Subject[] = [
               {
                 "type": "example",
                 "id": "quadratic-sa-example",
-                "content": "Example: In a Johannesburg school, a quadratic equation models a projectile’s height: x² - 4x + 3 = 0. Factorize: (x - 3)(x - 1) = 0. Solutions: x = 1 or x = 3."
+                "content": "Example: In a Johannesburg school, a quadratic equation models a projectile's height: x² - 4x + 3 = 0. Factorize: (x - 3)(x - 1) = 0. Solutions: x = 1 or x = 3."
               },
               {
                 "type": "text",
@@ -1022,7 +1022,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "first-law-intro",
-                  "content": "***Newton's First Law states:** *An object continues in a state of rest or uniform velocity (constant speed in a straight line) unless acted upon by a net (resultant) force.* \n\n *Newton’s first law of motion is sometimes referred to as the law of* **inertia.** \n\n"
+                  "content": "***Newton's First Law states:** *An object continues in a state of rest or uniform velocity (constant speed in a straight line) unless acted upon by a net (resultant) force.* \n\n *Newton's first law of motion is sometimes referred to as the law of* **inertia.** \n\n"
                 },
                 {
                   "type": "text",
@@ -1103,21 +1103,21 @@ export const subjects: Subject[] = [
                   "type": "practice",
                   "id": "first-law-practice",
                   "content": {
-                    "question": "A crate of oranges sits still on a Durban market stall. Why doesn’t it move?",
+                    "question": "A crate of oranges sits still on a Durban market stall. Why doesn't it move?",
                     "options": [
-                      "The stall’s upward force equals the crate’s weight",
+                      "The stall's upward force equals the crate's weight",
                       "The crate is glued to the stall",
                       "The air holds it down",
                       "The crate has no mass"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "The normal force from the stall balances the crate’s weight (gravity), so the net force is zero, and it stays at rest."
+                    "explanation": "The normal force from the stall balances the crate's weight (gravity), so the net force is zero, and it stays at rest."
                   }
                 },
                 {
                   "type": "tip",
                   "id": "first-law-memory-aid",
-                  "content": " **Things don’t move or stop unless something makes them!** \n *Like that ball you kicked in the street — it only stops because the road, a wall, or a parked car gets in the way*"
+                  "content": " **Things don't move or stop unless something makes them!** \n *Like that ball you kicked in the street — it only stops because the road, a wall, or a parked car gets in the way*"
                 }
               ],
               "quiz": {
@@ -1133,7 +1133,7 @@ export const subjects: Subject[] = [
                       "Zero",
                       "100 N",
                       "500 N",
-                      "Depends on the car’s mass"
+                      "Depends on the car's mass"
                     ],
                     "correctAnswer": 0,
                     "explanation": "A car at constant velocity has no net force (F_net = 0 N), as forces like engine and friction balance out. (From document, page 8)"
@@ -1143,7 +1143,7 @@ export const subjects: Subject[] = [
                     "type": "true-false",
                     "text": "An object can change direction without a net force acting on it.",
                     "correctAnswer": false,
-                    "explanation": "Newton’s First Law says any change in velocity (speed or direction) requires a net force. (From document, page 7)"
+                    "explanation": "Newton's First Law says any change in velocity (speed or direction) requires a net force. (From document, page 7)"
                   },
 
                 ]
@@ -1152,12 +1152,12 @@ export const subjects: Subject[] = [
             {
               "id": "newtons-second-law",
               "name": "Newton's Second Law: Force = Mass × Acceleration",
-              "description": "The push you give and the object’s heft decide how fast it zips!",
+              "description": "The push you give and the object's heft decide how fast it zips!",
               "content": [
                 {
                   "type": "text",
                   "id": "second-law-intro",
-                  "content": "Newton’s Second Law states: A net force (F_net) on an object causes it to accelerate in the direction of the force. The acceleration (a) is directly proportional to the force and inversely proportional to the mass (m). Formula: F_net = ma. (From document, page 4)"
+                  "content": "Newton's Second Law states: A net force (F_net) on an object causes it to accelerate in the direction of the force. The acceleration (a) is directly proportional to the force and inversely proportional to the mass (m). Formula: F_net = ma. (From document, page 4)"
                 },
                 {
                   "type": "formula",
@@ -1183,7 +1183,7 @@ export const subjects: Subject[] = [
                   "type": "practice",
                   "id": "second-law-practice",
                   "content": {
-                    "question": "A 4.5 kg laundry cart is pushed with 60 N. What’s the acceleration? (Ignore friction) (From document, page 10)",
+                    "question": "A 4.5 kg laundry cart is pushed with 60 N. What's the acceleration? (Ignore friction) (From document, page 10)",
                     "options": [
                       "13.33 m/s²",
                       "6 m/s²",
@@ -1202,13 +1202,13 @@ export const subjects: Subject[] = [
               ],
               "quiz": {
                 "id": "second-law-quiz",
-                "title": "Newton’s Second Law Quiz",
+                "title": "Newton's Second Law Quiz",
                 "description": "Test your skills with force, mass, and acceleration!",
                 "questions": [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "A 380 kg pile of rubble is pushed with 900 kN. What’s the acceleration? (Ignore friction) (From document, page 17)",
+                    "text": "A 380 kg pile of rubble is pushed with 900 kN. What's the acceleration? (Ignore friction) (From document, page 17)",
                     "options": [
                       "2368.42 m/s²",
                       "2.37 m/s²",
@@ -1237,7 +1237,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "third-law-intro",
-                  "content": "Newton’s Third Law states: When object A exerts a force on object B, object B exerts an equal and opposite force on object A. These forces are equal in magnitude, opposite in direction, act on different objects, and occur simultaneously. They don’t cancel out. (From document, page 4)"
+                  "content": "Newton's Third Law states: When object A exerts a force on object B, object B exerts an equal and opposite force on object A. These forces are equal in magnitude, opposite in direction, act on different objects, and occur simultaneously. They don't cancel out. (From document, page 4)"
                 },
                 {
                   "type": "example",
@@ -1247,7 +1247,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "text",
                   "id": "third-law-properties",
-                  "content": "Properties of action-reaction pairs:\n• Equal magnitude\n• Opposite direction\n• Act on different objects\n• Simultaneous\n• Don’t cancel out (different objects)."
+                  "content": "Properties of action-reaction pairs:\n• Equal magnitude\n• Opposite direction\n• Act on different objects\n• Simultaneous\n• Don't cancel out (different objects)."
                 },
                 {
                   "type": "text",
@@ -1268,11 +1268,11 @@ export const subjects: Subject[] = [
                   "type": "practice",
                   "id": "third-law-practice",
                   "content": {
-                    "question": "A hammer hits a nail. What’s the reaction force? (From document, page 18)",
+                    "question": "A hammer hits a nail. What's the reaction force? (From document, page 18)",
                     "options": [
                       "Nail pushes back on hammer",
                       "Hammer pushes on ground",
-                      "Nail’s weight pulls down",
+                      "Nail's weight pulls down",
                       "Air resists the hammer"
                     ],
                     "correctAnswer": 0,
@@ -1282,13 +1282,13 @@ export const subjects: Subject[] = [
               ],
               "quiz": {
                 "id": "third-law-quiz",
-                "title": "Newton’s Third Law Quiz",
+                "title": "Newton's Third Law Quiz",
                 "description": "Can you identify action-reaction pairs?",
                 "questions": [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "A brick on a scaffold is held up by the scaffold’s force. What’s the reaction force? (From document, page 18)",
+                    "text": "A brick on a scaffold is held up by the scaffold's force. What's the reaction force? (From document, page 18)",
                     "options": [
                       "Earth pulls brick down",
                       "Brick pushes down on scaffold",
@@ -1303,7 +1303,7 @@ export const subjects: Subject[] = [
                     "type": "true-false",
                     "text": "Action-reaction forces act on the same object and cancel out. (From document, page 10)",
                     "correctAnswer": false,
-                    "explanation": "They act on different objects, so they don’t cancel out."
+                    "explanation": "They act on different objects, so they don't cancel out."
                   },
 
                 ]
@@ -1343,10 +1343,10 @@ export const subjects: Subject[] = [
                       "Normal force",
                       "Weight",
                       "Applied force",
-                      "Table’s force on floor"
+                      "Table's force on floor"
                     ],
                     "correctAnswer": 3,
-                    "explanation": "Free-body diagram shows forces on the toolbox: normal force, weight (98 N), applied force (23 N), friction (if present). Table’s force on floor acts on the table. (From document, page 18, Q2)"
+                    "explanation": "Free-body diagram shows forces on the toolbox: normal force, weight (98 N), applied force (23 N), friction (if present). Table's force on floor acts on the table. (From document, page 18, Q2)"
                   }
                 }
               ],
@@ -1358,7 +1358,7 @@ export const subjects: Subject[] = [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "A wheelbarrow is pushed with 35 N at 30° with 14 N friction. What’s the net force? (From document, page 18)",
+                    "text": "A wheelbarrow is pushed with 35 N at 30° with 14 N friction. What's the net force? (From document, page 18)",
                     "options": [
                       "49 N",
                       "21 N",
@@ -1408,7 +1408,7 @@ export const subjects: Subject[] = [
                   "type": "practice",
                   "id": "revision-practice",
                   "content": {
-                    "question": "What’s the weight of a 5 kg crate? (From document, page 5)",
+                    "question": "What's the weight of a 5 kg crate? (From document, page 5)",
                     "options": [
                       "49 N",
                       "5 N",
@@ -1428,7 +1428,7 @@ export const subjects: Subject[] = [
                   {
                     "id": "q1",
                     "type": "mcq",
-                    "text": "A 60 kg crate is pulled with 190 N at 30°. What’s the horizontal force component? (From document, page 20)",
+                    "text": "A 60 kg crate is pulled with 190 N at 30°. What's the horizontal force component? (From document, page 20)",
                     "options": [
                       "164.54 N",
                       "95 N",
@@ -2201,5 +2201,121 @@ export type Avatar = {
   name: string;
   image: string;
 };
+
+export const badges = {
+  // Level Badges
+  level_10: {
+    id: 'level_10',
+    name: 'Level 10 Achiever',
+    description: 'Reached level 10',
+    icon: '🎯',
+    color: 'bg-blue-100 text-blue-800',
+    requirement: { type: 'level', value: 10 }
+  },
+  level_20: {
+    id: 'level_20',
+    name: 'Level 20 Master',
+    description: 'Reached level 20',
+    icon: '🎯',
+    color: 'bg-purple-100 text-purple-800',
+    requirement: { type: 'level', value: 20 }
+  },
+  level_30: {
+    id: 'level_30',
+    name: 'Level 30 Legend',
+    description: 'Reached level 30',
+    icon: '🎯',
+    color: 'bg-indigo-100 text-indigo-800',
+    requirement: { type: 'level', value: 30 }
+  },
+
+  // Streak Badges
+  streak_7: {
+    id: 'streak_7',
+    name: '7-Day Streak',
+    description: 'Maintained a 7-day learning streak',
+    icon: '🔥',
+    color: 'bg-orange-100 text-orange-800',
+    requirement: { type: 'streak', value: 7 }
+  },
+  streak_14: {
+    id: 'streak_14',
+    name: '14-Day Streak',
+    description: 'Maintained a 14-day learning streak',
+    icon: '🔥',
+    color: 'bg-red-100 text-red-800',
+    requirement: { type: 'streak', value: 14 }
+  },
+  streak_30: {
+    id: 'streak_30',
+    name: '30-Day Streak',
+    description: 'Maintained a 30-day learning streak',
+    icon: '🔥',
+    color: 'bg-pink-100 text-pink-800',
+    requirement: { type: 'streak', value: 30 }
+  },
+
+  // Subject Completion Badges
+  subject_math: {
+    id: 'subject_math',
+    name: 'Mathematics Master',
+    description: 'Completed all Mathematics topics',
+    icon: '📐',
+    color: 'bg-green-100 text-green-800',
+    requirement: { type: 'subject_completion', value: 'mathematics' }
+  },
+  subject_physics: {
+    id: 'subject_physics',
+    name: 'Physics Pro',
+    description: 'Completed all Physics topics',
+    icon: '⚡',
+    color: 'bg-yellow-100 text-yellow-800',
+    requirement: { type: 'subject_completion', value: 'physics' }
+  },
+
+  // Topic Completion Badges
+  topic_algebra: {
+    id: 'topic_algebra',
+    name: 'Algebra Ace',
+    description: 'Completed all Algebra subtopics',
+    icon: '📊',
+    color: 'bg-blue-100 text-blue-800',
+    requirement: { type: 'topic_completion', value: 'algebra' }
+  },
+  topic_mechanics: {
+    id: 'topic_mechanics',
+    name: 'Mechanics Master',
+    description: 'Completed all Mechanics subtopics',
+    icon: '⚙️',
+    color: 'bg-purple-100 text-purple-800',
+    requirement: { type: 'topic_completion', value: 'mechanics' }
+  },
+
+  // Quiz Performance Badges
+  quiz_perfect: {
+    id: 'quiz_perfect',
+    name: 'Perfect Score',
+    description: 'Achieved 100% on any quiz',
+    icon: '💯',
+    color: 'bg-green-100 text-green-800',
+    requirement: { type: 'quiz_score', value: 100 }
+  },
+  quiz_excellent: {
+    id: 'quiz_excellent',
+    name: 'Excellent Performance',
+    description: 'Achieved 90% or higher on any quiz',
+    icon: '⭐',
+    color: 'bg-yellow-100 text-yellow-800',
+    requirement: { type: 'quiz_score', value: 90 }
+  },
+  quiz_consistent: {
+    id: 'quiz_consistent',
+    name: 'Consistent Learner',
+    description: 'Completed 10 quizzes with 80% or higher',
+    icon: '📈',
+    color: 'bg-blue-100 text-blue-800',
+    requirement: { type: 'quiz_consistency', value: { count: 10, score: 80 } }
+  }
+} as const;
 
 export default subjects;
