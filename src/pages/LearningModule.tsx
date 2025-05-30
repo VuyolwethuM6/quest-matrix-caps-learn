@@ -10,7 +10,7 @@ import MathDisplay from "@/components/MathDisplay";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import { Loader2 } from "lucide-react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const LearningModule: React.FC = () => {
   const { subjectId = "", topicId = "", subtopicId = "" } = useParams();
@@ -87,12 +87,11 @@ const LearningModule: React.FC = () => {
   // If content is loading
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-quest-primary" />
-          <p className="text-muted-foreground">Loading content...</p>
-        </div>
-      </div>
+      <LoadingSpinner 
+        fullScreen 
+        text="Loading content..." 
+        size="md"
+      />
     );
   }
   

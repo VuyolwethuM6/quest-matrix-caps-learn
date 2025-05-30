@@ -1,14 +1,13 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Allow all crawlers
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://viva-vts.vercel.app/sitemap.xml
+
+# Disallow admin routes
+Disallow: /admin
+Disallow: /api/
+
+# Crawl-delay
+Crawl-delay: 10

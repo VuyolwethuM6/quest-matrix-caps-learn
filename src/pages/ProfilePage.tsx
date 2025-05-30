@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Trophy, BookOpen, Award, LogOut, Calendar, ChevronRight, Loader2, Trash2 } from "lucide-react";
+import { Trophy, BookOpen, Award, LogOut, Calendar, ChevronRight, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
@@ -22,6 +22,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { XPInfoTooltip } from '@/components/XPInfoTooltip';
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ProfilePage: React.FC = () => {
   const { name, grade, avatar } = useUser();
@@ -165,7 +166,7 @@ const ProfilePage: React.FC = () => {
     >
       {isResetting ? (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <LoadingSpinner size="sm" text="" className="mr-2" />
           Resetting...
         </>
       ) : (
@@ -206,7 +207,7 @@ const ProfilePage: React.FC = () => {
       >
         {isResetting ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <LoadingSpinner size="sm" text="" className="mr-2" />
             Resetting...
           </>
         ) : (

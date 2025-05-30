@@ -32,6 +32,7 @@ import { ContentManager } from '@/components/admin/ContentManager';
 import { UserManager } from '@/components/admin/UserManager';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface User {
   id: string;
@@ -916,11 +917,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-quest-primary"></div>
-      </div>
-    );
+    return <LoadingSpinner fullScreen />;
   }
 
   if (!isAdmin) {
@@ -1078,9 +1075,7 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <ScrollArea className="h-[600px]">
                   {isLoadingLogs ? (
-                    <div className="flex items-center justify-center h-32">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-quest-primary"></div>
-                    </div>
+                    <LoadingSpinner text="Loading activity logs..." />
                   ) : activityLogs.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No activity logs found
@@ -1182,9 +1177,7 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <ScrollArea className="h-[600px]">
                   {isLoadingAlerts ? (
-                    <div className="flex items-center justify-center h-32">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-quest-primary"></div>
-                    </div>
+                    <LoadingSpinner text="Loading alerts..." />
                   ) : systemAlerts.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No system alerts found
@@ -1315,7 +1308,7 @@ const AdminDashboard: React.FC = () => {
                         <AlertDialogDescription>
                           {isAnalyzing ? (
                             <div className="flex items-center justify-center py-4">
-                              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-quest-primary"></div>
+                              <LoadingSpinner size="md" />
                             </div>
                           ) : (
                             <div className="space-y-2">

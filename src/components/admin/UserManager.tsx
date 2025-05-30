@@ -39,6 +39,7 @@ import { Separator } from "@/components/ui/separator";
 import { collection, query, where, orderBy, limit, getDocs, doc, getDoc, onSnapshot, Timestamp, DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { logActivity, ActivityLogData } from '@/lib/activity-logger';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface User {
   id: string;
@@ -893,7 +894,7 @@ export const UserManager: React.FC<UserManagerProps> = ({
 
                   {isLoadingActivities ? (
                     <div className="flex items-center justify-center p-4">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                      <LoadingSpinner size="md" />
                     </div>
                   ) : activityLogs.length > 0 ? (
                     <div className="space-y-2">
