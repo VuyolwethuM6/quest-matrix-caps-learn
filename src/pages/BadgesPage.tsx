@@ -13,7 +13,7 @@ const BadgesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header with Back Button */}
-      <div className="bg-gradient-to-br from-quest-primary to-quest-purple p-6 text-white">
+      <div className="sticky top-0 z-50 bg-gradient-to-br from-quest-primary/80 to-quest-purple/80 backdrop-blur-md p-6 text-white border-b border-white/10">
         <div className="flex items-center gap-3 mb-4">
           <Button
             variant="ghost"
