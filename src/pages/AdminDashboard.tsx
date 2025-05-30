@@ -45,6 +45,14 @@ interface User {
   createdAt?: any;
   updatedAt?: any;
   lastLogin?: any;
+  sessionStats?: {
+    lastLogin: any;
+    lastLogout: any;
+    totalSessions: number;
+    totalTimeSpent: number; // in minutes
+    averageSessionDuration: number; // in minutes
+    currentSessionStart?: any;
+  };
   selectedSubjects?: Array<{
     id: string;
     name: string;
@@ -92,6 +100,9 @@ interface Progress {
 
 interface PlatformStats {
   totalUsers: number;
+  totalDocuments: number;
+  totalStudyPlans: number;
+  totalBadges: number;
   activeUsers: number;
   totalAdmins: number;
   totalContent: number;
@@ -154,6 +165,9 @@ const AdminDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<PlatformStats>({
     totalUsers: 0,
+    totalDocuments: 0,
+    totalStudyPlans: 0,
+    totalBadges: 0,
     activeUsers: 0,
     totalAdmins: 0,
     totalContent: 0,
@@ -192,7 +206,9 @@ const AdminDashboard: React.FC = () => {
 
       try {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
-        if (!userDoc.exists() || !userDoc.data().isAdmin) {
+        const userData = userDoc.data();
+        
+        if (!userDoc.exists() || !userData?.isAdmin) {
           toast({
             title: "Access Denied",
             description: "You don't have permission to access this page.",
@@ -203,14 +219,23 @@ const AdminDashboard: React.FC = () => {
         }
 
         setIsAdmin(true);
-        await Promise.all([fetchUsers(), fetchPlatformStats()]);
+        // Initialize all data fetching
+        await Promise.all([
+          fetchUsers(),
+          fetchPlatformStats(),
+          fetchContentBlocks(),
+          fetchContentStructure(),
+          fetchActivityLogs(),
+          fetchSystemAlerts()
+        ]);
       } catch (error) {
         console.error('Error checking admin status:', error);
         toast({
           title: "Error",
-          description: "Failed to verify admin status.",
+          description: "Failed to verify admin status. Please try again.",
           variant: "destructive",
         });
+        navigate('/dashboard');
       } finally {
         setLoading(false);
       }
@@ -226,7 +251,7 @@ const AdminDashboard: React.FC = () => {
         id: doc.id,
         ...doc.data()
       })) as User[];
-      setUsers(usersData);
+      setUsers(usersData || []);
     } catch (error) {
       console.error('Error fetching users:', error);
       toast({
@@ -234,88 +259,102 @@ const AdminDashboard: React.FC = () => {
         description: "Failed to fetch users.",
         variant: "destructive",
       });
+      setUsers([]);
     }
   };
 
   const fetchPlatformStats = async () => {
     try {
+      // Get total users
       const usersSnapshot = await getDocs(collection(db, 'users'));
-      const usersData = usersSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as User[];
+      const totalUsers = usersSnapshot.size;
+      const totalAdmins = usersSnapshot.docs.filter(doc => doc.data().isAdmin).length;
 
-      const totalUsers = usersData.length;
-      const totalAdmins = usersData.filter(user => user.isAdmin).length;
+      // Get total documents
+      const documentsSnapshot = await getDocs(collection(db, 'documents'));
+      const totalDocuments = documentsSnapshot.size;
 
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-      const activeUsers = usersData.filter(user => {
-        const lastLogin = user.progress?.lastLoginDate?.toDate();
-        return lastLogin && lastLogin > sevenDaysAgo;
-      }).length;
+      // Get total study plans
+      const studyPlansSnapshot = await getDocs(collection(db, 'studyPlans'));
+      const totalStudyPlans = studyPlansSnapshot.size;
 
-      const modulesSnapshot = await getDocs(collection(db, 'modules'));
-      const modulesData = modulesSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      // Get total badges
+      const badgesSnapshot = await getDocs(collection(db, 'badges'));
+      const totalBadges = badgesSnapshot.size;
 
-      const totalContent = modulesData.length;
+      // Get recent activity with session stats
+      const recentActivity = usersSnapshot.docs
+        .map(doc => {
+          const data = doc.data();
+          const sessionStats = data.sessionStats || {};
+          const lastLogin = sessionStats.lastLogin || data.lastLogin;
+          
+          // Calculate current session duration if user is currently logged in
+          let currentSessionDuration = 0;
+          if (sessionStats.currentSessionStart) {
+            const startTime = sessionStats.currentSessionStart.toDate();
+            const endTime = new Date();
+            currentSessionDuration = Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60));
+          }
 
-      const lastMonth = new Date();
-      lastMonth.setMonth(lastMonth.getMonth() - 1);
-      const newUsers = usersData.filter(user => {
-        const createdAt = user.createdAt?.toDate();
-        return createdAt && createdAt > lastMonth;
+          // Calculate total time including current session
+          const totalTimeSpent = (sessionStats.totalTimeSpent || 0) + currentSessionDuration;
+          
+          // Calculate average session duration
+          const totalSessions = sessionStats.totalSessions || 1; // Avoid division by zero
+          const averageSessionDuration = Math.round(totalTimeSpent / totalSessions);
+
+          return {
+            id: doc.id,
+            email: data.email || 'Unknown',
+            isAdmin: data.isAdmin || false,
+            lastLogin: lastLogin,
+            sessionStats: {
+              totalSessions: sessionStats.totalSessions || 0,
+              totalTimeSpent: totalTimeSpent,
+              averageSessionDuration: averageSessionDuration,
+              currentSessionStart: sessionStats.currentSessionStart
+            }
+          };
+        })
+        .sort((a, b) => {
+          const dateA = a.lastLogin instanceof Date ? a.lastLogin : new Date(a.lastLogin);
+          const dateB = b.lastLogin instanceof Date ? b.lastLogin : new Date(b.lastLogin);
+          return dateB.getTime() - dateA.getTime();
+        })
+        .slice(0, 5);
+
+      // Calculate user growth (example: last 30 days)
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const newUsers = usersSnapshot.docs.filter(doc => {
+        const createdAt = doc.data().createdAt?.toDate?.() || doc.data().createdAt;
+        return createdAt && new Date(createdAt) > thirtyDaysAgo;
       }).length;
       const userGrowth = totalUsers > 0 ? (newUsers / totalUsers) * 100 : 0;
 
-      const progressSnapshot = await getDocs(collection(db, 'progress'));
-      const progressData = progressSnapshot.docs.map(doc => {
-        const data = doc.data();
-        return {
-          id: doc.id,
-          completed: data.completed || false
-        } as Progress;
-      });
-
-      const totalProgress = progressData.length;
-      const completedProgress = progressData.filter(progress => progress.completed).length;
-      const completionRate = totalProgress > 0 ? (completedProgress / totalProgress) * 100 : 0;
-
-      const recentActivity: RecentActivity[] = usersData
-        .filter(user => user.progress?.lastLoginDate)
-        .map(user => ({
-          id: user.id,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          lastLogin: user.progress?.lastLoginDate?.toDate()
-        }))
-        .sort((a, b) => b.lastLogin.getTime() - a.lastLogin.getTime())
-        .slice(0, 5);
-
-      const systemHealth = {
-        userGrowth,
-        contentCoverage: (totalContent / 100) * 100,
-        systemUptime: 100
-      };
-
-      setStats({
+      setStats(prevStats => ({
+        ...prevStats,
         totalUsers,
-        activeUsers,
+        totalDocuments,
+        totalStudyPlans,
+        totalBadges,
         totalAdmins,
-        totalContent,
+        activeUsers: totalUsers,
         recentActivity,
         userGrowth,
-        completionRate,
-        systemHealth
-      });
+        completionRate: 0,
+        systemHealth: {
+          userGrowth,
+          contentCoverage: 0,
+          systemUptime: 100
+        }
+      }));
     } catch (error) {
       console.error('Error fetching platform stats:', error);
       toast({
         title: "Error",
-        description: "Failed to fetch platform statistics.",
+        description: "Failed to fetch platform statistics. Please try again.",
         variant: "destructive",
       });
     }
@@ -385,7 +424,7 @@ const AdminDashboard: React.FC = () => {
         id: doc.id,
         ...doc.data()
       }));
-      setContentBlocks(contentData);
+      setContentBlocks(contentData || []);
     } catch (error) {
       console.error('Error fetching content:', error);
       toast({
@@ -393,6 +432,7 @@ const AdminDashboard: React.FC = () => {
         description: "Failed to fetch content blocks.",
         variant: "destructive",
       });
+      setContentBlocks([]);
     }
   };
 
@@ -408,7 +448,7 @@ const AdminDashboard: React.FC = () => {
       const uniqueSubjects = Array.from(
         new Map(subjectsData.map(item => [item.id, item])).values()
       );
-      setSubjects(uniqueSubjects);
+      setSubjects(uniqueSubjects || []);
 
       // If there's a selected subject, fetch its topics
       if (selectedSubject) {
@@ -421,6 +461,7 @@ const AdminDashboard: React.FC = () => {
         description: "Failed to fetch content structure.",
         variant: "destructive",
       });
+      setSubjects([]);
     }
   };
 
@@ -451,7 +492,7 @@ const AdminDashboard: React.FC = () => {
       const uniqueTopics = Array.from(
         new Map(topicsData.map(item => [item.id, item])).values()
       );
-      setTopics(uniqueTopics);
+      setTopics(uniqueTopics || []);
     } catch (error) {
       console.error('Error fetching topics:', error);
       toast({
@@ -459,6 +500,7 @@ const AdminDashboard: React.FC = () => {
         description: "Failed to fetch topics.",
         variant: "destructive",
       });
+      setTopics([]);
     }
   };
 
@@ -488,7 +530,7 @@ const AdminDashboard: React.FC = () => {
       const uniqueSubtopics = Array.from(
         new Map(subtopicsData.map(item => [item.id, item])).values()
       );
-      setSubtopics(uniqueSubtopics);
+      setSubtopics(uniqueSubtopics || []);
     } catch (error) {
       console.error('Error fetching subtopics:', error);
       toast({
@@ -496,6 +538,7 @@ const AdminDashboard: React.FC = () => {
         description: "Failed to fetch subtopics.",
         variant: "destructive",
       });
+      setSubtopics([]);
     }
   };
 
@@ -805,7 +848,7 @@ const AdminDashboard: React.FC = () => {
           }
         }
 
-        const activityLog: ActivityLog = {
+        return {
           id: docSnapshot.id,
           type: data.type || 'profile_update',
           userId: data.userId || '',
@@ -813,23 +856,26 @@ const AdminDashboard: React.FC = () => {
           timestamp: data.timestamp || Timestamp.now(),
           details: {
             ...data.details,
-            contentType: data.details?.contentType,
-            targetUserId: data.details?.targetUserId,
-            subtopicId: data.details?.subtopicId,
-            subjectName: data.details?.subjectName,
-            topicName: data.details?.topicName,
-            newStatus: data.details?.newStatus,
-            description: data.details?.description,
-            alertId: data.details?.alertId
+            contentType: data.details?.contentType || '',
+            targetUserId: data.details?.targetUserId || '',
+            subtopicId: data.details?.subtopicId || '',
+            subjectName: data.details?.subjectName || '',
+            topicName: data.details?.topicName || '',
+            newStatus: data.details?.newStatus || '',
+            description: data.details?.description || '',
+            alertId: data.details?.alertId || ''
           }
-        };
-
-        return activityLog;
+        } as ActivityLog;
       }));
 
       setActivityLogs(logs);
     } catch (error) {
       console.error('Error fetching activity logs:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch activity logs. Please try again.",
+        variant: "destructive",
+      });
       setActivityLogs([]);
     } finally {
       setIsLoadingLogs(false);
@@ -843,19 +889,30 @@ const AdminDashboard: React.FC = () => {
       const q = query(alertsRef, orderBy('timestamp', 'desc'));
       const alertsSnapshot = await getDocs(q);
       
-      const alerts = alertsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as SystemAlert[];
+      const alerts = alertsSnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          type: data.type || 'info',
+          title: data.title || 'Untitled Alert',
+          message: data.message || '',
+          timestamp: data.timestamp || Timestamp.now(),
+          status: data.status || 'active',
+          priority: data.priority || 'low',
+          source: data.source || 'system',
+          details: data.details || {}
+        } as SystemAlert;
+      });
 
       setSystemAlerts(alerts);
     } catch (error) {
       console.error('Error fetching system alerts:', error);
       toast({
         title: "Error",
-        description: "Failed to fetch system alerts.",
+        description: "Failed to fetch system alerts. Please try again.",
         variant: "destructive",
       });
+      setSystemAlerts([]);
     } finally {
       setIsLoadingAlerts(false);
     }
@@ -872,9 +929,8 @@ const AdminDashboard: React.FC = () => {
       // Log the activity
       await logActivity({
         type: 'system_event',
-        
-        userId: user?.uid,
-        userEmail: user?.email,
+        userId: user?.uid || '',
+        userEmail: user?.email || '',
         details: {
           description: `Alert ${newStatus}`,
           alertId,
@@ -887,7 +943,7 @@ const AdminDashboard: React.FC = () => {
       console.error('Error updating alert status:', error);
       toast({
         title: "Error",
-        description: "Failed to update alert status.",
+        description: "Failed to update alert status. Please try again.",
         variant: "destructive",
       });
     }
@@ -903,17 +959,115 @@ const AdminDashboard: React.FC = () => {
       await fetchActivityLogs(); // Refresh the activity logs
     } catch (error) {
       console.error('Error logging activity:', error);
+      toast({
+        title: "Error",
+        description: "Failed to log activity. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
   const formatDate = (date: any) => {
-    if (date instanceof Timestamp) {
-      return date.toDate().toLocaleString();
+    if (!date) return 'Never';
+    
+    try {
+      if (date instanceof Timestamp) {
+        return date.toDate().toLocaleString();
+      }
+      if (date instanceof Date) {
+        return date.toLocaleString();
+      }
+      if (typeof date === 'string') {
+        return new Date(date).toLocaleString();
+      }
+      if (typeof date === 'number') {
+        return new Date(date).toLocaleString();
+      }
+      return 'Invalid date';
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Invalid date';
     }
-    if (typeof date === 'string') {
-      return new Date(date).toLocaleString();
+  };
+
+  const updateUserSession = async (userId: string, isLogin: boolean) => {
+    try {
+      const userRef = doc(db, 'users', userId);
+      const userDoc = await getDoc(userRef);
+      const userData = userDoc.data();
+
+      const now = serverTimestamp();
+      const sessionStats = userData?.sessionStats || {
+        totalSessions: 0,
+        totalTimeSpent: 0,
+        averageSessionDuration: 0
+      };
+
+      if (isLogin) {
+        // User is logging in
+        await updateDoc(userRef, {
+          lastLogin: now,
+          'sessionStats.lastLogin': now,
+          'sessionStats.currentSessionStart': now,
+          'sessionStats.totalSessions': (sessionStats.totalSessions || 0) + 1
+        });
+
+        // Log the activity
+        await logActivity({
+          type: 'login',
+          userId: userId,
+          userEmail: userData?.email || 'Unknown',
+          details: {
+            description: 'User logged in'
+          }
+        });
+      } else {
+        // User is logging out
+        const currentSessionStart = sessionStats.currentSessionStart;
+        let sessionDuration = 0;
+
+        if (currentSessionStart) {
+          const startTime = currentSessionStart.toDate();
+          const endTime = new Date();
+          sessionDuration = Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60)); // Convert to minutes
+        }
+
+        const newTotalTime = (sessionStats.totalTimeSpent || 0) + sessionDuration;
+        const newAverageDuration = sessionStats.totalSessions > 0 
+          ? Math.round(newTotalTime / sessionStats.totalSessions) 
+          : sessionDuration;
+
+        await updateDoc(userRef, {
+          'sessionStats.lastLogout': now,
+          'sessionStats.totalTimeSpent': newTotalTime,
+          'sessionStats.averageSessionDuration': newAverageDuration,
+          'sessionStats.currentSessionStart': null
+        });
+
+        // Log the activity
+        await logActivity({
+          type: 'system_event',
+          userId: userId,
+          userEmail: userData?.email || 'Unknown',
+          details: {
+            description: 'User logged out',
+            sessionDuration
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error updating user session:', error);
     }
-    return 'Unknown date';
+  };
+
+  const formatDuration = (minutes: number) => {
+    if (!minutes || isNaN(minutes)) return '0m';
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    if (hours > 0) {
+      return `${hours}h ${remainingMinutes}m`;
+    }
+    return `${remainingMinutes}m`;
   };
 
   if (loading) {
@@ -980,12 +1134,17 @@ const AdminDashboard: React.FC = () => {
                 <CardContent>
                   <ScrollArea className="h-[300px]">
                     <div className="space-y-4">
-                      {stats.recentActivity.map((activity) => (
+                      {stats.recentActivity?.map((activity) => (
                         <div key={activity.id} className="flex items-center justify-between p-2 bg-muted rounded-lg">
                           <div>
                             <p className="font-medium">{activity.email}</p>
                             <p className="text-sm text-muted-foreground">
                               Last login: {formatDate(activity.lastLogin)}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              Total time: {formatDuration(activity.sessionStats?.totalTimeSpent || 0)}
+                              {' • '}
+                              Avg. session: {formatDuration(activity.sessionStats?.averageSessionDuration || 0)}
                             </p>
                           </div>
                           <Badge variant={activity.isAdmin ? "default" : "secondary"}>
@@ -1076,7 +1235,7 @@ const AdminDashboard: React.FC = () => {
                 <ScrollArea className="h-[600px]">
                   {isLoadingLogs ? (
                     <LoadingSpinner variant="inline" text="Loading activity logs..." />
-                  ) : activityLogs.length === 0 ? (
+                  ) : !activityLogs?.length ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No activity logs found
                     </div>
@@ -1098,9 +1257,9 @@ const AdminDashboard: React.FC = () => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-medium">{log.description}</span>
+                              <span className="font-medium">{log.details?.description || 'No description'}</span>
                               <Badge variant="outline">
-                                {log.type.replace('_', ' ')}
+                                {log.type?.replace('_', ' ') || 'Unknown'}
                               </Badge>
                             </div>
                             <div className="text-sm text-muted-foreground">
@@ -1111,7 +1270,7 @@ const AdminDashboard: React.FC = () => {
                                 {formatDate(log.timestamp)}
                               </span>
                             </div>
-                            {log.details && (
+                            {log.details && Object.keys(log.details).length > 0 && (
                               <div className="mt-2 text-sm">
                                 <pre className="bg-background p-2 rounded">
                                   {JSON.stringify(log.details, null, 2)}
@@ -1178,15 +1337,23 @@ const AdminDashboard: React.FC = () => {
                 <ScrollArea className="h-[600px]">
                   {isLoadingAlerts ? (
                     <LoadingSpinner variant="inline" text="Loading alerts..." />
-                  ) : systemAlerts.length === 0 ? (
+                  ) : !systemAlerts?.length ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No system alerts found
                     </div>
                   ) : (
                     <div className="space-y-4">
                       {systemAlerts
-                        .filter(alert => alertFilter === 'all' || alert.status === alertFilter)
-                        .filter(alert => alertPriority === 'all' || alert.priority === alertPriority)
+                        .filter(alert => {
+                          if (!alert) return false;
+                          if (alertFilter === 'all') return true;
+                          return alert.status === alertFilter;
+                        })
+                        .filter(alert => {
+                          if (!alert) return false;
+                          if (alertPriority === 'all') return true;
+                          return alert.priority === alertPriority;
+                        })
                         .map((alert) => (
                           <div 
                             key={alert.id} 
@@ -1207,7 +1374,7 @@ const AdminDashboard: React.FC = () => {
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between mb-1">
                                 <div className="flex items-center gap-2">
-                                  <span className="font-medium">{alert.title}</span>
+                                  <span className="font-medium">{alert.title || 'Untitled Alert'}</span>
                                   <Badge 
                                     variant="outline"
                                     className={cn(
@@ -1216,7 +1383,7 @@ const AdminDashboard: React.FC = () => {
                                       alert.priority === 'low' && "border-green-200 text-green-700"
                                     )}
                                   >
-                                    {alert.priority}
+                                    {alert.priority || 'low'}
                                   </Badge>
                                   <Badge 
                                     variant="outline"
@@ -1226,7 +1393,7 @@ const AdminDashboard: React.FC = () => {
                                       alert.status === 'acknowledged' && "border-gray-200 text-gray-700"
                                     )}
                                   >
-                                    {alert.status}
+                                    {alert.status || 'active'}
                                   </Badge>
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -1259,12 +1426,12 @@ const AdminDashboard: React.FC = () => {
                                   )}
                                 </div>
                               </div>
-                              <p className="text-sm text-muted-foreground mb-2">{alert.message}</p>
+                              <p className="text-sm text-muted-foreground mb-2">{alert.message || 'No message'}</p>
                               <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                <span>Source: {alert.source}</span>
+                                <span>Source: {alert.source || 'system'}</span>
                                 <span>{formatDate(alert.timestamp)}</span>
                               </div>
-                              {alert.details && (
+                              {alert.details && Object.keys(alert.details).length > 0 && (
                                 <div className="mt-2 text-sm">
                                   <pre className="bg-background p-2 rounded">
                                     {JSON.stringify(alert.details, null, 2)}

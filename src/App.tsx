@@ -39,6 +39,7 @@ const BadgesPage = lazy(() => import("./pages/BadgesPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Login = lazy(() => import("./pages/Login"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const DocumentReviewAdminPage = lazy(() => import("./pages/admin/DocumentReviewAdminPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -100,6 +101,7 @@ const AppContent = () => {
             <Route path="/topics" element={<ProtectedRoute><TopicsPage /></ProtectedRoute>} />
             <Route path="/topic-practice/:practiceId" element={<ProtectedRoute><TopicPracticePage /></ProtectedRoute>} />
             <Route path="/caps-buddy" element={<ProtectedRoute><CAPSBuddyPage /></ProtectedRoute>} />
+            <Route path="/admin/document-review" element={<ProtectedRoute><DocumentReviewAdminPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

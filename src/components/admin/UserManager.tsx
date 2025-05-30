@@ -40,6 +40,7 @@ import { collection, query, where, orderBy, limit, getDocs, doc, getDoc, onSnaps
 import { db } from '@/lib/firebase';
 import { logActivity, ActivityLogData } from '@/lib/activity-logger';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { toast } from "@/components/ui/use-toast";
 
 interface User {
   id: string;
@@ -145,8 +146,8 @@ export const UserManager: React.FC<UserManagerProps> = ({
   const [activityLogs, setActivityLogs] = useState<ActivityLog[]>([]);
 
   const filteredUsers = users.filter(user => {
-    const matchesSearch = user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         user.name?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = (user.email?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                         (user.name?.toLowerCase() || '').includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'all' || user.grade === statusFilter;
     const matchesRole = roleFilter === 'all' || user.grade === roleFilter;
     return matchesSearch && matchesStatus && matchesRole;
@@ -303,6 +304,14 @@ export const UserManager: React.FC<UserManagerProps> = ({
         }, 
         (error) => {
           console.error('Error listening to activity logs:', error);
+          // If the error is about missing index, show a more helpful message
+          if (error.message.includes('requires an index')) {
+            toast({
+              title: "Index Required",
+              description: "Please create the required index in Firebase Console to view activity logs.",
+              variant: "destructive"
+            });
+          }
           setIsLoadingActivities(false);
           setActivityLogs([]);
         }
@@ -342,6 +351,14 @@ export const UserManager: React.FC<UserManagerProps> = ({
       setActivityLogs(logs);
     } catch (error) {
       console.error('Error fetching activity logs:', error);
+      // If the error is about missing index, show a more helpful message
+      if (error.message.includes('requires an index')) {
+        toast({
+          title: "Index Required",
+          description: "Please create the required index in Firebase Console to view activity logs.",
+          variant: "destructive"
+        });
+      }
       setActivityLogs([]);
     } finally {
       setIsLoadingActivities(false);
