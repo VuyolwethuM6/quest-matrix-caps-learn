@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import NavBar from '@/components/NavBar';
 import { getUserDocuments, Document } from '@/services/documentService';
 import { useAuth } from '@/contexts/AuthContext';
-import { uploadFile } from '@/services/storageService';
+import { uploadFile } from '@/services/fileUpload';
 
 const DocumentReviewPage: React.FC = () => {
   const navigate = useNavigate();
