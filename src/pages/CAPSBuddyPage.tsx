@@ -1,10 +1,16 @@
-
 import React, { useState, useRef, useEffect } from "react";
-import { ArrowLeft, Brain, ArrowUp, Send } from "lucide-react";
+import { ArrowLeft, Brain, ArrowUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@/contexts/UserContext";
+import { generateAIResponse } from "@/services/aiService";
+import { toast } from "sonner";
+import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import 'katex/dist/katex.min.css';
 
 interface Message {
   id: string;
@@ -56,26 +62,27 @@ const CAPSBuddyPage: React.FC = () => {
     setInputValue("");
     setIsLoading(true);
     
-    // Simulate AI response delay
-    setTimeout(() => {
-      const responseOptions = [
-        "I can help explain that! In simple terms, " + inputValue.split(" ").slice(0, 3).join(" ") + " refers to an important concept in learning.",
-        "Great question! Let me break this down for you step by step...",
-        "That's something many students ask about. The key thing to remember is to approach it systematically.",
-        "I'd recommend practicing with some examples to better understand this concept.",
-        "Let me provide some study tips that might help you with this topic."
-      ];
+    try {
+      const response = await generateAIResponse(inputValue);
+      
+      if (response.error) {
+        toast.error("Failed to get response. Please try again.");
+      }
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: responseOptions[Math.floor(Math.random() * responseOptions.length)],
+        content: response.content,
         sender: "assistant",
         timestamp: new Date(),
       };
       
       setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+      console.error("Error in handleSendMessage:", error);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -83,6 +90,51 @@ const CAPSBuddyPage: React.FC = () => {
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const renderMessageContent = (content: string, sender: "user" | "assistant") => {
+    if (sender === "user") {
+      return <p className="text-sm leading-relaxed">{content}</p>;
+    }
+    
+    return (
+      <div className="prose prose-sm max-w-none dark:prose-invert">
+        <ReactMarkdown
+          remarkPlugins={[[remarkMath], [remarkGfm]]}
+          rehypePlugins={[[rehypeKatex]]}
+          components={{
+            a: ({ node, ...props }) => (
+              <a {...props} className="text-quest-primary hover:text-quest-primary/80" />
+            ),
+            code: ({ node, inline, className, children, ...props }) => {
+              const match = /language-(\w+)/.exec(className || '');
+              return !inline ? (
+                <pre className="bg-gray-100 dark:bg-gray-800 rounded-md p-4 my-2">
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                </pre>
+              ) : (
+                <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded" {...props}>
+                  {children}
+                </code>
+              );
+            },
+            blockquote: ({ node, ...props }) => (
+              <blockquote
+                {...props}
+                className="border-l-4 border-quest-primary pl-4 italic my-4"
+              />
+            ),
+            p: ({ node, ...props }) => (
+              <p className="my-2" {...props} />
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
+    );
   };
 
   return (
@@ -127,10 +179,10 @@ const CAPSBuddyPage: React.FC = () => {
                 className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${
                   message.sender === "user"
                     ? "bg-quest-primary text-white rounded-br-md"
-                    : "bg-white border rounded-bl-md"
+                    : "bg-white dark:bg-gray-800 border rounded-bl-md"
                 }`}
               >
-                <p className="text-sm leading-relaxed">{message.content}</p>
+                {renderMessageContent(message.content, message.sender)}
                 <p className="text-xs opacity-70 mt-1">
                   {message.timestamp.toLocaleTimeString([], { 
                     hour: '2-digit', 
@@ -143,7 +195,7 @@ const CAPSBuddyPage: React.FC = () => {
           
           {isLoading && (
             <div className="flex justify-start">
-              <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-white border rounded-bl-md shadow-sm">
+              <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-white dark:bg-gray-800 border rounded-bl-md shadow-sm">
                 <div className="flex space-x-2">
                   <div className="w-2 h-2 rounded-full bg-quest-primary animate-bounce" style={{ animationDelay: "0ms" }}></div>
                   <div className="w-2 h-2 rounded-full bg-quest-primary animate-bounce" style={{ animationDelay: "150ms" }}></div>
@@ -157,7 +209,7 @@ const CAPSBuddyPage: React.FC = () => {
       </div>
 
       {/* Input Area */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t p-4 shadow-lg">
         <div className="max-w-4xl mx-auto flex gap-3">
           <Textarea
             value={inputValue}
