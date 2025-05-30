@@ -115,12 +115,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       setAvatar(data.avatar);
       setSelectedSubjects(data.selectedSubjects);
 
-      // Save to Firestore
-      await updateDoc(doc(db, 'users', user.uid), {
+      // Save to Firestore using setDoc with merge: true
+      await setDoc(doc(db, 'users', user.uid), {
         ...data,
         isOnboarded: true,
         updatedAt: serverTimestamp()
-      });
+      }, { merge: true });
 
       // Initialize progress for each selected subject
       const progressPromises = data.selectedSubjects.map(subject => {

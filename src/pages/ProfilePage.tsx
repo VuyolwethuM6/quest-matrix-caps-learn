@@ -166,7 +166,7 @@ const ProfilePage: React.FC = () => {
     >
       {isResetting ? (
         <>
-          <LoadingSpinner size="sm" text="" className="mr-2" />
+          <LoadingSpinner variant="inline" size="sm" text="" className="mr-2" />
           Resetting...
         </>
       ) : (
@@ -207,7 +207,7 @@ const ProfilePage: React.FC = () => {
       >
         {isResetting ? (
           <>
-            <LoadingSpinner size="sm" text="" className="mr-2" />
+            <LoadingSpinner variant="inline" size="sm" text="" className="mr-2" />
             Resetting...
           </>
         ) : (

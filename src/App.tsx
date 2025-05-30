@@ -15,6 +15,7 @@ import BadgeEarnedModal from "@/components/BadgeEarnedModal";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import SEO from "@/components/SEO";
+import OnboardingRoute from "./components/OnboardingRoute";
 
 // Lazy load pages
 const SplashScreen = lazy(() => import("./pages/SplashScreen"));
@@ -25,6 +26,10 @@ const LearningModule = lazy(() => import("./pages/LearningModule"));
 const QuizPage = lazy(() => import("./pages/QuizPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const TutorPage = lazy(() => import("./pages/TutorPage"));
+const DocumentReviewPage = lazy(() => import("./pages/tutor/DocumentReviewPage"));
+const StudyPlanningPage = lazy(() => import("./pages/tutor/StudyPlanningPage"));
+const OnlineTutoringPage = lazy(() => import("./pages/tutor/OnlineTutoringPage"));
+const InPersonTutoringPage = lazy(() => import("./pages/tutor/InPersonTutoringPage"));
 const ExamsPage = lazy(() => import("./pages/ExamsPage"));
 const ExamPage = lazy(() => import("./pages/ExamPage"));
 const TopicsPage = lazy(() => import("./pages/TopicsPage"));
@@ -41,7 +46,7 @@ const queryClient = new QueryClient({
       retry: 1,
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000, // 5 minutes
-      cacheTime: 10 * 60 * 1000, // 10 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
     },
   },
 });
@@ -76,7 +81,7 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<SplashScreen />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
             {/* Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
@@ -85,6 +90,10 @@ const AppContent = () => {
             <Route path="/quiz/:subjectId/:topicId/:subtopicId" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/tutor" element={<ProtectedRoute><TutorPage /></ProtectedRoute>} />
+            <Route path="/tutor/document-review" element={<ProtectedRoute><DocumentReviewPage /></ProtectedRoute>} />
+            <Route path="/tutor/study-planning" element={<ProtectedRoute><StudyPlanningPage /></ProtectedRoute>} />
+            <Route path="/tutor/online" element={<ProtectedRoute><OnlineTutoringPage /></ProtectedRoute>} />
+            <Route path="/tutor/in-person" element={<ProtectedRoute><InPersonTutoringPage /></ProtectedRoute>} />
             <Route path="/badges" element={<ProtectedRoute><BadgesPage /></ProtectedRoute>} />
             <Route path="/exams" element={<ProtectedRoute><ExamsPage /></ProtectedRoute>} />
             <Route path="/exam/:examId" element={<ProtectedRoute><ExamPage /></ProtectedRoute>} />

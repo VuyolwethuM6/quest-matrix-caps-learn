@@ -87,11 +87,7 @@ const LearningModule: React.FC = () => {
   // If content is loading
   if (isLoading) {
     return (
-      <LoadingSpinner 
-        fullScreen 
-        text="Loading content..." 
-        size="md"
-      />
+      <LoadingSpinner variant="inline" />
     );
   }
   

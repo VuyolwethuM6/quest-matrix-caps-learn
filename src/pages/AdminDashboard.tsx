@@ -1075,7 +1075,7 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <ScrollArea className="h-[600px]">
                   {isLoadingLogs ? (
-                    <LoadingSpinner text="Loading activity logs..." />
+                    <LoadingSpinner variant="inline" text="Loading activity logs..." />
                   ) : activityLogs.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No activity logs found
@@ -1177,7 +1177,7 @@ const AdminDashboard: React.FC = () => {
               <CardContent>
                 <ScrollArea className="h-[600px]">
                   {isLoadingAlerts ? (
-                    <LoadingSpinner text="Loading alerts..." />
+                    <LoadingSpinner variant="inline" text="Loading alerts..." />
                   ) : systemAlerts.length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
                       No system alerts found
@@ -1308,7 +1308,7 @@ const AdminDashboard: React.FC = () => {
                         <AlertDialogDescription>
                           {isAnalyzing ? (
                             <div className="flex items-center justify-center py-4">
-                              <LoadingSpinner size="md" />
+                              <LoadingSpinner variant="inline" size="md" />
                             </div>
                           ) : (
                             <div className="space-y-2">

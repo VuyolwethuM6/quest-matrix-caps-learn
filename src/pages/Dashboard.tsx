@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Star, Shield, Compass, Target, FileText } from "lucide-react";
+import { BookOpen, Award, ChevronRight, Brain, Rocket, Flame, Shield, Compass, Target} from "lucide-react";
 import NavBar from "@/components/NavBar";
 import XPProgress from "@/components/XPProgress";
 import TopicCard from "@/components/TopicCard";
-import BadgeCard from "@/components/BadgeCard";
+// import BadgeCard from "@/components/BadgeCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+// import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
-import { subjects, getBadges } from "@/data/curriculum";
+import { subjects} from "@/data/curriculum";
 import LevelUpModal from "@/components/LevelUpModal";
 import SEO from '@/components/SEO';
 import env from '@/config/env';
@@ -83,7 +83,7 @@ const Dashboard: React.FC = () => {
           <div className="bg-gradient-to-br from-quest-primary/90 to-quest-purple/90 p-6 text-white rounded-b-2xl shadow-md backdrop-blur-md">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold">Hello, {name}</h1>
+                <h1 className="text-2xl font-bold">{name}</h1>
                 <p className="opacity-90">Grade {grade}</p>
               </div>
               <div className="quest-avatar w-14 h-14 flex items-center justify-center text-2xl bg-white rounded-full shadow-md">
@@ -139,6 +139,35 @@ const Dashboard: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* Topic Practice */}
+
+        <div className="p-4">
+          <Card className="bg-gradient-to-br from-quest-purple/20 via-quest-primary/20 to-quest-purple/20 border-quest-purple/30 overflow-hidden shadow-lg hover:shadow-quest-purple/20 transition-all duration-300">
+            <CardContent className="p-5">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 rounded-full bg-quest-purple/20 flex items-center justify-center mb-3 ring-4 ring-quest-purple/10">
+                  <Target size={24} className="text-quest-purple" />
+                </div>
+                
+                <h3 className="text-lg font-bold mb-1 text-quest-purple">Topic Practice</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Practice specific topics to improve your understanding
+                </p>
+                
+                <Link to="/topics">
+                  <Button
+                    variant="outline" 
+                    className="bg-white/50 border-quest-purple text-quest-purple hover:bg-quest-purple/10 hover:text-quest-purple transition-colors"
+                  >
+                    Start Practice
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         
         {/* CAPS Buddy */}
         <div className="p-4">
@@ -168,7 +197,7 @@ const Dashboard: React.FC = () => {
         </div>
         
         {/* Quick Actions */}
-        <div className="p-4">
+        {/* <div className="p-4">
           <div className="grid grid-cols-2 gap-3">
             <Link to="/curriculum" className="bg-quest-softPurple hover:bg-quest-softPurple/90 transition-colors rounded-xl p-4 shadow-sm">
               <div className="flex flex-col items-center">
@@ -184,34 +213,8 @@ const Dashboard: React.FC = () => {
               </div>
             </Link>
           </div>
-        </div>
+        </div> */}
 
-        {/* Topic Practice */}
-        <div className="p-4">
-          <Card className="bg-gradient-to-br from-quest-purple/20 via-quest-primary/20 to-quest-purple/20 border-quest-purple/30 overflow-hidden shadow-lg hover:shadow-quest-purple/20 transition-all duration-300">
-            <CardContent className="p-5">
-              <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-quest-purple/20 flex items-center justify-center mb-3 ring-4 ring-quest-purple/10">
-                  <Target size={24} className="text-quest-purple" />
-                </div>
-                
-                <h3 className="text-lg font-bold mb-1 text-quest-purple">Topic Practice</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Practice specific topics to improve your understanding
-                </p>
-                
-                <Link to="/topics">
-                  <Button
-                    variant="outline" 
-                    className="bg-white/50 border-quest-purple text-quest-purple hover:bg-quest-purple/10 hover:text-quest-purple transition-colors"
-                  >
-                    Start Practice
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
         
         {/* Level Up Modal */}
         <LevelUpModal 

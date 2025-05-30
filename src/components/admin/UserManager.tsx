@@ -894,7 +894,7 @@ export const UserManager: React.FC<UserManagerProps> = ({
 
                   {isLoadingActivities ? (
                     <div className="flex items-center justify-center p-4">
-                      <LoadingSpinner size="md" />
+                      <LoadingSpinner variant="inline" size="md" />
                     </div>
                   ) : activityLogs.length > 0 ? (
                     <div className="space-y-2">
