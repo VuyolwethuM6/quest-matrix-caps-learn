@@ -18,6 +18,7 @@ import SEO from "@/components/SEO";
 import OnboardingRoute from "./components/OnboardingRoute";
 
 // Lazy load pages
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 const SplashScreen = lazy(() => import("./pages/SplashScreen"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -80,7 +81,8 @@ const AppContent = () => {
       <BrowserRouter>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            <Route path="/" element={<SplashScreen />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/splash" element={<SplashScreen />} />
             <Route path="/login" element={<Login />} />
             <Route path="/onboarding" element={<OnboardingRoute><Onboarding /></OnboardingRoute>} />
             {/* Protected Routes */}
