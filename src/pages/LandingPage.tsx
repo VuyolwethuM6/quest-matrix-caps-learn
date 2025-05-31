@@ -85,7 +85,7 @@ const LandingPage: React.FC = () => {
           <div className="hero-image md:w-1/2 mt-12 md:mt-0 flex justify-center z-10">
             {/* Replace with actual image path and styling */}
             <img 
-              src="/public/assests/viva.PNG" 
+              src="/assests/viva.PNG" 
               alt="Hero" 
               className="rounded-lg  w-[400px] h-[400px] object-contain" 
             />
@@ -126,31 +126,31 @@ const LandingPage: React.FC = () => {
             {/* Subject Items (Repeat for each subject) */}
             <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
               {/* Replace with actual icon path and styling */}
-              <img src="/public/assests/integration.png" alt="Mathematics Icon" className="mx-auto h-12 mb-4" />
+              <img src="/assests/integration.png" alt="Mathematics Icon" className="mx-auto h-12 mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">Mathematics</h4>
               <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
             </div>
              <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
               {/* Replace with actual icon path and styling */}
-              <img src="/public/assests/physics.png" alt="Physical Science Icon" className="mx-auto h-12 mb-4" />
+              <img src="/assests/physics.png" alt="Physical Science Icon" className="mx-auto h-12 mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">Physical Science</h4>
               <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
             </div>
             <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
               {/* Replace with actual icon path and styling */}
-              <img src="/public/assests/genetic-engineering.png" alt="Life Sciences Icon" className="mx-auto h-12 mb-4" />
+              <img src="/assests/genetic-engineering.png" alt="Life Sciences Icon" className="mx-auto h-12 mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">Life Sciences</h4>
               <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
             </div>
              <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
               {/* Replace with actual icon path and styling */}
-              <img src="/public/assests/maths.png" alt="Mathematical Literacy Icon" className="mx-auto h-12 mb-4" />
+              <img src="/assests/maths.png" alt="Mathematical Literacy Icon" className="mx-auto h-12 mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">Mathematical Literacy</h4>
               <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
             </div>
              <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
               {/* Replace with actual icon path and styling */}
-              <img src="/public/assests/school.png" alt="Learner's License Icon" className="mx-auto h-12 mb-4" />
+              <img src="/assests/school.png" alt="Learner's License Icon" className="mx-auto h-12 mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">Learner's License</h4>
               <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
             </div>
@@ -228,7 +228,7 @@ const LandingPage: React.FC = () => {
             <div className="why-choose-image md:w-1/2 mt-12 md:mt-0 flex justify-center">
               {/* Replace with actual image path and styling */}
               <img 
-                src="/public/assests/viva-tutor.PNG" 
+                src="/assests/viva-tutor.PNG" 
                 alt="Why Choose Viva" 
                 className="rounded-lg  w-[400px] h-[450px] object-contain" 
               />
