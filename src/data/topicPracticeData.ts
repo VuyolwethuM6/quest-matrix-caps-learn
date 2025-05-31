@@ -13,7 +13,8 @@ export const topicPractices: TopicPractice[] = [
         questionText: "Draw a free-body diagram for a box being pushed on a rough surface",
         type: "short-answer",
         marks: 5,
-        diagram: "/diagrams/box-forces.svg",
+        diagram: "/diagrams/box being pushed on a rough surface.svg",
+        solutionDiagram: "/diagrams/free-body-diagram.svg",
         correctAnswer: "Diagram should show: Weight (mg) downward, Normal force (N) upward, Applied force (F) horizontal, Friction force (f) opposite to motion",
         explanation: "A free-body diagram shows all forces acting on an object",
         hints: [
@@ -38,6 +39,8 @@ export const topicPractices: TopicPractice[] = [
         questionText: "A 5kg box is being pushed with a force of 20N on a surface with a coefficient of friction of 0.3. Calculate the acceleration of the box.",
         type: "calculation",
         marks: 8,
+        diagram: "/diagrams/box being pushed on a rough surface.svg",
+        solutionDiagram: "/diagrams/free-body-diagram.svg",
         correctAnswer: "1.06 m/s²",
         explanation: "Use F = ma and consider both applied force and friction",
         hints: [

@@ -12,6 +12,7 @@ export interface TopicPractice {
 export interface PracticeQuestion extends ExamQuestion {
   hints?: string[];
   stepByStepSolution?: string;
+  solutionDiagram?: string;
   commonMistakes?: string[];
   relatedConcepts?: string[];
 }
