@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleGetStarted = () => {
     // Navigate to the splash screen
@@ -13,6 +14,10 @@ const LandingPage: React.FC = () => {
     // Handle download app logic (e.g., link to app store)
     console.log('Download App clicked');
     // Replace with actual download link or logic
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -37,22 +42,32 @@ const LandingPage: React.FC = () => {
             <button className="hidden md:inline-block px-6 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition-colors duration-200 text-sm font-medium" onClick={handleDownloadApp}>Download App</button>
             <button className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-200 text-sm font-medium" onClick={handleGetStarted}>Get Started</button>
           </div>
-           {/* Mobile menu button - Implement actual mobile menu functionality */}
-           <button className="md:hidden text-gray-600 hover:text-purple-700 focus:outline-none">
+           {/* Mobile menu button */}
+           <button 
+             className="md:hidden text-gray-600 hover:text-purple-700 focus:outline-none"
+             onClick={toggleMobileMenu}
+           >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
            </button>
-           {/* Mobile menu dropdown - Implement actual mobile menu functionality */}
-           {/* Add state and logic to toggle this menu */}
-           {/* <div className="absolute top-16 left-0 right-0 bg-white shadow-md md:hidden">
-                <a href="#hero" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
-                <a href="#about" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">About</a>
-                <a href="#subjects" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Subjects</a>
-                <a href="#features" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">App Features</a>
-                <a href="#contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Contact</a>
-            </div> */}
         </div>
+        {/* Mobile menu dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="px-4 py-2 space-y-1">
+              <a href="#hero" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Home</a>
+              <a href="#about" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>About</a>
+              <a href="#subjects" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Subjects</a>
+              <a href="#features" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>App Features</a>
+              <a href="#contact" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Contact</a>
+              <div className="pt-4 pb-3 border-t border-gray-200">
+                <button className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100 rounded-md" onClick={handleDownloadApp}>Download App</button>
+                <button className="w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-100 rounded-md" onClick={handleGetStarted}>Get Started</button>
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
