@@ -15,7 +15,7 @@ export const topicPractices: TopicPractice[] = [
         marks: 5,
         diagram: "/diagrams/box being pushed on a rough surface.svg",
         solutionDiagram: "/diagrams/free-body-diagram.svg",
-        correctAnswer: "Diagram should show: Weight (mg) downward, Normal force (N) upward, Applied force (F) horizontal, Friction force (f) opposite to motion",
+        correctAnswer: "Weight, Normal force, Applied force, Friction force",
         explanation: "A free-body diagram shows all forces acting on an object",
         hints: [
           "Remember to include all forces",
