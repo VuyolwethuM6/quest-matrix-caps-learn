@@ -11,7 +11,8 @@ export interface Topic {
   id: string;
   name: string;
   description: string;
-  subTopics: SubTopic[];
+  subTopics?: SubTopic[];
+  topics?: Topic[];
 }
 
 export interface SubTopic {

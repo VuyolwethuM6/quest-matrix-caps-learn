@@ -1120,7 +1120,7 @@ export const subjects: Subject[] = [
                 {
                   "type": "image",
                   "id": "resulant-force",
-                  "content": "/public/assests/resultant-force.PNG"
+                  "content": "/assests/resultant-force.PNG"
                 },
                 {
                   "type": "text",
@@ -2237,6 +2237,8 @@ export const subjects: Subject[] = [
                         "id": "q2",
                         "type": "structured",
                         "text": "A car of mass 1000 kg accelerates from rest to 20 m/s in 5 seconds. Determine:",
+                        "correctAnswer": "4 m/s², 4000 N",
+                        "explanation": "Calculate acceleration using a = (v - u)/t, then use F = ma to find the net force.",
                         "subQuestions": [
                           {
                             "id": "q2.1",
