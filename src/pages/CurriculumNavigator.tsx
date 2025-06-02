@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { ChevronLeft, BookOpen, GraduationCap } from "lucide-react";
@@ -126,7 +125,7 @@ const CurriculumNavigator: React.FC = () => {
         </div>
         
         <div className="space-y-4 px-4 pb-20">
-          {selectedTopic.subTopics.map(subTopic => (
+          {selectedTopic.subTopics?.map(subTopic => (
             <SubTopicCard
               key={subTopic.id}
               subTopic={subTopic}

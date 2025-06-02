@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,10 +15,10 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, subjectId, onClick }) => {
   const { completedLessons, completedQuizzes } = useProgress();
   
   // Calculate completion percentage for this topic
-  const totalSubTopics = topic.subTopics.length;
+  const totalSubTopics = topic.subTopics?.length || 0;
   let completedSubTopics = 0;
   
-  topic.subTopics.forEach(subTopic => {
+  topic.subTopics?.forEach(subTopic => {
     const lessonId = `${subjectId}-${topic.id}-${subTopic.id}`;
     const quizId = `${lessonId}-quiz`;
     

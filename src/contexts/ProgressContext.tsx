@@ -57,27 +57,23 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return Math.floor(Math.sqrt(xp / 50)) + 1;
   };
 
-  // Update level when XP changes
+  // Update level and check for level up in a single effect
   useEffect(() => {
     const newLevel = calculateLevel(xp);
     if (newLevel !== currentLevel) {
       setCurrentLevel(newLevel);
-    }
-  }, [xp]);
-
-  // Check for level up
-  useEffect(() => {
-    if (currentLevel > prevLevel) {
-      setNewLevel(currentLevel);
-      setShowLevelUp(true);
-      setPrevLevel(currentLevel);
-      
-      // Check for level badges
-      if (currentLevel === 5) {
-        earnBadge('level-5');
+      if (newLevel > prevLevel) {
+        setNewLevel(newLevel);
+        setShowLevelUp(true);
+        setPrevLevel(newLevel);
+        
+        // Check for level badges
+        if (newLevel === 5) {
+          earnBadge('level-5');
+        }
       }
     }
-  }, [currentLevel, prevLevel]);
+  }, [xp, currentLevel, prevLevel]);
 
   // Initialize progress document if it doesn't exist
   useEffect(() => {
@@ -135,7 +131,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     initializeProgress();
   }, [user]);
 
-  // Update Firestore when progress changes
+  // Update Firestore and localStorage when progress changes
   useEffect(() => {
     const updateProgress = async () => {
       if (!user || !isInitialized) return;
@@ -151,41 +147,24 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           lastLoginDate,
           updatedAt: serverTimestamp()
         });
+
+        // Save to localStorage
+        localStorage.setItem('progress', JSON.stringify({
+          level: currentLevel,
+          xp,
+          completedLessons,
+          completedQuizzes,
+          earnedBadges,
+          lastActivityDate,
+          currentStreak
+        }));
       } catch (error) {
         console.error('Error updating progress:', error);
       }
     };
 
     updateProgress();
-  }, [user, isInitialized, xp, streakDays, completedLessons, completedQuizzes, earnedBadges, lastLoginDate]);
-
-  // Load progress from localStorage on mount
-  useEffect(() => {
-    const savedProgress = localStorage.getItem('progress');
-    if (savedProgress) {
-      const { level, xp, completedLessons, completedQuizzes, earnedBadges, lastActivityDate, currentStreak } = JSON.parse(savedProgress);
-      setCurrentLevel(level);
-      setXp(xp);
-      setCompletedLessons(completedLessons);
-      setCompletedQuizzes(completedQuizzes);
-      setEarnedBadges(earnedBadges);
-      setLastActivityDate(lastActivityDate);
-      setCurrentStreak(currentStreak);
-    }
-  }, []);
-
-  // Save progress to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('progress', JSON.stringify({
-      level: currentLevel,
-      xp,
-      completedLessons,
-      completedQuizzes,
-      earnedBadges,
-      lastActivityDate,
-      currentStreak
-    }));
-  }, [currentLevel, xp, completedLessons, completedQuizzes, earnedBadges, lastActivityDate, currentStreak]);
+  }, [user, isInitialized, xp, streakDays, completedLessons, completedQuizzes, earnedBadges, lastLoginDate, currentLevel, lastActivityDate, currentStreak]);
 
   const updateStreak = () => {
     const today = new Date().toISOString().split('T')[0];

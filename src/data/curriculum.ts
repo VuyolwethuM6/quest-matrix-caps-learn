@@ -996,6 +996,79 @@ export const subjects: Subject[] = [
             }
           }
         ]
+      },
+      {
+        "id": "geometry",
+        "name": "Geometry",
+        "description": "Explore shapes, sizes, and spatial relationships",
+        "subTopics": [
+          {
+            "id": "triangles",
+            "name": "Triangles and Trigonometry",
+            "description": "Learn about triangle properties and trigonometric functions",
+            "content": [
+              {
+                "type": "text",
+                "id": "triangles-intro",
+                "content": "Triangles are fundamental shapes in geometry. They have three sides, three angles, and their properties are essential for understanding more complex geometric concepts."
+              },
+              {
+                "type": "formula",
+                "id": "pythagoras-theorem",
+                "content": "\\[ a^2 + b^2 = c^2 \\]\nWhere c is the hypotenuse of a right-angled triangle."
+              }
+            ],
+            "quiz": {
+              "id": "triangles-quiz",
+              "title": "Triangles and Trigonometry Quiz",
+              "description": "Test your understanding of triangle properties and trigonometric concepts",
+              "questions": [
+                {
+                  "id": "q1",
+                  "type": "diagram",
+                  "text": "In the triangle shown below, calculate the length of side x.",
+                  "diagram": "/assests/integration.png",
+                  "options": ["5 cm", "6 cm", "7 cm", "8 cm"],
+                  "correctAnswer": 1,
+                  "explanation": "Using the Pythagorean theorem: x² = 8² - 5² = 64 - 25 = 39. Therefore, x = √39 ≈ 6 cm."
+                },
+                {
+                  "id": "q2",
+                  "type": "structured",
+                  "text": "A triangle has sides of length 5 cm, 7 cm, and 9 cm. Determine:",
+                  "correctAnswer": "17.41 cm², Acute",
+                  "explanation": "Using Heron's formula for area and checking angle type with Pythagorean theorem.",
+                  "subQuestions": [
+                    {
+                      "id": "q2.1",
+                      "type": "calculation",
+                      "text": "The area of the triangle using Heron's formula.",
+                      "correctAnswer": "17.41 cm²",
+                      "explanation": "Using Heron's formula: s = (5 + 7 + 9)/2 = 10.5, Area = √(10.5 × 5.5 × 3.5 × 1.5) ≈ 17.41 cm²"
+                    },
+                    {
+                      "id": "q2.2",
+                      "type": "mcq",
+                      "text": "The type of triangle based on its angles.",
+                      "options": ["Acute", "Right", "Obtuse", "Equilateral"],
+                      "correctAnswer": 0,
+                      "explanation": "Since 5² + 7² > 9², the triangle is acute-angled."
+                    }
+                  ]
+                },
+                {
+                  "id": "q3",
+                  "type": "diagram",
+                  "text": "In the triangle shown, find the value of angle θ.",
+                  "diagram": "/public/assests/integration.png",
+                  "options": ["30°", "45°", "60°", "90°"],
+                  "correctAnswer": 1,
+                  "explanation": "Using the tangent ratio: tan(θ) = opposite/adjacent = 1. Therefore, θ = 45°."
+                }
+              ]
+            }
+          }
+        ]
       }
     ]
   },
@@ -2117,9 +2190,86 @@ export const subjects: Subject[] = [
               }
             }
           ]
-        }        
-        //
-          
+        },
+
+        // Physics content
+        {
+          "id": "physics",
+          "name": "Physics",
+          "description": "Explore the fundamental laws of nature and their applications",
+          "topics": [
+            {
+              "id": "mechanics",
+              "name": "Mechanics",
+              "description": "Study motion, forces, and energy",
+              "subTopics": [
+                {
+                  "id": "forces-motion",
+                  "name": "Forces and Motion",
+                  "description": "Understand Newton's laws and their applications",
+                  "content": [
+                    {
+                      "type": "text",
+                      "id": "forces-intro",
+                      "content": "Forces are fundamental to understanding motion. Newton's laws provide the framework for analyzing how forces affect objects."
+                    },
+                    {
+                      "type": "formula",
+                      "id": "newton-second-law",
+                      "content": "\\[ F = ma \\]\nWhere F is force, m is mass, and a is acceleration."
+                    }
+                  ],
+                  "quiz": {
+                    "id": "forces-quiz",
+                    "title": "Forces and Motion Quiz",
+                    "description": "Test your understanding of forces and their effects on motion",
+                    "questions": [
+                      {
+                        "id": "q1",
+                        "type": "diagram",
+                        "text": "In the diagram shown, a block is being pulled by a force F at an angle θ. Calculate the normal force.",
+                        "diagram": "/diagrams/force-diagram.png",
+                        "options": ["mg", "mg - Fsinθ", "mg + Fsinθ", "Fcosθ"],
+                        "correctAnswer": 1,
+                        "explanation": "The normal force equals the weight (mg) minus the vertical component of the applied force (Fsinθ)."
+                      },
+                      {
+                        "id": "q2",
+                        "type": "structured",
+                        "text": "A car of mass 1000 kg accelerates from rest to 20 m/s in 5 seconds. Determine:",
+                        "subQuestions": [
+                          {
+                            "id": "q2.1",
+                            "type": "calculation",
+                            "text": "The acceleration of the car.",
+                            "correctAnswer": "4 m/s²",
+                            "explanation": "Using a = (v - u)/t, where v = 20 m/s, u = 0 m/s, t = 5 s. Therefore, a = 4 m/s²."
+                          },
+                          {
+                            "id": "q2.2",
+                            "type": "calculation",
+                            "text": "The net force acting on the car.",
+                            "correctAnswer": "4000 N",
+                            "explanation": "Using F = ma, where m = 1000 kg, a = 4 m/s². Therefore, F = 4000 N."
+                          }
+                        ]
+                      },
+                      {
+                        "id": "q3",
+                        "type": "diagram",
+                        "text": "In the pulley system shown, calculate the tension in the string if the mass is 5 kg.",
+                        "diagram": "/diagrams/pulley-system.png",
+                        "options": ["25 N", "49 N", "98 N", "196 N"],
+                        "correctAnswer": 1,
+                        "explanation": "For a single fixed pulley, the tension equals the weight of the mass: T = mg = 5 × 9.8 = 49 N."
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
       ]
     }      
 ];

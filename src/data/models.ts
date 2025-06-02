@@ -42,12 +42,24 @@ export interface Quiz {
   questions: Question[];
 }
 
-export type QuestionType = 'mcq' | 'true-false';
+export type QuestionType = 'mcq' | 'true-false' | 'short-answer' | 'calculation' | 'diagram' | 'structured';
 
 export interface Question {
   id: string;
   type: QuestionType;
   text: string;
+  diagram?: string;
+  options?: string[];
+  correctAnswer: string | number | boolean;
+  explanation: string;
+  subQuestions?: SubQuestion[];
+}
+
+export interface SubQuestion {
+  id: string;
+  type: QuestionType;
+  text: string;
+  diagram?: string;
   options?: string[];
   correctAnswer: string | number | boolean;
   explanation: string;

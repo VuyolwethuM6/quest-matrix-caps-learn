@@ -52,10 +52,11 @@ const Dashboard: React.FC = () => {
     ? <BookOpen size={24} color="red"/>
     : <Compass size={24} color="blue"/>;
     
-  const recentTopics = [
-    subjects[0].topics[0],
-    subjects[1].topics[0]
-  ];
+  const recentTopics = subjects
+    .filter(subject => subject.topics && subject.topics.length > 0)
+    .map(subject => subject.topics[0])
+    .filter(topic => topic && topic.subTopics && topic.subTopics.length > 0)
+    .slice(0, 2);
   
   const structuredData = {
     "@context": "https://schema.org",
