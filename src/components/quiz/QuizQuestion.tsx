@@ -1,10 +1,11 @@
-
 import React from "react";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Card, CardContent } from "@/components/ui/card";
 import { Question } from "@/data/models";
 import MathDisplay from "@/components/MathDisplay";
 
@@ -38,132 +39,164 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
     return 'Question';
   };
 
+  const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
   return (
-    <div className="bg-white rounded-xl p-8 shadow-sm border max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Badge variant="secondary" className="bg-blue-100 text-blue-800 text-sm font-medium">
+    <div className="max-w-2xl mx-auto">
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-muted-foreground">
+            Question {currentQuestionIndex + 1} of {totalQuestions}
+          </span>
+          <Badge variant="secondary" className="bg-quest-primary/10 text-quest-primary">
             {getQuestionTypeBadge()}
           </Badge>
-          <span className="text-sm text-muted-foreground font-medium">
-            {currentQuestionIndex + 1}/{totalQuestions}
-          </span>
         </div>
-        <h2 className="text-2xl font-bold mb-2">Question {currentQuestionIndex + 1}</h2>
-        <p className="text-muted-foreground">Choose the correct answer below</p>
+        <Progress value={progress} className="h-2" />
       </div>
-      
-      <div className="mb-8">
-        <MathDisplay content={currentQuestion.text} className="text-xl font-medium text-center" />
-      </div>
-      
-      {answerState !== 'unanswered' && (
-        <div className={`p-4 rounded-lg mb-6 ${
-          answerState === 'correct' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'
-        }`}>
-          <div className="flex items-center gap-2 mb-2">
-            {answerState === 'correct' ? (
-              <>
-                <CheckCircle size={20} className="text-green-600" />
-                <span className="font-semibold text-green-600">Correct!</span>
-              </>
-            ) : (
-              <>
-                <XCircle size={20} className="text-red-600" />
-                <span className="font-semibold text-red-600">Incorrect</span>
-              </>
-            )}
+
+      <Card className="mb-8">
+        <CardContent className="p-6">
+          <div className="mb-8">
+            <MathDisplay content={currentQuestion.text} className="text-xl font-medium" />
           </div>
-          <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
-        </div>
-      )}
-      
-      <div className="mb-8">
-        {currentQuestion.type === 'mcq' && (
-          <RadioGroup
-            value={userAnswer?.toString() ?? ""}
-            className="space-y-4"
-            disabled={answerState !== 'unanswered'}
-          >
-            {currentQuestion.options?.map((option, index) => (
-              <div 
-                key={index} 
-                className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                  userAnswer === index ? 'bg-blue-50 border-blue-300' : 'hover:bg-gray-50'
-                } ${answerState !== 'unanswered' ? 'cursor-not-allowed opacity-75' : ''}`}
-                onClick={() => answerState === 'unanswered' && onAnswerSelect(index)}
+
+          {currentQuestion.type === 'mcq' && (
+            <RadioGroup
+              value={userAnswer?.toString() ?? ""}
+              className="space-y-4"
+              disabled={answerState !== 'unanswered'}
+            >
+              {currentQuestion.options.map((option, index) => (
+                <div
+                  key={index}
+                  className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                    userAnswer === option
+                      ? 'bg-quest-primary/10 border-quest-primary'
+                      : 'hover:bg-muted/50'
+                  } ${
+                    answerState !== 'unanswered'
+                      ? 'cursor-not-allowed opacity-75'
+                      : ''
+                  }`}
+                  onClick={() => answerState === 'unanswered' && onAnswerSelect(option)}
+                >
+                  <RadioGroupItem
+                    value={option.toString()}
+                    id={`option-${index}`}
+                    disabled={answerState !== 'unanswered'}
+                  />
+                  <Label
+                    htmlFor={`option-${index}`}
+                    className="text-base cursor-pointer flex-1"
+                  >
+                    {option}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          )}
+
+          {currentQuestion.type === 'true-false' && (
+            <RadioGroup
+              value={userAnswer?.toString() ?? ""}
+              className="space-y-4"
+              disabled={answerState !== 'unanswered'}
+            >
+              <div
+                className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                  userAnswer === true
+                    ? 'bg-quest-primary/10 border-quest-primary'
+                    : 'hover:bg-muted/50'
+                } ${
+                  answerState !== 'unanswered'
+                    ? 'cursor-not-allowed opacity-75'
+                    : ''
+                }`}
+                onClick={() => answerState === 'unanswered' && onAnswerSelect(true)}
               >
                 <RadioGroupItem
-                  value={index.toString()}
-                  id={`option-${index}`}
+                  value="true"
+                  id="option-true"
                   disabled={answerState !== 'unanswered'}
                 />
                 <Label
-                  htmlFor={`option-${index}`}
+                  htmlFor="option-true"
                   className="text-base cursor-pointer flex-1"
                 >
-                  {option}
+                  True
                 </Label>
               </div>
-            ))}
-          </RadioGroup>
-        )}
-        
-        {currentQuestion.type === 'true-false' && (
-          <RadioGroup
-            value={userAnswer?.toString() ?? ""}
-            className="space-y-4"
-            disabled={answerState !== 'unanswered'}
-          >
-            <div 
-              className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                userAnswer === true ? 'bg-blue-50 border-blue-300' : 'hover:bg-gray-50'
-              } ${answerState !== 'unanswered' ? 'cursor-not-allowed opacity-75' : ''}`}
-              onClick={() => answerState === 'unanswered' && onAnswerSelect(true)}
-            >
-              <RadioGroupItem
-                value="true"
-                id="option-true"
-                disabled={answerState !== 'unanswered'}
-              />
-              <Label
-                htmlFor="option-true"
-                className="text-base cursor-pointer flex-1"
+              <div
+                className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-all ${
+                  userAnswer === false
+                    ? 'bg-quest-primary/10 border-quest-primary'
+                    : 'hover:bg-muted/50'
+                } ${
+                  answerState !== 'unanswered'
+                    ? 'cursor-not-allowed opacity-75'
+                    : ''
+                }`}
+                onClick={() => answerState === 'unanswered' && onAnswerSelect(false)}
               >
-                True
-              </Label>
+                <RadioGroupItem
+                  value="false"
+                  id="option-false"
+                  disabled={answerState !== 'unanswered'}
+                />
+                <Label
+                  htmlFor="option-false"
+                  className="text-base cursor-pointer flex-1"
+                >
+                  False
+                </Label>
+              </div>
+            </RadioGroup>
+          )}
+        </CardContent>
+      </Card>
+
+      {answerState !== 'unanswered' && (
+        <Card className={`mb-8 ${
+          answerState === 'correct' ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
+        }`}>
+          <CardContent className="p-6">
+            <div className="flex items-start gap-3">
+              {answerState === 'correct' ? (
+                <CheckCircle size={20} className="text-green-600 flex-shrink-0 mt-1" />
+              ) : (
+                <XCircle size={20} className="text-red-600 flex-shrink-0 mt-1" />
+              )}
+              <div>
+                <p className={`font-semibold ${
+                  answerState === 'correct' ? 'text-green-600' : 'text-red-600'
+                }`}>
+                  {answerState === 'correct' ? 'Correct!' : 'Incorrect'}
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {currentQuestion.explanation}
+                </p>
+              </div>
             </div>
-            <div 
-              className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                userAnswer === false ? 'bg-blue-50 border-blue-300' : 'hover:bg-gray-50'
-              } ${answerState !== 'unanswered' ? 'cursor-not-allowed opacity-75' : ''}`}
-              onClick={() => answerState === 'unanswered' && onAnswerSelect(false)}
-            >
-              <RadioGroupItem
-                value="false"
-                id="option-false"
-                disabled={answerState !== 'unanswered'}
-              />
-              <Label
-                htmlFor="option-false"
-                className="text-base cursor-pointer flex-1"
-              >
-                False
-              </Label>
-            </div>
-          </RadioGroup>
+          </CardContent>
+        </Card>
+      )}
+
+      <Button
+        onClick={onNextQuestion}
+        disabled={answerState === 'unanswered'}
+        className="w-full h-12 text-base bg-gradient-to-r from-quest-primary to-quest-purple hover:from-quest-primary/90 hover:to-quest-purple/90 text-white"
+      >
+        {currentQuestionIndex < totalQuestions - 1 ? (
+          <>
+            Next Question
+            <ChevronRight size={20} className="ml-2" />
+          </>
+        ) : (
+          'Finish Quiz'
         )}
-      </div>
-      
-      <div className="text-center">
-        <Button
-          onClick={onNextQuestion}
-          disabled={answerState === 'unanswered'}
-          className="px-8 py-3 text-base bg-blue-600 hover:bg-blue-700"
-        >
-          {currentQuestionIndex < totalQuestions - 1 ? 'Next Question' : 'Finish Quiz'}
-        </Button>
-      </div>
+      </Button>
     </div>
   );
 };

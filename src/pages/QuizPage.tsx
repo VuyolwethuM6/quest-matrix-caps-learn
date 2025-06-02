@@ -27,6 +27,8 @@ const QuizPage: React.FC = () => {
   const [answerState, setAnswerState] = useState<AnswerState>('unanswered');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [userAnswers, setUserAnswers] = useState<(string | number | boolean | null)[]>([]);
 
   // Get quiz data
   const subject = getSubjectById(subjectId || "");
@@ -39,14 +41,13 @@ const QuizPage: React.FC = () => {
       const score = Math.round((correctAnswers / (quiz?.questions.length || 1)) * 100);
       const quizId = `${subject.id}-${topic.id}-${subtopic.id}-quiz`;
       
-      // Show toast with custom styling
       toast({
         title: "Quiz Completed",
         description: `You scored ${score}% on the quiz.`,
-        duration: 3000, // 3 seconds
+        duration: 3000,
         className: "bg-quest-softPurple/20 border-quest-primary",
         style: {
-          background: "rgba(155, 135, 245, 0.1)", // quest-softPurple with 10% opacity
+          background: "rgba(155, 135, 245, 0.1)",
           borderColor: "var(--quest-primary)",
           color: "var(--quest-primary)",
           backdropFilter: "blur(8px)",
@@ -55,10 +56,12 @@ const QuizPage: React.FC = () => {
       
       completeQuiz(quizId, score);
     }
-  }, [showResults]); // Only run when showResults changes
+  }, [showResults]);
 
   const handleStartQuiz = () => {
     setQuizStarted(true);
+    setStartTime(Date.now());
+    setUserAnswers(new Array(quiz?.questions.length).fill(null));
   };
 
   const handleAnswerSelect = (answer: string | number | boolean) => {
@@ -72,6 +75,13 @@ const QuizPage: React.FC = () => {
       if (isCorrect) {
         setCorrectAnswers(prev => prev + 1);
       }
+
+      // Update userAnswers array
+      setUserAnswers(prev => {
+        const newAnswers = [...prev];
+        newAnswers[currentQuestionIndex] = answer;
+        return newAnswers;
+      });
     }
   };
 
@@ -85,16 +95,18 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const handleRetakeQuiz = () => {
+  const handleRetry = () => {
     setQuizStarted(false);
     setCurrentQuestionIndex(0);
     setUserAnswer(null);
     setAnswerState('unanswered');
     setCorrectAnswers(0);
     setShowResults(false);
+    setStartTime(null);
+    setUserAnswers([]);
   };
 
-  const handleContinueLearning = () => {
+  const handleContinue = () => {
     navigate(`/curriculum?subject=${subjectId}&topic=${topicId}`);
   };
 
@@ -109,6 +121,8 @@ const QuizPage: React.FC = () => {
       setAnswerState('unanswered');
       setCorrectAnswers(0);
       setShowResults(false);
+      setStartTime(null);
+      setUserAnswers([]);
     }
   };
 
@@ -122,8 +136,6 @@ const QuizPage: React.FC = () => {
       </div>
     );
   }
-
-  const score = Math.round((correctAnswers / quiz.questions.length) * 100);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -159,11 +171,13 @@ const QuizPage: React.FC = () => {
           
           {showResults && (
             <QuizResults
-              score={score}
-              correctAnswers={correctAnswers}
+              score={correctAnswers}
               totalQuestions={quiz.questions.length}
-              onRetakeQuiz={handleRetakeQuiz}
-              onContinueLearning={handleContinueLearning}
+              timeTaken={startTime ? Math.floor((Date.now() - startTime) / 1000) : 0}
+              onRetry={handleRetry}
+              onContinue={handleContinue}
+              questions={quiz.questions}
+              userAnswers={userAnswers}
             />
           )}
         </div>
