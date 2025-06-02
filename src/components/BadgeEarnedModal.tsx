@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import Confetti from 'react-confetti';
-import { getBadges } from "@/data/curriculum";
+import { badges } from "@/data/curriculum";
 
 interface BadgeEarnedModalProps {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const BadgeEarnedModal: React.FC<BadgeEarnedModalProps> = ({ isOpen, onClose, ba
     height: window.innerHeight,
   });
 
-  const badge = getBadges().find(b => b.id === badgeId);
+  const badge = badges[badgeId as keyof typeof badges];
 
   useEffect(() => {
     const handleResize = () => {

@@ -2289,36 +2289,28 @@ export const getSubTopicById = (subjectId: string, topicId: string, subtopicId: 
   return topic?.subTopics.find(subtopic => subtopic.id === subtopicId);
 };
 
-export const getBadges = (): Badge[] => [
-  {
-    id: 'first-lesson',
-    name: 'First Steps',
-    description: 'Complete your first lesson',
-    icon: '🎯',
-    condition: 'Complete 1 lesson'
-  },
-  {
-    id: 'first-quiz',
-    name: 'Quiz Whiz',
-    description: 'Complete your first quiz',
-    icon: '🧠',
-    condition: 'Complete 1 quiz'
-  },
-  {
-    id: 'streak-3',
-    name: 'On Fire',
-    description: 'Maintain a 3-day streak',
-    icon: '🔥',
-    condition: 'Login for 3 consecutive days'
-  },
-  {
-    id: 'level-5',
-    name: 'Rising Star',
-    description: 'Reach Level 5',
-    icon: '⭐',
-    condition: 'Reach level 5'
-  }
-];
+export const getBadges = (): Badge[] => {
+  return Object.values(badges).map(badge => ({
+    id: badge.id,
+    name: badge.name,
+    description: badge.description,
+    icon: badge.icon,
+    color: badge.color,
+    condition: badge.requirement.type === 'level' 
+      ? `Reach level ${badge.requirement.value}`
+      : badge.requirement.type === 'streak'
+      ? `Maintain a ${badge.requirement.value}-day streak`
+      : badge.requirement.type === 'subject_completion'
+      ? `Complete all ${badge.requirement.value} topics`
+      : badge.requirement.type === 'topic_completion'
+      ? `Complete all ${badge.requirement.value} subtopics`
+      : badge.requirement.type === 'quiz_score'
+      ? `Score ${badge.requirement.value}% on any quiz`
+      : badge.requirement.type === 'quiz_consistency'
+      ? `Complete ${badge.requirement.value.count} quizzes with ${badge.requirement.value.score}% or higher`
+      : 'Complete requirements'
+  }));
+};
 
 export const getAvatars = (): Avatar[] => [
   {
@@ -2343,6 +2335,7 @@ export type Badge = {
   name: string;
   description: string;
   icon: string;
+  color: string;
   condition: string;
 };
 
@@ -2353,7 +2346,33 @@ export type Avatar = {
 };
 
 export const badges = {
+  // First Achievement Badges
+  'first-lesson': {
+    id: 'first-lesson',
+    name: 'First Lesson',
+    description: 'Completed your first lesson',
+    icon: '📚',
+    color: 'bg-green-100 text-green-800',
+    requirement: { type: 'first_lesson' }
+  },
+  'first-quiz': {
+    id: 'first-quiz',
+    name: 'First Quiz',
+    description: 'Completed your first quiz',
+    icon: '✍️',
+    color: 'bg-blue-100 text-blue-800',
+    requirement: { type: 'first_quiz' }
+  },
+
   // Level Badges
+  'level-5': {
+    id: 'level-5',
+    name: 'Rising Star',
+    description: 'Reach Level 5',
+    icon: '⭐',
+    color: 'bg-yellow-100 text-yellow-800',
+    requirement: { type: 'level', value: 5 }
+  },
   level_10: {
     id: 'level_10',
     name: 'Level 10 Achiever',
@@ -2380,6 +2399,14 @@ export const badges = {
   },
 
   // Streak Badges
+  'streak-3': {
+    id: 'streak-3',
+    name: 'On Fire',
+    description: 'Maintain a 3-day streak',
+    icon: '🔥',
+    color: 'bg-orange-100 text-orange-800',
+    requirement: { type: 'streak', value: 3 }
+  },
   streak_7: {
     id: 'streak_7',
     name: '7-Day Streak',

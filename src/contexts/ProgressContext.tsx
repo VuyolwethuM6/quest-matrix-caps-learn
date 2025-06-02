@@ -62,7 +62,8 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const newLevel = calculateLevel(xp);
     if (newLevel !== currentLevel) {
       setCurrentLevel(newLevel);
-      if (newLevel > prevLevel) {
+      // Only show level up if we're actually leveling up, not on initial load
+      if (newLevel > prevLevel && isInitialized) {
         setNewLevel(newLevel);
         setShowLevelUp(true);
         setPrevLevel(newLevel);
@@ -71,9 +72,12 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (newLevel === 5) {
           earnBadge('level-5');
         }
+      } else {
+        // Just update the level without showing modal
+        setPrevLevel(newLevel);
       }
     }
-  }, [xp, currentLevel, prevLevel]);
+  }, [xp, currentLevel, prevLevel, isInitialized]);
 
   // Initialize progress document if it doesn't exist
   useEffect(() => {
@@ -110,16 +114,19 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           setEarnedBadges([]);
           setLastLoginDate(null);
           setPrevLevel(1);
+          setCurrentLevel(1);
         } else {
           // For existing users, fetch their current progress
           const data = progressDoc.data();
+          const initialLevel = calculateLevel(data.xp || 0);
           setXp(data.xp || 0);
           setStreakDays(data.streakDays || 0);
           setCompletedLessons(data.completedLessons || []);
           setCompletedQuizzes(data.completedQuizzes || {});
           setEarnedBadges(data.earnedBadges || []);
           setLastLoginDate(data.lastLoginDate || null);
-          setPrevLevel(calculateLevel(data.xp || 0));
+          setPrevLevel(initialLevel);
+          setCurrentLevel(initialLevel);
         }
         setIsInitialized(true);
       } catch (error) {
@@ -191,16 +198,6 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const checkBadgeEligibility = () => {
     const newBadges: string[] = [];
 
-    // Check first lesson badge
-    if (completedLessons.length === 1 && !earnedBadges.includes('first-lesson')) {
-      newBadges.push('first-lesson');
-    }
-
-    // Check first quiz badge
-    if (Object.keys(completedQuizzes).length === 1 && !earnedBadges.includes('first-quiz')) {
-      newBadges.push('first-quiz');
-    }
-
     // Check level badges
     if (currentLevel >= 5 && !earnedBadges.includes('level-5')) newBadges.push('level-5');
     if (currentLevel >= 10 && !earnedBadges.includes('level_10')) newBadges.push('level_10');
@@ -245,10 +242,20 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       newBadges.push('quiz_consistent');
     }
 
+    // Only show the first badge earned in this check
     if (newBadges.length > 0) {
+      const firstBadge = newBadges[0];
       setEarnedBadges(prev => [...prev, ...newBadges]);
-      setNewBadgeId(newBadges[0]);
+      setNewBadgeId(firstBadge);
       setShowBadgeEarned(true);
+      
+      // If there are more badges, schedule them to be shown after a delay
+      if (newBadges.length > 1) {
+        setTimeout(() => {
+          setNewBadgeId(newBadges[1]);
+          setShowBadgeEarned(true);
+        }, 2000);
+      }
     }
   };
 
@@ -264,8 +271,17 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setShowLevelUp(true);
       }
       
-      setCompletedLessons(prev => [...prev, lessonId]);
-      checkBadgeEligibility();
+      // Update completed lessons and check for first lesson badge
+      setCompletedLessons(prev => {
+        const updated = [...prev, lessonId];
+        // If this is the first lesson, earn the badge immediately
+        if (updated.length === 1 && !earnedBadges.includes('first-lesson')) {
+          setEarnedBadges(prev => [...prev, 'first-lesson']);
+          setNewBadgeId('first-lesson');
+          setShowBadgeEarned(true);
+        }
+        return updated;
+      });
     }
   };
 
@@ -273,6 +289,12 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // First update completed quizzes
     setCompletedQuizzes(prev => {
       const updated = { ...prev, [quizId]: score };
+      // If this is the first quiz, earn the badge immediately
+      if (Object.keys(updated).length === 1 && !earnedBadges.includes('first-quiz')) {
+        setEarnedBadges(prev => [...prev, 'first-quiz']);
+        setNewBadgeId('first-quiz');
+        setShowBadgeEarned(true);
+      }
       return updated;
     });
 
@@ -291,11 +313,10 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // Update streak
     updateStreak();
 
-    // Check badge eligibility after state updates
-    // Use a small delay to ensure state updates are complete
+    // Check for other badges after a short delay
     setTimeout(() => {
       checkBadgeEligibility();
-    }, 100);
+    }, 300);
   };
 
   const earnBadge = (badgeId: string) => {
