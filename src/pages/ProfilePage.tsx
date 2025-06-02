@@ -45,6 +45,12 @@ const ProfilePage: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      toast({
+        title: "Success",
+        description: "Successfully logged out!",
+        variant: "success",
+        duration: 2000,
+      });
       navigate('/login');
     } catch (error) {
       console.error('Error logging out:', error);

@@ -33,6 +33,13 @@ const Login = () => {
         throw new Error('User document not found');
       }
 
+      toast({
+        title: "Success",
+        description: "Successfully signed in!",
+        variant: "success",
+        duration: 2000,
+      });
+
       if (!userData?.isOnboarded) {
         navigate('/onboarding');
       } else if (userData?.isAdmin) {
@@ -67,6 +74,12 @@ const Login = () => {
 
     try {
       await signUp(email, password);
+      toast({
+        title: "Success",
+        description: "Account created successfully!",
+        variant: "success",
+        duration: 2000,
+      });
       navigate('/onboarding');
     } catch (error) {
       toast({
@@ -88,6 +101,13 @@ const Login = () => {
       if (!userDoc.exists()) {
         throw new Error('User document not found');
       }
+
+      toast({
+        title: "Success",
+        description: "Successfully signed in with Google!",
+        variant: "success",
+        duration: 2000,
+      });
 
       if (!userData?.isOnboarded) {
         navigate('/onboarding');
