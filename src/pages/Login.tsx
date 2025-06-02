@@ -27,11 +27,18 @@ const Login = () => {
     try {
       const userCredential = await signIn(email, password) as UserCredential;
       const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+      const userData = userDoc.data();
       
-      if (userDoc.exists() && userDoc.data().isOnboarded) {
-        navigate('/dashboard');
-      } else {
+      if (!userDoc.exists()) {
+        throw new Error('User document not found');
+      }
+
+      if (!userData?.isOnboarded) {
         navigate('/onboarding');
+      } else if (userData?.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
       }
     } catch (error) {
       toast({
@@ -76,11 +83,18 @@ const Login = () => {
     try {
       const result = await signInWithGoogle();
       const userDoc = await getDoc(doc(db, 'users', result.user.uid));
+      const userData = userDoc.data();
       
-      if (userDoc.exists() && userDoc.data().isOnboarded) {
-        navigate('/dashboard');
-      } else {
+      if (!userDoc.exists()) {
+        throw new Error('User document not found');
+      }
+
+      if (!userData?.isOnboarded) {
         navigate('/onboarding');
+      } else if (userData?.isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/dashboard');
       }
     } catch (error) {
       toast({
