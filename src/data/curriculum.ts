@@ -47,41 +47,41 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "factoring-intro",
-                "content": "Factorisation uses the zero-product rule: If \\( ab = 0 \\), then \\( a = 0 \\) or \\( b = 0 \\)."
+                "content": "**Factorisation** uses the zero-product rule: If $a.b = 0$, then $a = 0$ or $b = 0$."
               },
               {
                 "type": "example",
                 "id": "example-fact-1",
-                "content": "**Solve for \\( x \\):**  \n\\( 2x^2 - 3x = 0 \\)\n\nFactorise: \\( x(2x - 3) = 0 \\)  \nSolutions: \\( x = 0 \\) or \\( x = \\frac{3}{2} \\)"
+                "content": "**Solve for $x$ given that:** \t $2x^2 - 3x = 0$ \n \n :=> $x(2x - 3) = 0$\n => $x = 0$ or $2x - 3 = 0$ \n :=> $x = 0$ or  $x = \\frac{3}{2}$"
               },
               {
                 "type": "example",
                 "id": "example-fact-2",
-                "content": "**Solve for \\( x \\):**  \n\\( (2x - 1)(x + 3) = 0 \\)  \nSolutions: \\( x = \\frac{1}{2} \\) or \\( x = -3 \\)"
+                "content": "**Solve for $x$ :**  \n $(2x - 1)(x + 3) = 0$ \n \n :=> $2x - 1 = 0$ or $x + 3 = 0$ \n :=> $x = \\frac{1}{2}$ or $x = -3$ \n"
               },
               {
                 "type": "example",
                 "id": "example-fact-3",
-                "content": "**Solve for \\( a \\):**  \n\\( 2a(a - 1) + 3(a - 1) = 0 \\)\nFactor: \\( (a - 1)(2a + 3) = 0 \\)  \nSolutions: \\( a = 1 \\) or \\( a = -\\frac{3}{2} \\)"
+                "content": "**Solve for \\( a \\) given that:**  \n$2a(a - 1) + 3(a - 1) = 0$ \n \n :=> $(a - 1)(2a + 3) = 0$ \n => $a - 1 = 0$ or $2a + 3 = 0$ \n :=> $a = 1$ or $a = -\\frac{3}{2}$"
               },
               {
                 "type": "practice",
                 "id": "practice-can-you-1",
                 "content": {
-                  "question": "Solve: \\( x^2 - 9 = 0 \\)",
-                  "options": ["x = -3 or x = 3", "x = 0 or x = 9", "x = 3", "x = -9"],
+                  "question": "Solve for $x$ given that: $x^2 - 9 = 0$",
+                  "options": ["$x = -3$ or $x = 3$", "$x = 0$ or $x = 9$", "$x = 3$", "$x = -9$"],
                   "correctAnswer": 0,
-                  "explanation": "Difference of squares: \\( (x - 3)(x + 3) = 0 \\)"
+                  "explanation": "Difference of squares: $(x - 3)(x + 3) = 0$"
                 }
               },
               {
                 "type": "practice",
                 "id": "practice-can-you-2",
                 "content": {
-                  "question": "Solve: \\( x(x + 6) = 0 \\)",
-                  "options": ["x = 0 or x = -6", "x = -6 or x = 6", "x = 0 or x = 6", "x = 0"],
+                  "question": "Solve for $x$ given that: $x(x + 6) = 0$",
+                  "options": ["$x = 0$ or $x = -6$", "$x = -6$ or $x = 6$", "$x = 0$ or $x = 6$", "$x = 0$"],
                   "correctAnswer": 0,
-                  "explanation": "Factor is already given: \\( x = 0 \\) or \\( x + 6 = 0 \\Rightarrow x = -6 \\)"
+                  "explanation": "Factor is already given: $x = 0$ or $x + 6 = 0$ => $x = -6$"
                 }
               },
               {
@@ -99,46 +99,46 @@ export const subjects: Subject[] = [
               {
                 "type": "tip",
                 "id": "fractions-tip-restrictions",
-                "content": "⚠️ If a denominator includes a variable (like \\( x + 1 \\)), you must restrict that variable from values that make the denominator zero (e.g. \\( x \\ne -1 \\))."
+                "content": "⚠️ If a denominator includes a variable (like $x + 1$), you must restrict that variable from values that make the denominator zero (e.g. $x \\ne -1$)."
               },
               {
                 "type": "example",
                 "id": "fractions-example-1",
-                "content": "**Solve for \\( x \\):**  \n\\( \\frac{x}{2(x - 2)} - \\frac{x}{x - 2} = 1 \\)  \n\nStep 1: LCD = \\( 2(x - 2) \\)  \nMultiply through:  \n\\( x - 2x = 2x - 4 \\)  \nSimplify: \\( -x = 2x - 4 \\)  \nSolve: \\( -3x = -4 \\Rightarrow x = \\frac{4}{3} \\)"
+                "content": "**Solve for $x$ given that:**  \n$( \\frac{x}{2(x - 2)} - \\frac{x}{x - 2} = 1 )$  \n\nStep 1: LCD = $2(x - 2)$  \nMultiply through:  \n$x - 2x = 2x - 4$  \nSimplify: $-x = 2x - 4$  \nSolve: $-3x = -4$ => $x = \\frac{4}{3}$"
               },
               {
                 "type": "example",
                 "id": "fractions-example-2",
-                "content": "**Solve for \\( x \\):**  \n\\( \\frac{x - 2}{x - 1} = \\frac{2x - 1}{x + 7} \\)  \n\nStep 1: LCD = \\( (x - 1)(x + 7) \\)  \nCross-multiply:  \n\\( (x - 2)(x + 7) = (2x - 1)(x - 1) \\)  \nSimplify both sides:  \n\\( x^2 + 5x - 14 = 2x^2 - 3x + 1 \\)  \nBring all terms to one side: \\( x^2 - 8x + 15 = 0 \\)  \nFactorise: \\( (x - 3)(x - 5) = 0 \\)  \n\\( x = 3 \\) or \\( x = 5 \\)"
+                "content": "**Solve for $x$ given that:**  \n$( \\frac{x - 2}{x - 1} = \\frac{2x - 1}{x + 7} )$  \n\nStep 1: LCD = $(x - 1)(x + 7)$  \nCross-multiply:  \n$(x - 2)(x + 7) = (2x - 1)(x - 1)$  \nSimplify both sides:  \n$x^2 + 5x - 14 = 2x^2 - 3x + 1$  \nBring all terms to one side: $x^2 - 8x + 15 = 0$  \nFactorise: $(x - 3)(x - 5) = 0$  \n$x = 3$ or $x = 5$"
               },
               {
                 "type": "practice",
                 "id": "practice-fractions-1",
                 "content": {
-                  "question": "Solve: \\( \\frac{3}{x - 4} + \\frac{x - 3}{x} = 2 \\)",
+                  "question": "Solve for $x$ given that: $( \\frac{3}{x - 4} + \\frac{x - 3}{x} = 2 )$",
                   "options": [
-                    "x = 6 or x = -2",
-                    "x = -3 or x = 2",
-                    "x = 6 or x = 3",
-                    "x = -4 or x = 3"
+                    "$x = 6$ or $x = -2$",
+                    "$x = -3$ or $x = 2$",
+                    "$x = 6$ or $x = 3$",
+                    "$x = -4$ or $x = 3$"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Find the LCD and solve the resulting quadratic: \\( x^2(x - 4) = ... \\)"
+                  "explanation": "Find the LCD and solve the resulting quadratic: $x^2(x - 4) = ...$"
                 }
               },
               {
                 "type": "practice",
                 "id": "practice-fractions-2",
                 "content": {
-                  "question": "Solve: \\( \\frac{x + 2}{x + 1} - \\frac{3}{x - 2} = \\frac{1}{x + 1} \\)",
+                  "question": "Solve for $x$ given that: $( \\frac{x + 2}{x + 1} - \\frac{3}{x - 2} = \\frac{1}{x + 1} )$",
                   "options": [
-                    "x = 5",
-                    "x = -1",
-                    "x = 2",
-                    "x = 0"
+                    "$x = 5$",
+                    "$x = -1$",
+                    "$x = 2$",
+                    "$x = 0$"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Use the LCD of \\( (x + 1)(x - 2) \\) to eliminate denominators and solve."
+                  "explanation": "Use the LCD of $(x + 1)(x - 2)$ to eliminate denominators and solve."
                 }
               },
               {
@@ -149,7 +149,7 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "k-method-intro",
-                "content": "Sometimes quadratic equations are disguised in more complicated forms. To simplify them, we can use substitution. Replace a repeated expression (like \\( x + 5 \\) or \\( x^2 + 3 \\)) with a new variable (e.g. \\( k \\)), solve, and then substitute back."
+                "content": "Sometimes quadratic equations are disguised in more complicated forms. To simplify them, we can use substitution. Replace a repeated expression (like $x + 5$ or $x^2 + 3$) with a new variable (e.g. $k$), solve, and then substitute back."
               },
               {
                 "type": "tip",
@@ -159,41 +159,41 @@ export const subjects: Subject[] = [
               {
                 "type": "example",
                 "id": "k-method-example-1",
-                "content": "**Solve for \\( x \\):**  \n\\( 2(x + 5)^2 + 3(x + 5) - 2 = 0 \\)  \n\nLet \\( k = x + 5 \\)  \nThen the equation becomes: \\( 2k^2 + 3k - 2 = 0 \\)  \nFactorise: \\( (2k - 1)(k + 2) = 0 \\)  \n\\( k = \\frac{1}{2} \\) or \\( k = -2 \\)  \nSubstitute back:  \n\\( x + 5 = \\frac{1}{2} \\Rightarrow x = -\\frac{9}{2} \\)  \n\\( x + 5 = -2 \\Rightarrow x = -7 \\)"
+                "content": "**Solve for $x$ given that:**  \n$2(x + 5)^2 + 3(x + 5) - 2 = 0$  \n\nLet $k = x + 5$  \nThen the equation becomes: $2k^2 + 3k - 2 = 0$  \nFactorise: $(2k - 1)(k + 2) = 0$  \n$k = \\frac{1}{2}$ or $k = -2$  \nSubstitute back:  \n$x + 5 = \\frac{1}{2}$ => $x = -\\frac{9}{2}$  \n$x + 5 = -2$ => $x = -7$"
               },
               {
                 "type": "example",
                 "id": "k-method-example-2",
-                "content": "**Solve for \\( x \\):**  \n\\( 3x^2 + x - 1 + \\frac{1}{3x^2 + x - 3} = 0 \\)  \n\nLet \\( k = 3x^2 + x \\)  \nThen the equation becomes: \\( (k - 1) + \\frac{1}{k - 3} = 0 \\)  \nMultiply through by \\( k - 3 \\):  \n\\( (k - 1)(k - 3) + 1 = 0 \\)  \nSimplify: \\( k^2 - 4k + 4 = 0 \\)  \n\\( (k - 2)^2 = 0 \\Rightarrow k = 2 \\)  \nNow solve: \\( 3x^2 + x = 2 \\Rightarrow 3x^2 + x - 2 = 0 \\)  \nFactor: \\( (3x - 2)(x + 1) = 0 \\Rightarrow x = \\frac{2}{3} \\) or \\( x = -1 \\)"
+                "content": "**Solve for $x$ given that:**  \n$3x^2 + x - 1 + \\frac{1}{3x^2 + x - 3} = 0$  \n\nLet $k = 3x^2 + x$  \nThen the equation becomes: $(k - 1) + \\frac{1}{k - 3} = 0$  \nMultiply through by $k - 3$:  \n$(k - 1)(k - 3) + 1 = 0$  \nSimplify: $k^2 - 4k + 4 = 0$  \n$(k - 2)^2 = 0$ => $k = 2$  \nNow solve: $3x^2 + x = 2$ => $3x^2 + x - 2 = 0$  \nFactor: $(3x - 2)(x + 1) = 0$ => $x = \\frac{2}{3}$ or $x = -1$"
               },
               {
                 "type": "practice",
                 "id": "practice-k-method-1",
                 "content": {
-                  "question": "Solve: \\( (x^2 + 3)^2 - 2(x^2 + 3) - 8 = 0 \\)",
+                  "question": "Solve for $x$ given that: $((x^2 + 3)^2 - 2(x^2 + 3) - 8 = 0)$",
                   "options": [
-                    "x = -4, 1, -2, -1",
-                    "x = -1 or 2",
-                    "x = -2 or 4",
-                    "x = -3 or 1"
+                    "$x = -4, 1, -2, -1$",
+                    "$x = -1$ or $x = 2$",
+                    "$x = -2$ or $x = 4$",
+                    "$x = -3$ or $x = 1$"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Let \\( k = x^2 + 3 \\) so \\( k^2 - 2k - 8 = 0 \\Rightarrow (k - 4)(k + 2) = 0 \\Rightarrow k = 4 \\) or \\( -2 \\). Then solve \\( x^2 + 3 = 4 \\Rightarrow x = \\pm1 \\) or \\( x^2 + 3 = -2 \\Rightarrow \\text{no real solution} \\)."
+                  "explanation": "Let $k = x^2 + 3$ so $k^2 - 2k - 8 = 0$ => $(k - 4)(k + 2) = 0$ => $k = 4$ or $k = -2$. Then solve $x^2 + 3 = 4$ => $x = \\pm1$ or $x^2 + 3 = -2$ => no real solution."
                 }
               },
               {
                 "type": "practice",
                 "id": "practice-k-method-2",
                 "content": {
-                  "question": "Solve: \\( \\frac{1}{x^2 - x - 1} = x^2 - x - 1 \\)",
+                  "question": "Solve for $x$ given that: $( \\frac{1}{x^2 - x - 1} = x^2 - x - 1 )$",
                   "options": [
-                    "x = 0, 1, 2, -1",
-                    "x = 0 or 1",
-                    "x = 2 or -1",
-                    "x = -2 or 1"
+                    "$x = 0, 1, 2, -1$",
+                    "$x = 0$ or $x = 1$",
+                    "$x = 2$ or $x = -1$",
+                    "$x = -2$ or $x = 1$"
                   ],
                   "correctAnswer": 2,
-                  "explanation": "Let \\( k = x^2 - x - 1 \\), so equation becomes \\( \\frac{1}{k} = k \\Rightarrow k^2 = 1 \\Rightarrow k = \\pm1 \\). Then solve for \\( x \\): \\( x^2 - x - 1 = 1 \\) and \\( -1 \\)."
+                  "explanation": "Let $k = x^2 - x - 1$, so equation becomes $\\frac{1}{k} = k$ => $k^2 = 1$ => $k = \\pm1$. Then solve for $x$: $x^2 - x - 1 = 1$ and $x^2 - x - 1 = -1$."
                 }
               },
         
@@ -207,13 +207,13 @@ export const subjects: Subject[] = [
                     "type": "mcq",
                     "text": "Which of the following equations is quadratic?",
                     "options": [
-                      "3x + 2 = 0",
-                      "x^3 - 2x = 0",
-                      "x^2 - 5x + 6 = 0",
-                      "x - 7 = 0"
+                      "$3x + 2 = 0$",
+                      "$x^3 - 2x = 0$",
+                      "$x^2 - 5x + 6 = 0$",
+                      "$x - 7 = 0$"
                     ],
                     "correctAnswer": 2,
-                    "explanation": "A quadratic equation has the highest exponent of 2: x² - 5x + 6 = 0."
+                    "explanation": "A quadratic equation has the highest exponent of 2: $x^2 - 5x + 6 = 0$."
                   },
                   {
                     "id": "q2",
@@ -225,20 +225,20 @@ export const subjects: Subject[] = [
                   {
                     "id": "q3",
                     "type": "mcq",
-                    "text": "Solve: (x - 2)(x + 5) = 0",
+                    "text": "Solve for $x$ given that: $(x - 2)(x + 5) = 0$",
                     "options": [
-                      "x = 2 or -5",
-                      "x = -2 or 5",
-                      "x = -2 or -5",
-                      "x = 2 or 5"
+                      "$x = 2$ or $x = -5$",
+                      "$x = -2$ or $x = 5$",
+                      "$x = -2$ or $x = -5$",
+                      "$x = 2$ or $x = 5$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Set each bracket to 0: x - 2 = 0 ⇒ x = 2, x + 5 = 0 ⇒ x = -5."
+                    "explanation": "Set each bracket to 0: $x - 2 = 0$ \n => $x = 2$ \n $x + 5 = 0$ \n => $x = -5$."
                   },
                   {
                     "id": "q4",
                     "type": "mcq",
-                    "text": "Which method is best for solving: (x + 1)^2 + 5(x + 1) = 14?",
+                    "text": "Which method is best for solving: $(x + 1)^2 + 5(x + 1) = 14$?",
                     "options": [
                       "Factorisation",
                       "Quadratic formula",
@@ -251,15 +251,15 @@ export const subjects: Subject[] = [
                   {
                     "id": "q5",
                     "type": "mcq",
-                    "text": "Solve: x^2 - 6x + 9 = 0",
+                    "text": "Solve for $x$ given that: $x^2 - 6x + 9 = 0$",
                     "options": [
-                      "x = 3",
-                      "x = -3",
-                      "x = 3 or -3",
-                      "x = 0"
+                      "$x = 3$",
+                      "$x = -3$",
+                      "$x = 3$ or $x = -3$",
+                      "$x = 0$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Perfect square: (x - 3)^2 = 0 ⇒ x = 3"
+                    "explanation": "Perfect square: $(x - 3)^2 = 0$ => $x = 3$"
                   },
                   {
                     "id": "q6",
@@ -271,66 +271,65 @@ export const subjects: Subject[] = [
                   {
                     "id": "q7",
                     "type": "mcq",
-                    "text": "Solve using the quadratic formula: x^2 + 4x + 3 = 0",
+                    "text": "Solve using the quadratic formula: $x^2 + 4x + 3 = 0$",
                     "options": [
-                      "x = -3 or x = -1",
-                      "x = 3 or x = 1",
-                      "x = 1 or x = -1",
-                      "x = 0 or x = 4"
+                      "$x = -3$ or $x = -1$",
+                      "$x = 3$ or $x = 1$",
+                      "$x = 0$ or $x = 4$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Use formula: b² - 4ac = 16 - 12 = 4. Roots: x = -1, x = -3"
+                    "explanation": "Use formula: $b^2 - 4ac = 16 - 12 = 4$. Roots: $x = -1$ or $x = -3$"
                   },
                   {
                     "id": "q8",
                     "type": "mcq",
-                    "text": "Solve for x: (x^2 + 2)^2 = 25 using the k-method.",
+                    "text": "Solve for $x$ given that: $(x^2 + 2)^2 = 25$ using the k-method.",
                     "options": [
-                      "x = ±3 or ±1",
-                      "x = 1 or -1",
-                      "x = ±2",
-                      "x = 0 or 3"
+                      "$x = ±3$ or $x = ±1$",
+                      "$x = 1$ or $x = -1$",
+                      "$x = ±2$",
+                      "$x = 0$ or $x = 3$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Let k = x^2 + 2 ⇒ k^2 = 25 ⇒ k = ±5 ⇒ x^2 = 3 or -7 ⇒ x = ±√3"
+                    "explanation": "Let $k = x^2 + 2$ => $k^2 = 25$ => $k = ±5$ => $x^2 = 3$ or $x = -7$ => $x = ±√3$"
                   },
                   {
                     "id": "q9",
                     "type": "mcq",
-                    "text": "Solve: \\( \\frac{x - 3}{x + 2} = \\frac{2x + 1}{x - 1} \\)",
+                    "text": "Solve for $x$ given that: $( \\frac{x - 3}{x + 2} = \\frac{2x + 1}{x - 1} )$",
                     "options": [
-                      "x = 1 or -2",
-                      "x = -1 or 3",
-                      "x = -3 or 2",
-                      "x = 5 or -1"
+                      "$x = 1$ or $x = -2$",
+                      "$x = -1$ or $x = 3$",
+                      "$x = -3$ or $x = 2$",
+                      "$x = 5$ or $x = -1$"
                     ],
                     "correctAnswer": 2,
-                    "explanation": "Cross-multiply and simplify the resulting quadratic: (x - 3)(x - 1) = (2x + 1)(x + 2)"
+                    "explanation": "Cross-multiply and simplify the resulting quadratic: $(x - 3)(x - 1) = (2x + 1)(x + 2)$"
                   },
                   {
                     "id": "q10",
                     "type": "structured",
-                    "text": "Choose the correct method for solving each equation and explain your choice:\n\n1. (x - 1)(x + 3) = 0  \n2. (x + 2)^2 + 4(x + 2) = 5  \n3. x^2 + 7x + 1 = 0\n\nUse 'Factorisation', 'k-method', or 'Quadratic formula'.",
+                    "text": "Choose the correct method for solving each equation and explain your choice:\n\n1. $(x - 1)(x + 3) = 0$  \n2. $(x + 2)^2 + 4(x + 2) = 5$  \n3. $x^2 + 7x + 1 = 0$\n\nUse 'Factorisation', 'k-method', or 'Quadratic formula'.",
                     "correctAnswer": "Factorisation, k-method, Quadratic formula",
                     "subQuestions": [
                       {
                         "id": "q10a",
                         "type": "short-answer",
-                        "text": "1. (x - 1)(x + 3) = 0",
+                        "text": "1. $(x - 1)(x + 3) = 0$",
                         "correctAnswer": "Factorisation",
                         "explanation": "Already factorised."
                       },
                       {
                         "id": "q10b",
                         "type": "short-answer",
-                        "text": "2. (x + 2)^2 + 4(x + 2) = 5",
+                        "text": "2. $(x + 2)^2 + 4(x + 2) = 5$",
                         "correctAnswer": "k-method",
                         "explanation": "Let k = (x + 2)"
                       },
                       {
                         "id": "q10c",
                         "type": "short-answer",
-                        "text": "3. x^2 + 7x + 1 = 0",
+                        "text": "3. $x^2 + 7x + 1 = 0$",
                         "correctAnswer": "Quadratic formula",
                         "explanation": "Does not factorise neatly. Use formula."
                       }
@@ -350,13 +349,13 @@ export const subjects: Subject[] = [
                     "type": "mcq",
                     "text": "Which of the following equations is quadratic?",
                     "options": [
-                      "3x + 2 = 0",
-                      "x^3 - 2x = 0",
-                      "x^2 - 5x + 6 = 0",
-                      "x - 7 = 0"
+                      "$3x + 2 = 0$",
+                      "$x^3 - 2x = 0$",
+                      "$x^2 - 5x + 6 = 0$",
+                      "$x - 7 = 0$"
                     ],
                     "correctAnswer": 2,
-                    "explanation": "A quadratic equation has the highest exponent of 2: x² - 5x + 6 = 0."
+                    "explanation": "A quadratic equation has the highest exponent of 2: $x^2 - 5x + 6 = 0$."
                   },
                   {
                     "id": "q2",
@@ -368,20 +367,20 @@ export const subjects: Subject[] = [
                   {
                     "id": "q3",
                     "type": "mcq",
-                    "text": "Solve: (x - 2)(x + 5) = 0",
+                    "text": "Solve for $x$ given that: $(x - 2)(x + 5) = 0$",
                     "options": [
-                      "x = 2 or -5",
-                      "x = -2 or 5",
-                      "x = -2 or -5",
-                      "x = 2 or 5"
+                      "$x = 2$ or $x = -5$",
+                      "$x = -2$ or $x = 5$",
+                      "$x = -2$ or $x = -5$",
+                      "$x = 2$ or $x = 5$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Set each bracket to 0: x - 2 = 0 ⇒ x = 2, x + 5 = 0 ⇒ x = -5."
+                    "explanation": "Set each bracket to 0: $x - 2 = 0$ => $x = 2$ \n $x + 5 = 0$ => $x = -5$."
                   },
                   {
                     "id": "q4",
                     "type": "mcq",
-                    "text": "Which method is best for solving: (x + 1)^2 + 5(x + 1) = 14?",
+                    "text": "Which method is best for solving: $(x + 1)^2 + 5(x + 1) = 14$?",
                     "options": [
                       "Factorisation",
                       "Quadratic formula",
@@ -394,15 +393,15 @@ export const subjects: Subject[] = [
                   {
                     "id": "q5",
                     "type": "mcq",
-                    "text": "Solve: x^2 - 6x + 9 = 0",
+                    "text": "Solve for $x$ given that: $x^2 - 6x + 9 = 0$",
                     "options": [
-                      "x = 3",
-                      "x = -3",
-                      "x = 3 or -3",
-                      "x = 0"
+                      "$x = 3$",
+                      "$x = -3$",
+                      "$x = 3$ or $x = -3$",
+                      "$x = 0$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Perfect square: (x - 3)^2 = 0 ⇒ x = 3"
+                    "explanation": "Perfect square: $(x - 3)^2 = 0$ => $x = 3$"
                   },
                   {
                     "id": "q6",
@@ -414,66 +413,66 @@ export const subjects: Subject[] = [
                   {
                     "id": "q7",
                     "type": "mcq",
-                    "text": "Solve using the quadratic formula: x^2 + 4x + 3 = 0",
+                    "text": "Solve using the quadratic formula: $x^2 + 4x + 3 = 0$",
                     "options": [
-                      "x = -3 or x = -1",
-                      "x = 3 or x = 1",
-                      "x = 1 or x = -1",
-                      "x = 0 or x = 4"
+                      "$x = -3$ or $x = -1$",
+                      "$x = 3$ or $x = 1$",
+                      "$x = 1$ or $x = -1$",
+                      "$x = 0$ or $x = 4$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Use formula: b² - 4ac = 16 - 12 = 4. Roots: x = -1, x = -3"
+                    "explanation": "Use formula: $b^2 - 4ac = 16 - 12 = 4$. Roots: $x = -1$ or $x = -3$"
                   },
                   {
                     "id": "q8",
                     "type": "mcq",
-                    "text": "Solve for x: (x^2 + 2)^2 = 25 using the k-method.",
+                    "text": "Solve for $x$ given that: $(x^2 + 2)^2 = 25$ using the k-method.",
                     "options": [
-                      "x = ±3 or ±1",
-                      "x = 1 or -1",
-                      "x = ±2",
-                      "x = 0 or 3"
+                      "$x = ±3$ or $x = ±1$",
+                      "$x = 1$ or $x = -1$",
+                      "$x = ±2$",
+                      "$x = 0$ or $x = 3$"
                     ],
                     "correctAnswer": 0,
-                    "explanation": "Let k = x^2 + 2 ⇒ k^2 = 25 ⇒ k = ±5 ⇒ x^2 = 3 or -7 ⇒ x = ±√3"
+                    "explanation": "Let $k = x^2 + 2$ => $k^2 = 25$ => $k = ±5$ => $x^2 = 3$ or $x = -7$ => $x = ±√3$"
                   },
                   {
                     "id": "q9",
                     "type": "mcq",
-                    "text": "Solve: \\( \\frac{x - 3}{x + 2} = \\frac{2x + 1}{x - 1} \\)",
+                    "text": "Solve for $x$ given that: $( \\frac{x - 3}{x + 2} = \\frac{2x + 1}{x - 1} )$",
                     "options": [
-                      "x = 1 or -2",
-                      "x = -1 or 3",
-                      "x = -3 or 2",
-                      "x = 5 or -1"
+                      "$x = 1$ or $x = -2$",
+                      "$x = -1$ or $x = 3$",
+                      "$x = -3$ or $x = 2$",
+                      "$x = 5$ or $x = -1$"
                     ],
                     "correctAnswer": 2,
-                    "explanation": "Cross-multiply and simplify the resulting quadratic: (x - 3)(x - 1) = (2x + 1)(x + 2)"
+                    "explanation": "Cross-multiply and simplify the resulting quadratic: $(x - 3)(x - 1) = (2x + 1)(x + 2)$"
                   },
                   {
                     "id": "q10",
                     "type": "structured",
-                    "text": "Choose the correct method for solving each equation and explain your choice:\n\n1. (x - 1)(x + 3) = 0  \n2. (x + 2)^2 + 4(x + 2) = 5  \n3. x^2 + 7x + 1 = 0\n\nUse 'Factorisation', 'k-method', or 'Quadratic formula'.",
+                    "text": "Choose the correct method for solving each equation and explain your choice:\n\n1. $(x - 1)(x + 3) = 0$  \n2. $(x + 2)^2 + 4(x + 2) = 5$  \n3. $x^2 + 7x + 1 = 0$\n\nUse 'Factorisation', 'k-method', or 'Quadratic formula'.",
                     "correctAnswer": "Factorisation, k-method, Quadratic formula",
                     "subQuestions": [
                       {
                         "id": "q10a",
                         "type": "short-answer",
-                        "text": "1. (x - 1)(x + 3) = 0",
+                        "text": "1. $(x - 1)(x + 3) = 0$",
                         "correctAnswer": "Factorisation",
                         "explanation": "Already factorised."
                       },
                       {
                         "id": "q10b",
                         "type": "short-answer",
-                        "text": "2. (x + 2)^2 + 4(x + 2) = 5",
+                        "text": "2. $(x + 2)^2 + 4(x + 2) = 5$",
                         "correctAnswer": "k-method",
                         "explanation": "Let k = (x + 2)"
                       },
                       {
                         "id": "q10c",
                         "type": "short-answer",
-                        "text": "3. x^2 + 7x + 1 = 0",
+                        "text": "3. $x^2 + 7x + 1 = 0$ ",
                         "correctAnswer": "Quadratic formula",
                         "explanation": "Does not factorise neatly. Use formula."
                       }
@@ -492,17 +491,17 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "exp-log-intro",
-                "content": "Exponential equations (e.g., 2^x = 8) are solved by rewriting with the same base or using logarithms. Logarithmic equations (e.g., log₂(x) = 3) are solved using logarithm laws or converting to exponential form."
+                "content": "Exponential equations (e.g., $2^x = 8$) are solved by rewriting with the same base or using logarithms. Logarithmic equations (e.g., $\\log_2(x) = 3$) are solved using logarithm laws or converting to exponential form."
               },
               {
                 "type": "formula",
                 "id": "log-laws",
-                "content": "\\[ \\log_a(bc) = \\log_a(b) + \\log_a(c) \\]\n\\[ \\log_a\\left(\\frac{b}{c}\\right) = \\log_a(b) - \\log_a(c) \\]\n\\[ \\log_a(b^n) = n \\log_a(b) \\]"
+                "content": "\\[ \\log_a(bc) = \\log_a(b) + \\log_a(c) \\quad \\log_a\\left(\\frac{b}{c}\\right) = \\log_a(b) - \\log_a(c) \\quad \\log_a(b^n) = n \\log_a(b) \\]"
               },
               {
                 "type": "example",
                 "id": "exp-log-sa-example",
-                "content": "Example: In a Cape Town science class, bacterial growth is modeled by 2^x = 16. Rewrite: 2^x = 2^4, so x = 4. For log₂(x) = 3, convert to 2^3 = x, so x = 8."
+                "content": "Example: In a Cape Town science class, bacterial growth is modeled by $2^x = 16$. Rewrite: $2^x = 2^4$, so $x = 4$. For $\\log_2(x) = 3$, convert to $2^3 = x$, so $x = 8$."
               },
               {
                 "type": "text",
@@ -513,10 +512,10 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "exp-log-practice",
                 "content": {
-                  "question": "Solve log₃(x) = 2.",
-                  "options": ["x = 6", "x = 9", "x = 3", "x = 12"],
+                  "question": "Solve $log_3(x) = 2$.",
+                  "options": ["$x = 6$", "$x = 9$", "$x = 3$", "$x = 12$"],
                   "correctAnswer": 1,
-                  "explanation": "log₃(x) = 2 => 3^2 = x => x = 9."
+                  "explanation": "$log_3(x) = 2$ => $3^2 = x$ => $x = 9$."
                 }
               }
             ],
@@ -528,10 +527,10 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "Solve 5^x = 25.",
-                  "options": ["x = 1", "x = 2", "x = 3", "x = 4"],
+                  "text": "Solve $5^x = 25$.",
+                  "options": ["$x = 1$", "$x = 2$", "$x = 3$", "$x = 4$"],
                   "correctAnswer": 1,
-                  "explanation": "5^x = 25 => 5^x = 5^2 => x = 2."
+                  "explanation": "$5^x = 25$ => $5^x = 5^2$ => $x = 2$."
                 },
                 {
                   "id": "q2",
@@ -551,12 +550,12 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "quadratic-inequalities-intro",
-                "content": "Quadratic inequalities (e.g., x² - 4x + 3 > 0) are solved by finding the roots of the equation x² - 4x + 3 = 0, then testing intervals or sketching the parabola to identify where the function is positive or negative."
+                "content": "Quadratic inequalities (e.g., $x^2 - 4x + 3 > 0$) are solved by finding the roots of the equation $x^2 - 4x + 3 = 0$, then testing intervals or sketching the parabola to identify where the function is positive or negative."
               },
               {
                 "type": "example",
                 "id": "quadratic-inequalities-sa-example",
-                "content": "Example: In a Pretoria math class, solve x² - 4x + 3 > 0. Roots: (x - 3)(x - 1) = 0 => x = 1, x = 3. Parabola opens upward (a > 0). Test intervals: Solution is x < 1 or x > 3."
+                "content": "Example: In a Pretoria math class, solve $x^2 - 4x + 3 > 0$. Roots: $(x - 3)(x - 1) = 0$ => $x = 1$, $x = 3$. Parabola opens upward ($a > 0$). Test intervals: Solution is $x < 1$ or $x > 3$."
               },
               {
                 "type": "text",
@@ -567,15 +566,15 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "quadratic-inequalities-practice",
                 "content": {
-                  "question": "Solve x² - 5x + 6 ≤ 0.",
+                  "question": "Solve $x^2 - 5x + 6 ≤ 0$.",
                   "options": [
-                    "2 ≤ x ≤ 3",
-                    "x ≤ 2 or x ≥ 3",
-                    "x < 2 or x > 3",
-                    "2 < x < 3"
+                    "$2 ≤ x ≤ 3$",
+                    "$x ≤ 2$ or $x ≥ 3$",
+                    "$x < 2$ or $x > 3$",
+                    "$2 < x < 3$"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Roots: (x - 2)(x - 3) = 0 => x = 2, x = 3. Parabola opens upward. Test intervals: Solution is 2 ≤ x ≤ 3 (where parabola is below or on x-axis)."
+                  "explanation": "Roots: $(x - 2)(x - 3) = 0$ => $x = 2$, $x = 3$. Parabola opens upward. Test intervals: Solution is $2 ≤ x ≤ 3$ (where parabola is below or on x-axis)."
                 }
               }
             ],
@@ -587,10 +586,10 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "Solve x² - 9 > 0.",
-                  "options": ["x < -3 or x > 3", "x < -3", "-3 < x < 3", "x > 3"],
+                  "text": "Solve $x^2 - 9 > 0$.",
+                  "options": ["$x < -3$ or $x > 3$", "$x < -3$", "$-3 < x < 3$", "$x > 3$"],
                   "correctAnswer": 0,
-                  "explanation": "x² - 9 = (x - 3)(x + 3) = 0 => x = ±3. Parabola opens upward. Solution: x < -3 or x > 3 (where parabola is above x-axis)."
+                  "explanation": "$x^2 - 9 = (x - 3)(x + 3) = 0$ => $x = ±3$. Parabola opens upward. Solution: $x < -3$ or $x > 3$ (where parabola is above x-axis)."
                 },
                 {
                   "id": "q2",
@@ -626,15 +625,15 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "simultaneous-practice",
                 "content": {
-                  "question": "Solve y = 2x and y = x² - 1.",
+                  "question": "Solve $y = 2x$ and $y = x^2 - 1$.",
                   "options": [
-                    "(1, 2) and (-1, -2)",
-                    "(1, 2) and (0, -1)",
-                    "(2, 4) and (-1, -2)",
-                    "(0, 0) and (1, 2)"
+                    "($1, 2$) and ($-1, -2$)",
+                    "($1, 2$) and ($0, -1$)",
+                    "($2, 4$) and ($-1, -2$)",
+                    "($0, 0$) and ($1, 2$)"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Substitute y = 2x into y = x² - 1: 2x = x² - 1 => x² - 2x - 1 = 0. Solve using quadratic formula: x = 1 or x = -1. Then, y = 2 or y = -2. Solutions: (1, 2), (-1, -2)."
+                  "explanation": "Substitute $y = 2x$ into $y = x^2 - 1$: $2x = x^2 - 1$ => $x^2 - 2x - 1 = 0$. Solve using quadratic formula: $x = 1$ or $x = -1$. Then, $y = 2$ or $y = -2$. Solutions: $(1, 2)$, $(-1, -2)$."
                 }
               }
             ],
@@ -646,15 +645,15 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "Solve y = x + 1 and y = x² + x - 2.",
+                  "text": "Solve $y = x + 1$ and $y = x^2 + x - 2$.",
                   "options": [
-                    "(1, 2) and (-2, -1)",
-                    "(0, 1) and (2, 3)",
-                    "(1, 2) and (2, 3)",
-                    "(-1, 0) and (2, 3)"
+                    "($1, 2$) and ($-2, -1$)",
+                    "($0, 1$) and ($2, 3$)",
+                    "($1, 2$) and ($2, 3$)",
+                    "($-1, 0$) and ($2, 3$)"
                   ],
                   "correctAnswer": 0,
-                  "explanation": "Substitute y = x + 1 into y = x² + x - 2: x + 1 = x² + x - 2 => x² - 3 = 0 => x = ±√3. This problem may have been simplified; correct solutions via factorization yield x = 1, -2. Then y = 2, -1."
+                  "explanation": "Substitute $y = x + 1$ into $y = x^2 + x - 2$: $x + 1 = x^2 + x - 2$ => $x^2 - 3 = 0$ => $x = ±√3$. This problem may have been simplified; correct solutions via factorization yield $x = 1$, $-2$. Then $y = 2$, $-1$."
                 },
                 {
                   "id": "q2",
@@ -681,7 +680,7 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "sequences-intro",
-                "content": "Arithmetic sequences have a constant difference (d): T_n = a + (n-1)d. Geometric sequences have a constant ratio (r): T_n = a·r^(n-1)."
+                "content": "Arithmetic sequences have a constant difference (d): $T_n = a + (n-1)d$. Geometric sequences have a constant ratio (r): $T_n = a·r^(n-1)$."
               },
               {
                 "type": "formula",
@@ -696,7 +695,7 @@ export const subjects: Subject[] = [
               {
                 "type": "example",
                 "id": "sequences-sa-example",
-                "content": "Example: In a Soweto savings plan, deposits form an arithmetic sequence: 100, 130, 160, ... (d = 30). T_5 = 100 + (5-1)·30 = 220. A geometric sequence for population growth: 1000, 1200, 1440, ... (r = 1.2). T_3 = 1000·1.2^2 = 1440."
+                "content": "Example: In a Soweto savings plan, deposits form an arithmetic sequence: 100, 130, 160, ... (d = 30). $T_5 = 100 + (5-1)·30 = 220$. A geometric sequence for population growth: 1000, 1200, 1440, ... (r = 1.2). $T_3 = 1000·1.2^2 = 1440$."
               },
               {
                 "type": "text",
@@ -707,10 +706,10 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "sequences-practice",
                 "content": {
-                  "question": "Find the 6th term of the arithmetic sequence 5, 9, 13, ...",
-                  "options": ["25", "29", "33", "37"],
+                  "question": "Find the 6th term of the arithmetic sequence $5, 9, 13, ...$",
+                  "options": ["$25$", "$29$", "$33$", "$37$"],
                   "correctAnswer": 1,
-                  "explanation": "a = 5, d = 4. T_6 = 5 + (6-1)·4 = 5 + 20 = 25."
+                  "explanation": "a = 5, d = 4. $T_6 = 5 + (6-1)·4 = 5 + 20 = 25$."
                 }
               }
             ],
@@ -722,10 +721,10 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "Find T_4 of the geometric sequence 2, 6, 18, ...",
-                  "options": ["54", "162", "108", "81"],
+                  "text": "Find $T_4$ of the geometric sequence $2, 6, 18, ...$",
+                  "options": ["$54$", "$162$", "$108$", "$81$"],
                   "correctAnswer": 0,
-                  "explanation": "a = 2, r = 3. T_4 = 2·3^(4-1) = 2·27 = 54."
+                  "explanation": "a = 2, r = 3. $T_4 = 2·3^(4-1) = 2·27 = 54$."
                 },
                 {
                   "id": "q2",
@@ -745,7 +744,7 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "series-intro",
-                "content": "An arithmetic series sums terms of an arithmetic sequence: S_n = n/2·(2a + (n-1)d). A geometric series sums terms of a geometric sequence: S_n = a·(1 - r^n)/(1 - r) for r ≠ 1."
+                "content": "An arithmetic series sums terms of an arithmetic sequence: $S_n = n/2·(2a + (n-1)d)$. A geometric series sums terms of a geometric sequence: $S_n = a·(1 - r^n)/(1 - r)$ for $r ≠ 1$."
               },
               {
                 "type": "formula",
@@ -760,21 +759,21 @@ export const subjects: Subject[] = [
               {
                 "type": "example",
                 "id": "series-sa-example",
-                "content": "Example: In a Pretoria savings scheme, monthly deposits form an arithmetic series: 100, 150, 200, ... (d = 50). Sum of 5 terms: S_5 = 5/2·(2·100 + (5-1)·50) = 750. A geometric series for investments: 100, 110, 121, ... (r = 1.1). S_3 = 100·(1 - 1.1^3)/(1 - 1.1) = 331."
+                "content": "Example: In a Pretoria savings scheme, monthly deposits form an arithmetic series: 100, 150, 200, ... (d = 50). Sum of 5 terms: $S_5 = 5/2·(2·100 + (5-1)·50) = 750$. A geometric series for investments: 100, 110, 121, ... (r = 1.1). $S_3 = 100·(1 - 1.1^3)/(1 - 1.1) = 331$."
               },
               {
                 "type": "text",
                 "id": "series-tip",
-                "content": "∑ Tip: For geometric series, check if |r| < 1 for infinite sums: S_∞ = a/(1 - r)."
+                "content": "∑ Tip: For geometric series, check if |r| < 1 for infinite sums: $S_∞ = a/(1 - r)$."
               },
               {
                 "type": "practice",
                 "id": "series-practice",
                 "content": {
-                  "question": "Find the sum of the first 4 terms of the arithmetic series 3, 7, 11, ...",
-                  "options": ["40", "44", "48", "52"],
+                  "question": "Find the sum of the first 4 terms of the arithmetic series $3, 7, 11, ...$",
+                  "options": ["$40$", "$44$", "$48$", "$52$"],
                   "correctAnswer": 0,
-                  "explanation": "a = 3, d = 4. S_4 = 4/2·(2·3 + (4-1)·4) = 2·(6 + 12) = 36."
+                  "explanation": "a = 3, d = 4. $S_4 = 4/2·(2·3 + (4-1)·4) = 2·(6 + 12) = 36$."
                 }
               }
             ],
@@ -786,17 +785,17 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "Find the sum of the geometric series 4, 12, 36 for 3 terms.",
-                  "options": ["48", "52", "56", "60"],
+                  "text": "Find the sum of the geometric series $4, 12, 36$ for 3 terms.",
+                  "options": ["$48$", "$52$", "$56$", "$60$"],
                   "correctAnswer": 0,
-                  "explanation": "a = 4, r = 3. S_3 = 4·(1 - 3^3)/(1 - 3) = 4·(-26)/(-2) = 52."
+                  "explanation": "$a = 4, r = 3$. $S_3 = 4·(1 - 3^3)/(1 - 3) = 4·(-26)/(-2) = 52$."
                 },
                 {
                   "id": "q2",
                   "type": "true-false",
-                  "text": "An infinite geometric series converges if |r| < 1.",
+                  "text": "An infinite geometric series converges if $|r| < 1$.",
                   "correctAnswer": true,
-                  "explanation": "For |r| < 1, the series converges to S_∞ = a/(1 - r)."
+                  "explanation": "For $|r| < 1$, the series converges to $S_∞ = a/(1 - r)$."
                 }
               ]
             }
@@ -816,12 +815,12 @@ export const subjects: Subject[] = [
               {
                 "type": "text",
                 "id": "functions-intro",
-                "content": "Functions include linear (y = mx + c), quadratic (y = ax² + bx + c), exponential (y = a·b^x + q), hyperbolic (y = a/(x-p) + q), and logarithmic (y = log_b(x-p) + q). Each has unique graph shapes and properties."
+                "content": "Functions include linear ($y = mx + c$), quadratic ($y = ax^2 + bx + c$), exponential ($y = a·b^x + q$), hyperbolic ($y = a/(x-p) + q$), and logarithmic ($y = log_b(x-p) + q$). Each has unique graph shapes and properties."
               },
               {
                 "type": "example",
                 "id": "functions-sa-example",
-                "content": "Example: In a Cape Town math class, sketch y = x² - 4. Roots: x = ±2. Vertex: (0, -4). Parabola opens upward. For y = 2^x, it passes through (0, 1), with horizontal asymptote y = 0."
+                "content": "Example: In a Cape Town math class, sketch $y = x^2 - 4$. Roots: $x = ±2$. Vertex: $(0, -4)$. Parabola opens upward. For $y = 2^x$, it passes through $(0, 1)$, with horizontal asymptote $y = 0$."
               },
               {
                 "type": "text",
@@ -832,10 +831,10 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "functions-practice",
                 "content": {
-                  "question": "What is the horizontal asymptote of y = 2/(x-1) + 3?",
-                  "options": ["y = 1", "y = 2", "y = 3", "y = 0"],
+                  "question": "What is the horizontal asymptote of $y = 2/(x-1) + 3$?",
+                  "options": ["$y = 1$", "$y = 2$", "$y = 3$", "$y = 0$"],
                   "correctAnswer": 2,
-                  "explanation": "The horizontal asymptote of y = a/(x-p) + q is y = q. Here, q = 3."
+                  "explanation": "The horizontal asymptote of $y = a/(x-p) + q$ is $y = q$. Here, $q = 3$."
                 }
               }
             ],
@@ -847,17 +846,17 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "What is the y-intercept of y = 2x + 5?",
-                  "options": ["(0, 2)", "(0, 5)", "(5, 0)", "(2, 0)"],
+                  "text": "What is the y-intercept of $y = 2x + 5$?",
+                  "options": ["$(0, 2)$", "$(0, 5)$", "$(5, 0)$", "$(2, 0)$"],
                   "correctAnswer": 1,
-                  "explanation": "y-intercept occurs at x = 0: y = 2·0 + 5 = 5 => (0, 5)."
+                  "explanation": "y-intercept occurs at $x = 0$: $y = 2·0 + 5 = 5$ => $(0, 5)$."
                 },
                 {
                   "id": "q2",
                   "type": "true-false",
-                  "text": "The graph of y = log_2(x) has a vertical asymptote at x = 0.",
+                  "text": "The graph of $y = log_2(x)$ has a vertical asymptote at $x = 0$.",
                   "correctAnswer": true,
-                  "explanation": "For y = log_b(x-p) + q, the vertical asymptote is at x = p. Here, p = 0."
+                  "explanation": "For $y = log_b(x-p) + q$, the vertical asymptote is at $x = p$. Here, $p = 0$."
                 }
               ]
             }
@@ -875,7 +874,7 @@ export const subjects: Subject[] = [
               {
                 "type": "example",
                 "id": "inverses-sa-example",
-                "content": "Example: In a Durban class, find the inverse of y = 2x + 3. Swap: x = 2y + 3 => y = (x-3)/2. Inverse: f⁻¹(x) = (x-3)/2. Domain of f⁻¹: all real numbers."
+                "content": "Example: In a Durban class, find the inverse of $y = 2x + 3$. Swap: $x = 2y + 3$ => $y = (x-3)/2$. Inverse: $f⁻¹(x) = (x-3)/2$. Domain of $f⁻¹$: all real numbers."
               },
               {
                 "type": "text",
@@ -886,10 +885,10 @@ export const subjects: Subject[] = [
                 "type": "practice",
                 "id": "inverses-practice",
                 "content": {
-                  "question": "Find the inverse of y = log_2(x).",
-                  "options": ["y = x²", "y = 2^x", "y = 2x", "y = 1/x"],
+                  "question": "Find the inverse of $y = log_2(x)$.",
+                  "options": ["$y = x^2$", "$y = 2^x$", "$y = 2x$", "$y = 1/x$"],
                   "correctAnswer": 1,
-                  "explanation": "Swap: x = log_2(y) => y = 2^x. Inverse: f⁻¹(x) = 2^x."
+                  "explanation": "Swap: $x = log_2(y)$ => $y = 2^x$. Inverse: $f⁻¹(x) = 2^x$."
                 }
               }
             ],
@@ -901,10 +900,10 @@ export const subjects: Subject[] = [
                 {
                   "id": "q1",
                   "type": "mcq",
-                  "text": "What is the inverse of y = 3x - 6?",
-                  "options": ["y = (x+6)/3", "y = (x-6)/3", "y = 3x + 6", "y = x/3"],
+                  "text": "What is the inverse of $y = 3x - 6$?",
+                  "options": ["$y = (x+6)/3$", "$y = (x-6)/3$", "$y = 3x + 6$", "$y = x/3$"],
                   "correctAnswer": 0,
-                  "explanation": "Swap: x = 3y - 6 => y = (x+6)/3."
+                  "explanation": "Swap: $x = 3y - 6$ => $y = (x+6)/3$."
                 },
                 {
                   "id": "q2",
