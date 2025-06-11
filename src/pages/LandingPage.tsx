@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import StudentIntakeForm from '../components/StudentIntakeForm';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showStudentForm, setShowStudentForm] = useState(false);
 
   const handleGetStarted = () => {
-    // Navigate to the splash screen
-    navigate('/splash');
+    setShowStudentForm(true);
   };
 
   const handleDownloadApp = () => {
@@ -71,7 +72,10 @@ const LandingPage: React.FC = () => {
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
-
+      
+      {showStudentForm ? (
+        <StudentIntakeForm />
+      ) : (
       <div className="min-h-screen bg-gray-50 font-sans antialiased overflow-x-hidden">
         {/* Header */}
         <header className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50" role="banner">
@@ -496,6 +500,7 @@ const LandingPage: React.FC = () => {
           </div>
         </footer>
       </div>
+      )}
     </>
   );
 };
