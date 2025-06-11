@@ -56,7 +56,7 @@ const StudentIntakeForm = () => {
     selectedSubjects: [] as string[],
     marks: {} as MarksData,
     paymentDate: '',
-    assessmentSubject: ''
+    
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,8 +131,7 @@ const StudentIntakeForm = () => {
           formData.marks[subject]?.targetMarks
         );
       case 4:
-        return formData.paymentDate !== '' && 
-               (formData.selectedSubjects.length > 0 ? formData.assessmentSubject !== '' : true);
+        return formData.paymentDate !== '';
       default:
         return true;
     }
