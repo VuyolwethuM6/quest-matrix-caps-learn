@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -44,6 +45,7 @@ type MarksData = {
 };
 
 const StudentIntakeForm = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -58,6 +60,9 @@ const StudentIntakeForm = () => {
     paymentDate: '',
     
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -106,9 +111,46 @@ const StudentIntakeForm = () => {
     }
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    // Here you would typically send the data to your backend
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    try {
+      // Use the correct API endpoint based on environment
+      const apiUrl = import.meta.env.PROD 
+        ? '/api/submit-application'  // Production URL
+        : '/api/submit-application'; // Development URL (Vite proxy will handle this)
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          subjects: SUBJECTS, // Include subjects data
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || 'Failed to submit application');
+      }
+
+      setSubmitSuccess(true);
+      // Redirect to success page after a short delay
+      setTimeout(() => {
+        navigate('/success');
+      }, 1500);
+    } catch (err) {
+      console.error('Form submission error:', err);
+      setSubmitError(err instanceof Error ? err.message : 'An error occurred while submitting your application');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const calculateTotalCost = () => {
@@ -164,7 +206,7 @@ const StudentIntakeForm = () => {
 
         {/* Form Card */}
         <Card className="p-8 glass">
-          <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-8" onSubmit={handleSubmit}>
             {currentStep === 1 && (
               <div className="space-y-6 animate-in slide-in fade-in">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -549,10 +591,10 @@ const StudentIntakeForm = () => {
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={!isStepValid()}
-                  className="w-[120px] bg-quest-purple hover:bg-quest-secondary text-white" // Using quest.purple and quest.secondary
+                  disabled={!isStepValid() || isSubmitting}
+                  className="w-[120px] bg-quest-purple hover:bg-quest-secondary text-white"
                 >
-                  Submit
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
                 </Button>
               ) : (
                 <Button
@@ -565,6 +607,18 @@ const StudentIntakeForm = () => {
                 </Button>
               )}
             </div>
+
+            {submitError && (
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
+                {submitError}
+              </div>
+            )}
+
+            {submitSuccess && (
+              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600">
+                Your application has been submitted successfully! We will contact you shortly.
+              </div>
+            )}
           </form>
         </Card>
       </div>

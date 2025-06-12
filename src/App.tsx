@@ -16,6 +16,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import SEO from "@/components/SEO";
 import OnboardingRoute from "./components/OnboardingRoute";
+import StudentIntakeForm from './components/StudentIntakeForm';
+import SuccessPage from './components/SuccessPage';
 
 // Lazy load pages
 const LandingPage = lazy(() => import("./pages/LandingPage"));
@@ -104,6 +106,8 @@ const AppContent = () => {
             <Route path="/topic-practice/:practiceId" element={<ProtectedRoute><TopicPracticePage /></ProtectedRoute>} />
             <Route path="/caps-buddy" element={<ProtectedRoute><CAPSBuddyPage /></ProtectedRoute>} />
             <Route path="/admin/document-review" element={<ProtectedRoute><DocumentReviewAdminPage /></ProtectedRoute>} />
+            <Route path="/" element={<StudentIntakeForm />} />
+            <Route path="/success" element={<SuccessPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

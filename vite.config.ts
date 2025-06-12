@@ -35,5 +35,12 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001', // Your backend server URL
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
 }));
