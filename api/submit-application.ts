@@ -82,7 +82,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Send admin email
     try {
       await transporter.sendMail({
-        from: `"Viva Tutoring" <${process.env.EMAIL_USER}>`,
+        from: {
+          name: 'Viva Tutoring',
+          address: process.env.EMAIL_USER
+        },
         to: adminEmail,
         subject: `New Student Application: ${formData.firstName} ${formData.lastName}`,
         html: `
