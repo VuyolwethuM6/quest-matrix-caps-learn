@@ -24,7 +24,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  res.setHeader('Content-Type', 'application/json');
 
   // Handle OPTIONS request for CORS preflight
   if (req.method === 'OPTIONS') {
@@ -45,6 +46,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Validate request body
+    if (!req.body) {
+      return res.status(400).json({
+        error: 'Invalid request',
+        details: 'Request body is missing'
+      });
+    }
+
     const formData = req.body as FormData;
     const adminEmail = process.env.ADMIN_EMAIL || 'vmableka@gmail.com';
 

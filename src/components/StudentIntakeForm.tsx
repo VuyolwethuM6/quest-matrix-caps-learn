@@ -120,13 +120,14 @@ const StudentIntakeForm = () => {
     try {
       // Use the correct API endpoint based on environment
       const apiUrl = import.meta.env.PROD 
-        ? '/api/submit-application'  // Production URL
+        ? 'https://viva-vts.vercel.app/api/submit-application'  // Production URL
         : '/api/submit-application'; // Development URL (Vite proxy will handle this)
 
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
@@ -134,13 +135,14 @@ const StudentIntakeForm = () => {
         }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error || data.details || 'Failed to submit application');
+        const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+        throw new Error(errorData.error || errorData.details || 'Failed to submit application');
       }
 
+      const data = await response.json();
       setSubmitSuccess(true);
+      
       // Redirect to success page after a short delay
       setTimeout(() => {
         navigate('/success');
