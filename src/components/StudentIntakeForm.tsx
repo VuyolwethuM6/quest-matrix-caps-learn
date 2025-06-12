@@ -135,12 +135,20 @@ const StudentIntakeForm = () => {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
-        throw new Error(errorData.error || errorData.details || 'Failed to submit application');
+      let data;
+      try {
+        data = await response.json();
+      } catch (error) {
+        console.error('Failed to parse response:', error);
+        throw new Error('Server returned an invalid response');
       }
 
-      const data = await response.json();
+      if (!response.ok) {
+        const errorMessage = data.error || data.details || 'Failed to submit application';
+        console.error('Server error:', data);
+        throw new Error(errorMessage);
+      }
+
       setSubmitSuccess(true);
       
       // Redirect to success page after a short delay
@@ -149,7 +157,12 @@ const StudentIntakeForm = () => {
       }, 1500);
     } catch (err) {
       console.error('Form submission error:', err);
-      setSubmitError(err instanceof Error ? err.message : 'An error occurred while submitting your application');
+      const errorMessage = err instanceof Error 
+        ? err.message 
+        : typeof err === 'object' && err !== null
+          ? JSON.stringify(err)
+          : 'An error occurred while submitting your application';
+      setSubmitError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }

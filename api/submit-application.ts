@@ -38,10 +38,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Validate environment variables
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.error('Missing email configuration');
+    console.error('Missing email configuration:', {
+      hasEmailUser: !!process.env.EMAIL_USER,
+      hasEmailPass: !!process.env.EMAIL_PASS
+    });
     return res.status(500).json({ 
       error: 'Server configuration error',
-      details: 'Email credentials are not properly configured'
+      details: 'Email credentials are not properly configured. Please contact the administrator.'
     });
   }
 
@@ -56,6 +59,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const formData = req.body as FormData;
     const adminEmail = process.env.ADMIN_EMAIL || 'vmableka@gmail.com';
+
+    // Log the incoming request for debugging
+    console.log('Received form submission:', {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      subjects: formData.selectedSubjects
+    });
 
     // Validate required fields
     const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'school', 'selectedSubjects', 'paymentDate'];
