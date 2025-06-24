@@ -1963,7 +1963,7 @@ export const subjects: Subject[] = [
           {
             "type": "image",
             "id": "vertical-motion-diagram",
-            "content": "/public/images/physics/equations-of-motions.PNG"
+            "content": "/images/physics/equations-of-motions.PNG"
           },
           {
             "type": "formula",
@@ -1983,7 +1983,7 @@ export const subjects: Subject[] = [
           {
             "type": "image",
             "id": "vertical-motion-diagram",
-            "content": "/public/images/physics/equations-of-motions.PNG"
+            "content": "/images/physics/equations-of-motions.PNG"
           }
               ],
               "quiz": {
