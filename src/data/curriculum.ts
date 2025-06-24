@@ -195,151 +195,9 @@ export const subjects: Subject[] = [
                   "correctAnswer": 2,
                   "explanation": "Let $k = x^2 - x - 1$, so equation becomes $\\frac{1}{k} = k$ => $k^2 = 1$ => $k = \\pm1$. Then solve for $x$: $x^2 - x - 1 = 1$ and $x^2 - x - 1 = -1$."
                 }
-              },
-        
-              {
-                "id": "quadratic-equations-quiz",
-                "title": "Quadratic Equations Quiz",
-                "description": "Test your understanding of solving quadratic equations using factorisation, substitution, fractions, and the quadratic formula.",
-                "questions": [
-                  {
-                    "id": "q1",
-                    "type": "mcq",
-                    "text": "Which of the following equations is quadratic?",
-                    "options": [
-                      "$3x + 2 = 0$",
-                      "$x^3 - 2x = 0$",
-                      "$x^2 - 5x + 6 = 0$",
-                      "$x - 7 = 0$"
-                    ],
-                    "correctAnswer": 2,
-                    "explanation": "A quadratic equation has the highest exponent of 2: $x^2 - 5x + 6 = 0$."
-                  },
-                  {
-                    "id": "q2",
-                    "type": "true-false",
-                    "text": "The quadratic formula can solve any quadratic equation, even when it cannot be factorised.",
-                    "correctAnswer": true,
-                    "explanation": "Yes. The formula always works if the equation is in standard form."
-                  },
-                  {
-                    "id": "q3",
-                    "type": "mcq",
-                    "text": "Solve for $x$ given that: $(x - 2)(x + 5) = 0$",
-                    "options": [
-                      "$x = 2$ or $x = -5$",
-                      "$x = -2$ or $x = 5$",
-                      "$x = -2$ or $x = -5$",
-                      "$x = 2$ or $x = 5$"
-                    ],
-                    "correctAnswer": 0,
-                    "explanation": "Set each bracket to 0: $x - 2 = 0$ \n => $x = 2$ \n $x + 5 = 0$ \n => $x = -5$."
-                  },
-                  {
-                    "id": "q4",
-                    "type": "mcq",
-                    "text": "Which method is best for solving: $(x + 1)^2 + 5(x + 1) = 14$?",
-                    "options": [
-                      "Factorisation",
-                      "Quadratic formula",
-                      "Completing the square",
-                      "Substitution (k-method)"
-                    ],
-                    "correctAnswer": 3,
-                    "explanation": "Let k = x + 1. Then solve using k-substitution."
-                  },
-                  {
-                    "id": "q5",
-                    "type": "mcq",
-                    "text": "Solve for $x$ given that: $x^2 - 6x + 9 = 0$",
-                    "options": [
-                      "$x = 3$",
-                      "$x = -3$",
-                      "$x = 3$ or $x = -3$",
-                      "$x = 0$"
-                    ],
-                    "correctAnswer": 0,
-                    "explanation": "Perfect square: $(x - 3)^2 = 0$ => $x = 3$"
-                  },
-                  {
-                    "id": "q6",
-                    "type": "true-false",
-                    "text": "If the discriminant is negative, the equation has no real roots.",
-                    "correctAnswer": true,
-                    "explanation": "A negative discriminant means the square root is not real."
-                  },
-                  {
-                    "id": "q7",
-                    "type": "mcq",
-                    "text": "Solve using the quadratic formula: $x^2 + 4x + 3 = 0$",
-                    "options": [
-                      "$x = -3$ or $x = -1$",
-                      "$x = 3$ or $x = 1$",
-                      "$x = 0$ or $x = 4$"
-                    ],
-                    "correctAnswer": 0,
-                    "explanation": "Use formula: $b^2 - 4ac = 16 - 12 = 4$. Roots: $x = -1$ or $x = -3$"
-                  },
-                  {
-                    "id": "q8",
-                    "type": "mcq",
-                    "text": "Solve for $x$ given that: $(x^2 + 2)^2 = 25$ using the k-method.",
-                    "options": [
-                      "$x = ±3$ or $x = ±1$",
-                      "$x = 1$ or $x = -1$",
-                      "$x = ±2$",
-                      "$x = 0$ or $x = 3$"
-                    ],
-                    "correctAnswer": 0,
-                    "explanation": "Let $k = x^2 + 2$ => $k^2 = 25$ => $k = ±5$ => $x^2 = 3$ or $x = -7$ => $x = ±√3$"
-                  },
-                  {
-                    "id": "q9",
-                    "type": "mcq",
-                    "text": "Solve for $x$ given that: $( \\frac{x - 3}{x + 2} = \\frac{2x + 1}{x - 1} )$",
-                    "options": [
-                      "$x = 1$ or $x = -2$",
-                      "$x = -1$ or $x = 3$",
-                      "$x = -3$ or $x = 2$",
-                      "$x = 5$ or $x = -1$"
-                    ],
-                    "correctAnswer": 2,
-                    "explanation": "Cross-multiply and simplify the resulting quadratic: $(x - 3)(x - 1) = (2x + 1)(x + 2)$"
-                  },
-                  {
-                    "id": "q10",
-                    "type": "structured",
-                    "text": "Choose the correct method for solving each equation and explain your choice:\n\n1. $(x - 1)(x + 3) = 0$  \n2. $(x + 2)^2 + 4(x + 2) = 5$  \n3. $x^2 + 7x + 1 = 0$\n\nUse 'Factorisation', 'k-method', or 'Quadratic formula'.",
-                    "correctAnswer": "Factorisation, k-method, Quadratic formula",
-                    "subQuestions": [
-                      {
-                        "id": "q10a",
-                        "type": "short-answer",
-                        "text": "1. $(x - 1)(x + 3) = 0$",
-                        "correctAnswer": "Factorisation",
-                        "explanation": "Already factorised."
-                      },
-                      {
-                        "id": "q10b",
-                        "type": "short-answer",
-                        "text": "2. $(x + 2)^2 + 4(x + 2) = 5$",
-                        "correctAnswer": "k-method",
-                        "explanation": "Let k = (x + 2)"
-                      },
-                      {
-                        "id": "q10c",
-                        "type": "short-answer",
-                        "text": "3. $x^2 + 7x + 1 = 0$",
-                        "correctAnswer": "Quadratic formula",
-                        "explanation": "Does not factorise neatly. Use formula."
-                      }
-                    ],
-                    "explanation": "This assesses strategic decision-making — not just calculations."
-                  }
-                ]
               }
             ],
-            quiz :{
+            quiz: {
                 "id": "quadratic-equations-quiz",
                 "title": "Quadratic Equations Quiz",
                 "description": "Test your understanding of solving quadratic equations using factorisation, substitution, fractions, and the quadratic formula.",
@@ -481,8 +339,7 @@ export const subjects: Subject[] = [
                   }
                 ]
               }
-        
-        },
+          },
           {
             "id": "exponential-logarithmic-equations",
             "name": "Exponential and Logarithmic Equations",
@@ -1963,12 +1820,16 @@ export const subjects: Subject[] = [
           {
             "type": "image",
             "id": "vertical-motion-diagram",
-            "content": "/images/physics/equations-of-motions.PNG"
+            "content": "/public/images/physics/equations-of-motions.PNG"
           },
           {
-            "type": "formula",
-            "id": "vertical-motion-formulas",
-            "content": "Key equations:\n\n\\[ v = u + at \\]\n\\[ s = ut + \\frac{1}{2}at^2 \\]\n\\[ v^2 = u^2 + 2as \\]\n\nWhere:\n- \\( v \\): final velocity (m/s)\n- \\( u \\): initial velocity (m/s)\n- \\( a \\): acceleration (m/s²) (\\( -9.8 \\) m/s² for downward motion)\n- \\( t \\): time (s)\n- \\( s \\): displacement (m)"
+            "type": "tip",
+            "id": "vertical-motion-tip",
+            "content": {
+              "text": "Remember to always check your units when solving physics problems.",
+              "image": "/public/images/physics/projectile-tip.PNG",
+              "alt": "Illustration showing unit conversions"
+            }
           },
           {
             "type": "example",
@@ -1984,8 +1845,13 @@ export const subjects: Subject[] = [
             "type": "image",
             "id": "vertical-motion-diagram",
             "content": "/images/physics/equations-of-motions.PNG"
+          },
+                    {
+            "type": "video",
+            "id": "vertical-motion-simulation",
+            "content": "https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_all.html"
           }
-              ],
+          ],
               "quiz": {
           "id": "vertical-motion-quiz",
           "title": "Vertical Projectile Motion Quiz",

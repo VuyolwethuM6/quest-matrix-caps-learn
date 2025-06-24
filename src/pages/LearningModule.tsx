@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useProgress } from "@/contexts/ProgressContext";
 import { subjects } from "@/data/curriculum";
-import { ContentBlock, SubTopic, Topic } from "@/data/models";
+import { ContentBlock, RichContent, SubTopic, Topic } from "@/data/models";
 import MathDisplay from "@/components/MathDisplay";
 import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
@@ -250,45 +250,61 @@ const LearningModule: React.FC = () => {
           </div>
         );
 
-      case 'tip':
+      case 'tip': {
+        const content = typeof block.content === 'string'
+          ? { text: block.content }
+          : block.content as RichContent;
+
         return (
           <div key={block.id} className="mb-6 bg-amber-50 p-5 rounded-lg border border-amber-200">
             <h3 className="font-medium mb-2 text-amber-700 flex items-center gap-2">
               <Lightbulb size={16} className="text-amber-500" /> Memory Tip:
             </h3>
             <div className="text-amber-600 prose">
-              <ReactMarkdown 
+              <ReactMarkdown
                 remarkPlugins={[remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
                   p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
                 }}
               >
-                {block.content as string}
+                {content.text}
               </ReactMarkdown>
             </div>
+            {content.image && (
+              <img src={content.image} alt={content.alt || ''} className="rounded-lg mt-4" />
+            )}
           </div>
         );
-        
-      case 'exam-tip':
+      }
+
+      case 'exam-tip': {
+        const content = typeof block.content === 'string'
+          ? { text: block.content }
+          : block.content as RichContent;
+
         return (
           <div key={block.id} className="mb-6 bg-quest-softPurple/20 p-5 rounded-lg border border-quest-purple/20">
             <h3 className="font-medium mb-2 text-quest-purple flex items-center gap-2">
               <BookOpen size={16} /> Exam Tips:
             </h3>
-            <div className="prose">
-              <ReactMarkdown 
+            <div className="prose mb-3">
+              <ReactMarkdown
                 remarkPlugins={[remarkMath]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
                   p: ({ children }) => <p className="whitespace-pre-line">{children}</p>
                 }}
               >
-                {block.content as string}
+                {content.text}
               </ReactMarkdown>
             </div>
+            {content.image && (
+              <img src={content.image} alt={content.alt || 'Exam Tip Illustration'} className="rounded-lg border border-gray-300 shadow-sm max-w-md mx-auto" />
+            )}
           </div>
         );
+      }
         
       default:
         return null;

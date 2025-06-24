@@ -25,16 +25,34 @@ export interface SubTopic {
 
 export type ContentBlockType = 'text' | 'image' | 'formula' | 'example' | 'video' | 'practice' | 'tip' | 'exam-tip';
 
-export interface ContentBlock {
-  type: ContentBlockType;
-  id: string;
-  content: string | {
-    question: string;
-    options: string[];
-    correctAnswer: number;
-    explanation: string;
-  };
+
+
+export interface RichContent {
+  text: string;
+  image?: string;
+  alt?: string;
 }
+
+export interface PracticeContent {
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  image?: string;
+  alt?: string;
+}
+
+export type ContentBlockContent =
+  | string               // for plain text
+  | RichContent          // text + optional image
+  | PracticeContent;     // question + options + optional image
+
+export interface ContentBlock {
+  id: string;
+  type: ContentBlockType;
+  content: ContentBlockContent;
+}
+
 
 export interface Quiz {
   id: string;
