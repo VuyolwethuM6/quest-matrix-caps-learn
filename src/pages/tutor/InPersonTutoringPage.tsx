@@ -95,14 +95,14 @@ const InPersonTutoringPage: React.FC = () => {
               <div className="space-y-3 sm:space-y-4">
                 <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
                   <h3 className="font-medium text-sm sm:text-base mb-1 sm:mb-2">Main Center</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">123 Education Street, Cape Town</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">16 T Mfelane Street, Mfuleni, Cape Town</p>
                   <p className="text-xs sm:text-sm text-muted-foreground">Open: Mon-Fri 8:00 AM - 6:00 PM</p>
                 </div>
-                <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                {/* <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
                   <h3 className="font-medium text-sm sm:text-base mb-1 sm:mb-2">Northern Branch</h3>
                   <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">456 Learning Avenue, Bellville</p>
                   <p className="text-xs sm:text-sm text-muted-foreground">Open: Mon-Fri 8:00 AM - 6:00 PM</p>
-                </div>
+                </div> */}
               </div>
             </CardContent>
           </Card>
