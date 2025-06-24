@@ -1940,53 +1940,73 @@ export const subjects: Subject[] = [
               "name": "Key Concepts",
               "description": "Explore the fundamental principles of vertical projectile motion.",
               "content": [
-                {
-                  "type": "text",
-                  "id": "vertical-motion-intro",
-                  "content": "Vertical projectile motion involves objects moving straight up or down under the influence of gravity. The motion is symmetrical: the time taken to rise is equal to the time taken to fall back to the same level."
-                },
-                {
-                  "type": "formula",
-                  "id": "vertical-motion-formulas",
-                  "content": "Key equations:\n\n\\[ v = u + at \\]\n\\[ s = ut + \\frac{1}{2}at^2 \\]\n\\[ v^2 = u^2 + 2as \\]\n\nWhere:\n- \\( v \\): final velocity (m/s)\n- \\( u \\): initial velocity (m/s)\n- \\( a \\): acceleration (m/s²) (\\( -9.8 \\) m/s² for downward motion)\n- \\( t \\): time (s)\n- \\( s \\): displacement (m)"
-                },
-                {
-                  "type": "example",
-                  "id": "vertical-motion-example",
-                  "content": "Example: A ball is thrown vertically upward with an initial velocity of 20 m/s. Calculate the maximum height reached.\n\nAt maximum height, final velocity \\( v = 0 \\).\n\nUsing \\( v^2 = u^2 + 2as \\):\n\n\\[ 0 = (20)^2 + 2(-9.8)(s) \\]\n\\[ 0 = 400 - 19.6s \\]\n\\[ s = \\frac{400}{19.6} \\approx 20.41 \\text{ m} \\]"
-                },
-                {
-                  "type": "text",
-                  "id": "vertical-motion-tip",
-                  "content": "🎯 Tip: Always take upward direction as positive and downward as negative to maintain consistency in sign conventions."
-                },
-                {
-                  "type": "image",
-                  "id": "vertical-motion-diagram",
-                  "content": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Vertical_projectile_motion.svg/512px-Vertical_projectile_motion.svg.png"
-                }
+          {
+            "type": "text",
+            "id": "vertical-motion-intro",
+            "content": "A **projectile** *is an object that moves freely under the influence of gravity only.* It is not controlled by any mechanism (pulley or motor). The object is in freefall, but may move upwards (thrown up) or downwards.\n"
+          },
+          {
+            "type": "text",
+            "id": "vertical-motion-intro",
+            "content": "**Forces on a projectile** \n In the absence of friction, the gravitational force of the earth is the only force acting on a free falling body. This force always acts downwards. Because the gravitational force is always downward, a projectile that is moving upward, must slow down. When a projectile is moving downward, it moves in the direction of the gravitational force, therefore it will speed up."
+          },
+          {
+            "type": "text",
+            "id": "vertical-motion-intro",
+            "content": "**Acceleration due to gravity** \n All free falling bodies have the same acceleration due to gravity. This acceleration is 9,8 m·s−2 downward. Ignoring air resistance/friction; \nIf a marble and a rock are released from the same height at the same time, they will strike the ground simultaneously, and their final velocity will be the same. Their momentum (mv) and kinetic energy (½mv2) are not the same, due to a difference in mass. If two objects are released from different heights, they have the same acceleration, but they strike the ground at different times and have a different velocity when they strike the ground."
+          },
+          {
+            "type": "text",
+            "id": "vertical-motion-intro",
+            "content": "**Their momentum (mv) and kinetic energy (½mv2) are not the same, due to a difference in mass.** \n If two objects are released from different heights, they have the same acceleration, but they strike the ground at different times and have a different velocity when they strike the ground."
+          },
+          {
+            "type": "image",
+            "id": "vertical-motion-diagram",
+            "content": "/public/images/physics/equations-of-motions.PNG"
+          },
+          {
+            "type": "formula",
+            "id": "vertical-motion-formulas",
+            "content": "Key equations:\n\n\\[ v = u + at \\]\n\\[ s = ut + \\frac{1}{2}at^2 \\]\n\\[ v^2 = u^2 + 2as \\]\n\nWhere:\n- \\( v \\): final velocity (m/s)\n- \\( u \\): initial velocity (m/s)\n- \\( a \\): acceleration (m/s²) (\\( -9.8 \\) m/s² for downward motion)\n- \\( t \\): time (s)\n- \\( s \\): displacement (m)"
+          },
+          {
+            "type": "example",
+            "id": "vertical-motion-example",
+            "content": "Example: A ball is thrown vertically upward with an initial velocity of 20 m/s. Calculate the maximum height reached.\n\nAt maximum height, final velocity \\( v = 0 \\).\n\nUsing \\( v^2 = u^2 + 2as \\):\n\n\\[ 0 = (20)^2 + 2(-9.8)(s) \\]\n\\[ 0 = 400 - 19.6s \\]\n\\[ s = \\frac{400}{19.6} \\approx 20.41 \\text{ m} \\]"
+          },
+          {
+            "type": "text",
+            "id": "vertical-motion-tip",
+            "content": "🎯 Tip: Always take upward direction as positive and downward as negative to maintain consistency in sign conventions."
+          },
+          {
+            "type": "image",
+            "id": "vertical-motion-diagram",
+            "content": "/public/images/physics/equations-of-motions.PNG"
+          }
               ],
               "quiz": {
-                "id": "vertical-motion-quiz",
-                "title": "Vertical Projectile Motion Quiz",
-                "description": "Assess your understanding of vertical projectile motion concepts.",
-                "questions": [
-                  {
-                    "id": "q1",
-                    "type": "mcq",
-                    "text": "An object is thrown upward with a velocity of 15 m/s. How long does it take to reach the maximum height?",
-                    "options": ["1.5 s", "2.0 s", "1.0 s", "3.0 s"],
-                    "correctAnswer": 0,
-                    "explanation": "At maximum height, \\( v = 0 \\). Using \\( v = u + at \\):\n\\[ 0 = 15 + (-9.8)t \\]\n\\[ t = \\frac{15}{9.8} \\approx 1.53 \\text{ s} \\]"
-                  },
-                  {
-                    "id": "q2",
-                    "type": "true-false",
-                    "text": "The acceleration due to gravity is zero at the maximum height of the projectile.",
-                    "correctAnswer": false,
-                    "explanation": "Acceleration due to gravity is constant at \\( -9.8 \\) m/s² throughout the motion, including at the maximum height."
-                  }
-                ]
+          "id": "vertical-motion-quiz",
+          "title": "Vertical Projectile Motion Quiz",
+          "description": "Assess your understanding of vertical projectile motion concepts.",
+          "questions": [
+            {
+              "id": "q1",
+              "type": "mcq",
+              "text": "An object is thrown upward with a velocity of 15 m/s. How long does it take to reach the maximum height?",
+              "options": ["1.5 s", "2.0 s", "1.0 s", "3.0 s"],
+              "correctAnswer": 0,
+              "explanation": "At maximum height, \\( v = 0 \\). Using \\( v = u + at \\):\n\\[ 0 = 15 + (-9.8)t \\]\n\\[ t = \\frac{15}{9.8} \\approx 1.53 \\text{ s} \\]"
+            },
+            {
+              "id": "q2",
+              "type": "true-false",
+              "text": "The acceleration due to gravity is zero at the maximum height of the projectile.",
+              "correctAnswer": false,
+              "explanation": "Acceleration due to gravity is constant at \\( -9.8 \\) m/s² throughout the motion, including at the maximum height."
+            }
+          ]
               }
             }
           ]
