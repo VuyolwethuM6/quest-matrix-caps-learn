@@ -114,7 +114,7 @@ export default function Onboarding() {
               </p>
               
               <div className="grid grid-cols-3 gap-4">
-                {(["10", "11", "12"] as const).map((g) => (
+                {(["8", "9", "10", "11", "12"] as const).map((g) => (
                   <button
                     key={g}
                     onClick={() => setGrade(g as Grade)}
@@ -135,15 +135,17 @@ export default function Onboarding() {
             <>
               <h1 className="text-3xl font-bold mb-6">Available Subjects</h1>
               <p className="mb-6 text-muted-foreground">
-                For this MVP version, we're focusing on these core subjects:
+                Select the STEM subjects you want to study:
               </p>
               
               <div className="space-y-4">
                 {[
                   { id: "mathematics", name: "Mathematics" },
+                  { id: "natural-sciences", name: "Natural Sciences" },
                   { id: "physical-sciences", name: "Physical Sciences" },
                   { id: "life-sciences", name: "Life Sciences" },
-                  { id: "english", name: "English" }
+                  { id: "technology", name: "Technology" },
+                  { id: "engineering-graphics-design", name: "Engineering Graphics & Design" }
                 ].map((subject) => (
                   <button
                     key={subject.id}

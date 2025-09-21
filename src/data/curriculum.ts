@@ -4,10 +4,11 @@ import { Subject } from './models';
 export const subjects: Subject[] = [
   {
     "id": "mathematics",
-    "name": "Mathematics",
+    "name": "Mathematics", 
     "description": "Develop problem-solving skills through algebra, geometry, and calculus",
     "icon": "calculator",
     "color": "bg-quest-blue",
+    "grades": ["8", "9", "10", "11", "12"],
     "topics": [
       {
         "id": "equations-inequalities",
@@ -1343,6 +1344,7 @@ export const subjects: Subject[] = [
     description: 'Explore the fundamental laws governing matter, energy, and their interactions',
     icon: 'atom',
     color: 'bg-quest-purple',
+    grades: ["10", "11", "12"],
     topics: [
         {
           "id": "newtons-laws",

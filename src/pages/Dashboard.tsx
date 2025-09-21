@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 // import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useUser } from "@/contexts/UserContext";
 import { useProgress } from "@/contexts/ProgressContext";
-import { subjects} from "@/data/curriculum";
+import { useGradeFiltering } from "@/hooks/useGradeFiltering";
 import LevelUpModal from "@/components/LevelUpModal";
 import SEO from '@/components/SEO';
 import env from '@/config/env';
@@ -25,6 +25,7 @@ const Dashboard: React.FC = () => {
     earnedBadges,
     recordLogin 
   } = useProgress();
+  const { availableSubjects } = useGradeFiltering();
   
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [newLevel, setNewLevel] = useState(1);
@@ -52,7 +53,7 @@ const Dashboard: React.FC = () => {
     ? <BookOpen size={24} color="red"/>
     : <Compass size={24} color="blue"/>;
     
-  const recentTopics = subjects
+  const recentTopics = availableSubjects
     .filter(subject => subject.topics && subject.topics.length > 0)
     .map(subject => subject.topics[0])
     .filter(topic => topic && topic.subTopics && topic.subTopics.length > 0)
@@ -129,12 +130,12 @@ const Dashboard: React.FC = () => {
             {recentTopics.map((topic, index) => (
               <Link 
                 key={topic.id}
-                to={`/learn/${subjects[index].id}/${topic.id}/${topic.subTopics[0].id}`}
+                to={`/learn/${availableSubjects[index].id}/${topic.id}/${topic.subTopics[0].id}`}
                 className="block"
               >
                 <TopicCard 
                   topic={topic} 
-                  subjectId={subjects[index].id} 
+                  subjectId={availableSubjects[index].id} 
                 />
               </Link>
             ))}

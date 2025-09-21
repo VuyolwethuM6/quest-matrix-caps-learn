@@ -4,7 +4,7 @@ import { doc, getDoc, updateDoc, serverTimestamp, collection, setDoc } from 'fir
 import { db } from '@/lib/firebase';
 
 export type Avatar = "knight" | "scholar" | "explorer";
-export type Grade = "10" | "11" | "12";
+export type Grade = "8" | "9" | "10" | "11" | "12";
 
 export interface Subject {
   id: string;

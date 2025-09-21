@@ -4,6 +4,7 @@ export interface Subject {
   description: string;
   icon: string;
   color: string;
+  grades: string[];
   topics: Topic[];
 }
 
@@ -11,6 +12,7 @@ export interface Topic {
   id: string;
   name: string;
   description: string;
+  grade?: string;
   subTopics?: SubTopic[];
   topics?: Topic[];
 }
@@ -90,7 +92,11 @@ export interface Badge {
   description: string;
   icon: string;
   color: string;
-  condition: string;
+  condition?: string;
+  requirement?: {
+    type: string;
+    value: any;
+  };
 }
 
 export interface Avatar {

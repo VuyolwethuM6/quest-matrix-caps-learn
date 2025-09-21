@@ -1,3 +1,5 @@
+import { Badge } from './models';
+
 export const getBadges = (): Badge[] => [
   // Level Badges
   {

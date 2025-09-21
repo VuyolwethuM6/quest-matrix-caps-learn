@@ -4,12 +4,13 @@ import { ChevronLeft, BookOpen, GraduationCap } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import TopicCard from "@/components/TopicCard";
 import SubTopicCard from "@/components/SubTopicCard";
-import { subjects } from "@/data/curriculum";
+import { useGradeFiltering } from "@/hooks/useGradeFiltering";
 
 const CurriculumNavigator: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const { availableSubjects } = useGradeFiltering();
   
   // Set initial selection from URL params
   useEffect(() => {
@@ -25,7 +26,7 @@ const CurriculumNavigator: React.FC = () => {
     }
   }, [searchParams]);
   
-  const selectedSubject = subjects.find(subject => subject.id === selectedSubjectId);
+  const selectedSubject = availableSubjects.find(subject => subject.id === selectedSubjectId);
   const selectedTopic = selectedSubject?.topics.find(topic => topic.id === selectedTopicId);
   
   const renderSubjects = () => (
@@ -39,7 +40,7 @@ const CurriculumNavigator: React.FC = () => {
       </div>
       
       <div className="space-y-4 px-4">
-        {subjects.map(subject => (
+        {availableSubjects.map(subject => (
           <div
             key={subject.id}
             onClick={() => {
