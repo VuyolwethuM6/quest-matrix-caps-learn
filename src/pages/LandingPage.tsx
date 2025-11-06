@@ -25,11 +25,16 @@ const LandingPage: React.FC = () => {
   // Structured data for rich snippets
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "EducationalApplication",
-    "name": "Viva Tutoring",
-    "description": "Interactive tutoring for Grades 8-12 in South Africa. Get personalized help with Mathematics, Physical Science, Life Sciences & more.",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "Android, iOS",
+    "@type": "EducationalOrganization",
+    "name": "Viva Tutorial Services",
+    "description": "Esteemed education centre in Mfuleni, Cape Town dedicated to empowering South African students to thrive in STEM subjects. Specialized tutoring in Mathematics, Physical Science, Life Sciences, and Mathematical Literacy for Grade 8 to 12 learners.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mfuleni",
+      "addressRegion": "Cape Town",
+      "addressCountry": "ZA"
+    },
+    "foundingDate": "2020",
     "offers": {
       "@type": "Offer",
       "price": "500",
@@ -46,22 +51,22 @@ const LandingPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Viva Tutoring - Interactive Learning for Grades 8-12 in South Africa</title>
-        <meta name="description" content="Transform your learning with Viva Tutoring. Interactive tutoring for Grades 8-12 in South Africa. Expert tutors, personalized learning, and affordable packages starting from R500/month." />
-        <meta name="keywords" content="tutoring, South Africa, mathematics, physical science, life sciences, grade 8-12, online learning, educational app" />
+        <title>Viva Tutorial Services - Mfuleni's Premier STEM Education Center | Grades 8-12</title>
+        <meta name="description" content="Esteemed education centre in Mfuleni, Cape Town since 2020. Specialized STEM tutoring for Grades 8-12. In-person and online sessions. Advanced mobile platform. Expert tutors, personalized attention from R150/hour." />
+        <meta name="keywords" content="tutoring Mfuleni, Cape Town tutoring, mathematics tutoring, physical science, life sciences, grade 8-12, STEM education, in-person tutoring, online learning, educational app" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://viva.co.za/" />
-        <meta property="og:title" content="Viva Tutoring - Interactive Learning for Grades 8-12" />
-        <meta property="og:description" content="Transform your learning with Viva Tutoring. Expert tutors, personalized learning, and affordable packages starting from R500/month." />
+        <meta property="og:title" content="Viva Tutorial Services - Mfuleni's Premier STEM Education Center" />
+        <meta property="og:description" content="Esteemed education centre in Mfuleni, Cape Town since 2020. In-person and online tutoring for Grades 8-12. Expert tutors, personalized attention from R150/hour." />
         <meta property="og:image" content="/viva-logo.png" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://viva.co.za/" />
-        <meta property="twitter:title" content="Viva Tutoring - Interactive Learning for Grades 8-12" />
-        <meta property="twitter:description" content="Transform your learning with Viva Tutoring. Expert tutors, personalized learning, and affordable packages starting from R500/month." />
+        <meta property="twitter:title" content="Viva Tutorial Services - Mfuleni's Premier STEM Education Center" />
+        <meta property="twitter:description" content="Esteemed education centre in Mfuleni, Cape Town since 2020. In-person and online tutoring for Grades 8-12. Expert tutors from R150/hour." />
         <meta property="twitter:image" content="/viva-logo.png" />
 
         {/* Canonical URL */}
@@ -88,23 +93,24 @@ const LandingPage: React.FC = () => {
             <nav className="landing-nav hidden md:flex space-x-6" role="navigation" aria-label="Main navigation">
               <a href="#hero" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">Home</a>
               <a href="#about" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">About</a>
+              <a href="#services" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">Our Services</a>
               <a href="#subjects" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">Subjects</a>
-              <a href="#features" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">App Features</a>
+              <a href="#pricing" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">Pricing</a>
               <a href="#contact" className="nav-link text-gray-600 hover:text-purple-700 transition-colors duration-200 font-medium">Contact</a>
             </nav>
             <div className="auth-buttons space-x-4 flex items-center">
               {/* Add your button styling classes */}
               <button 
                 className="hidden md:inline-block px-6 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition-colors duration-200 text-sm font-medium" 
-                onClick={handleDownloadApp}
-                aria-label="Download Viva Tutoring App"
+                onClick={handleGetStarted}
+                aria-label="Book a Session"
               >
-                Download App
+                Book a Session
               </button>
               <button 
                 className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-200 text-sm font-medium" 
                 onClick={handleGetStarted}
-                aria-label="Get Started with Viva Tutoring"
+                aria-label="Get Started with Viva Tutorial Services"
               >
                 Get Started
               </button>
@@ -182,14 +188,14 @@ const LandingPage: React.FC = () => {
                       Subjects
                     </a>
                     <a 
-                      href="#features" 
+                      href="#services" 
                       className="flex items-center px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-700 rounded-lg transition-colors duration-200"
                       onClick={toggleMobileMenu}
                     >
                       <svg className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
-                      App Features
+                      Our Services
                     </a>
                     <a 
                       href="#contact" 
@@ -234,26 +240,31 @@ const LandingPage: React.FC = () => {
         <section id="hero" className="hero-section py-24 md:py-32 bg-gradient-to-br from-purple-100 to-blue-100 flex items-center min-h-screen-minus-header relative overflow-hidden" role="banner">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between z-10">
             <div className="hero-content md:w-1/2 md:pr-8 text-center md:text-left mb-12 md:mb-0">
-              <span className="tag bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-4 uppercase tracking-wide">Now Available in South Africa</span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-4">Learn Smarter with <span className="text-purple-700">Viva</span></h1>
+              <span className="tag bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-4 uppercase tracking-wide">Serving Mfuleni, Cape Town Since 2020</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-4">Mfuleni's Premier <span className="text-purple-700">STEM Education Center</span></h1>
               <p className="text-lg text-gray-600 mt-4 max-w-md mx-auto md:mx-0">
-                Interactive tutoring for Grades 8-12. Get personalized help with
-                Mathematics, Physical Science, Life Sciences & more. Starting from
-                only R500 per month.
+                Based in Mfuleni, Cape Town, we combine in-person tutoring with our advanced mobile platform for comprehensive STEM education. Specialized tutoring in Mathematics, Physical Science, Life Sciences & Mathematical Literacy for Grades 8-12.
               </p>
+              <div className="flex items-center justify-center md:justify-start mt-4 text-gray-600">
+                <svg className="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span className="font-medium">In-Person & Online Tutoring Available</span>
+              </div>
               <div className="hero-buttons mt-8 space-y-4 md:space-y-0 md:space-x-4 flex flex-col md:flex-row justify-center md:justify-start items-center">
                 {/* Add your button styling classes */}
                 <button className="w-full md:w-auto px-8 py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition-colors duration-200 flex items-center justify-center text-lg shadow-lg" onClick={handleGetStarted}>
                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                    </svg>
-                   Start Learning Today
+                   Book a Session
                 </button>
                 <button className="w-full md:w-auto px-8 py-3 border border-gray-300 text-gray-800 font-semibold rounded-md hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center text-lg shadow-lg" onClick={handleDownloadApp}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
-                  Download App
+                  Access Platform
                 </button>
               </div>
             </div>
@@ -272,22 +283,215 @@ const LandingPage: React.FC = () => {
 
         {/* Stats Section */}
         <section className="stats-section py-16 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-around text-center">
-            <div className="stat-item w-1/2 md:w-auto mb-8 md:mb-0 px-4">
-              <h3 className="text-4xl font-bold text-gray-800">5000+</h3>
-              <p className="text-gray-600">Active Learners</p>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-center text-gray-600 mb-8">Trusted by students from in-person and online sessions since 2020</p>
+            <div className="flex flex-wrap justify-around text-center">
+              <div className="stat-item w-1/2 md:w-auto mb-8 md:mb-0 px-4">
+                <h3 className="text-4xl font-bold text-gray-800">5000+</h3>
+                <p className="text-gray-600">Active Learners</p>
+              </div>
+              <div className="stat-item w-1/2 md:w-auto mb-8 md:mb-0 px-4">
+                <h3 className="text-4xl font-bold text-gray-800">5</h3>
+                <p className="text-gray-600">Years of Excellence</p>
+              </div>
+              <div className="stat-item w-1/2 md:w-auto mb-8 md:mb-0 px-4">
+                <h3 className="text-4xl font-bold text-gray-800">95%</h3>
+                <p className="text-gray-600">Pass Rate</p>
+              </div>
+              <div className="stat-item w-1/2 md:w-auto px-4">
+                <h3 className="text-4xl font-bold text-gray-800">200+</h3>
+                <p className="text-gray-600">Qualified Tutors</p>
+              </div>
             </div>
-            <div className="stat-item w-1/2 md:w-auto mb-8 md:mb-0 px-4">
-              <h3 className="text-4xl font-bold text-gray-800">95%</h3>
-              <p className="text-gray-600">Pass Rate</p>
+          </div>
+        </section>
+
+        {/* About Viva Section */}
+        <section id="about" className="about-section py-16 bg-gradient-to-br from-purple-50 to-blue-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">About Viva Tutorial Services</h2>
+              <p className="text-gray-600 mt-4 max-w-3xl mx-auto">
+                An esteemed education centre dedicated to empowering South African students to thrive in STEM subjects
+              </p>
             </div>
-            <div className="stat-item w-1/2 md:w-auto px-4">
-              <h3 className="text-4xl font-bold text-gray-800">200+</h3>
-              <p className="text-gray-600">Qualified Tutors</p>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Based in Mfuleni, Cape Town</h3>
+                    <p className="text-gray-600">Founded in 2020, our physical education center serves the Mfuleni community with dedicated in-person tutoring sessions</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Hybrid Learning Model</h3>
+                    <p className="text-gray-600">Combining structured in-person sessions at our center with our advanced mobile platform for learning anywhere, anytime</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Personalized Attention & Mentor Support</h3>
+                    <p className="text-gray-600">Structured learning with continuous mentor support ensures each student receives personalized attention and guidance</p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">Our Commitment</h3>
+                <p className="text-gray-600 mb-4">
+                  Since 2020, Viva Tutorial Services has been your dedicated partner in achieving academic success and mastering complex STEM concepts. We offer specialized tutoring in:
+                </p>
+                <ul className="space-y-2 text-gray-600">
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Mathematics
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Physical Science
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Life Sciences
+                  </li>
+                  <li className="flex items-center">
+                    <svg className="h-5 w-5 text-purple-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Mathematical Literacy
+                  </li>
+                </ul>
+                <p className="text-gray-600 mt-4 font-medium">
+                  For Grade 8 to 12 learners
+                </p>
+              </div>
             </div>
-            <div className="stat-item w-1/2 md:w-auto px-4">
-              <h3 className="text-4xl font-bold text-gray-800">4.9★</h3>
-              <p className="text-gray-600">App Rating</p>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="services-section py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
+              <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Comprehensive learning solutions combining physical and digital education</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">In-Person Tutoring</h3>
+                <p className="text-gray-600 mb-4">
+                  Face-to-face sessions at our Mfuleni center with experienced tutors providing personalized attention
+                </p>
+                <ul className="text-left text-gray-600 space-y-2">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Structured coaching sessions
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Small group classes
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    1-on-1 sessions available
+                  </li>
+                </ul>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">Mobile Learning Platform</h3>
+                <p className="text-gray-600 mb-4">
+                  Access a wealth of resources anytime, anywhere with our advanced mobile platform
+                </p>
+                <ul className="text-left text-gray-600 space-y-2">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Interactive lessons & quizzes
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Practice exams
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Progress monitoring
+                  </li>
+                </ul>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-lg shadow-lg text-center">
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">Continuous Mentor Support</h3>
+                <p className="text-gray-600 mb-4">
+                  Ongoing guidance and academic coaching to help you achieve your goals
+                </p>
+                <ul className="text-left text-gray-600 space-y-2">
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Dedicated mentor assignment
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Regular check-ins
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Academic growth tracking
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -335,10 +539,18 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Pricing Section */}
-        <section className="pricing-section py-16 bg-blue-50">
+        <section id="pricing" className="pricing-section py-16 bg-blue-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Affordable Learning Packages</h2>
-            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Quality education that doesn't break the bank</p>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Quality education that doesn't break the bank. Both in-person and online sessions available.</p>
+            <div className="bg-purple-100 border-l-4 border-purple-600 p-4 mb-8 max-w-2xl mx-auto mt-6">
+              <p className="text-purple-900 font-medium">
+                <svg className="h-5 w-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                Non-package holders: R150 per hour for individual sessions
+              </p>
+            </div>
             <div className="pricing-plans grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
               {/* Basic Plan */}
               <div className="price-plan basic bg-white p-8 rounded-lg shadow flex flex-col items-center text-center border border-gray-200">
@@ -385,20 +597,21 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Why Choose Viva Section */}
-        <section id="about" className="why-choose-viva-section py-16 bg-gray-100">
+        <section className="why-choose-viva-section py-16 bg-gray-100">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
              <div className="why-choose-content md:w-1/2 md:pr-8 text-center md:text-left mb-12 md:mb-0">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Why Choose Viva?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Why Choose Viva Tutorial Services?</h2>
                 <ul className="text-gray-600 text-left mt-6 space-y-2 max-w-md mx-auto md:mx-0">
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Interactive mobile app learning</span></li>
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Qualified South African tutors</span></li>
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Affordable monthly packages</span></li>
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>3 tutoring sessions per week</span></li>
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Grade 8-12 curriculum aligned</span></li>
-                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Progress tracking & reports</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Physical education center in Mfuleni, Cape Town</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Founded in 2020 with proven track record</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Both in-person tutoring & digital platform</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Structured learning with continuous mentor support</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Personalized attention for each student</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Detailed progress reports & academic growth monitoring</span></li>
+                  <li className="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg> <span>Advanced mobile platform for learning on-the-go</span></li>
                 </ul>
                  {/* Add your button styling classes */}
-                 <button className="w-full md:w-auto px-8 py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition-colors duration-200 mt-8 shadow-lg" onClick={handleDownloadApp}>Try Our App Today</button>
+                 <button className="w-full md:w-auto px-8 py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition-colors duration-200 mt-8 shadow-lg" onClick={handleGetStarted}>Schedule a Coaching Session</button>
              </div>
               <div className="why-choose-image md:w-1/2 mt-12 md:mt-0 flex justify-center">
                 {/* Replace with actual image path and styling */}
