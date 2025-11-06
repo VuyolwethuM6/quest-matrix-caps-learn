@@ -241,7 +241,7 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between z-10">
             <div className="hero-content md:w-1/2 md:pr-8 text-center md:text-left mb-12 md:mb-0">
               <span className="tag bg-purple-600 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-4 uppercase tracking-wide">Serving Mfuleni, Cape Town Since 2020</span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-4">Mfuleni's Premier <span className="text-purple-700">STEM Education Center</span></h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-4">Viva Tutorials <span className="text-purple-700">STEM Education Center</span></h1>
               <p className="text-lg text-gray-600 mt-4 max-w-md mx-auto md:mx-0">
                 Based in Mfuleni, Cape Town, we combine in-person tutoring with our advanced mobile platform for comprehensive STEM education. Specialized tutoring in Mathematics, Physical Science, Life Sciences & Mathematical Literacy for Grades 8-12.
               </p>
