@@ -128,7 +128,7 @@ const LandingPage: React.FC = () => {
                 aria-expanded={isMobileMenuOpen}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
             </div>
@@ -510,48 +510,80 @@ const LandingPage: React.FC = () => {
               </div>
             </div>
           </section>
+      {/* Subjects Section */}
+      <section id="subjects" className="subjects-section py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Master Every Subject</h2>
+          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Comprehensive tutoring across all major Grade 8-12 subjects with qualified South African educators.</p>
 
-          {/* Subjects Section */}
-          <section id="subjects" className="subjects-section py-16 bg-gray-50">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Master Every Subject</h2>
-              <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Comprehensive tutoring across all major Grade 8-12 subjects with qualified South African educators.</p>
-              <div className="subjects-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 mt-12">
-                {/* Subject Items (Repeat for each subject) */}
-                <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
-                  {/* Replace with actual icon path and styling */}
-                  <img src="/assests/integration.png" alt="Mathematics Icon" className="mx-auto h-12 mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-800">Mathematics</h4>
-                  <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
-                </div>
-                <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
-                  {/* Replace with actual icon path and styling */}
-                  <img src="/assests/physics.png" alt="Physical Science Icon" className="mx-auto h-12 mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-800">Physical Science</h4>
-                  <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
-                </div>
-                <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
-                  {/* Replace with actual icon path and styling */}
-                  <img src="/assests/genetic-engineering.png" alt="Life Sciences Icon" className="mx-auto h-12 mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-800">Life Sciences</h4>
-                  <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
-                </div>
-                <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
-                  {/* Replace with actual icon path and styling */}
-                  <img src="/assests/maths.png" alt="Mathematical Literacy Icon" className="mx-auto h-12 mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-800">Mathematical Literacy</h4>
-                  <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
-                </div>
-                <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
-                  {/* Replace with actual icon path and styling */}
-                  <img src="/assests/school.png" alt="Learner's License Icon" className="mx-auto h-12 mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-800">Learner's License</h4>
-                  <p className="text-gray-600 mt-2 text-sm">Interactive lessons & practice</p>
-                </div>
-                {/* ... other subjects */}
-              </div>
+          <div className="subjects-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8 mt-12">
+
+            {/* Mathematics */}
+            <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+              <img src="/assests/integration.png" alt="Mathematics Icon" className="mx-auto h-12 mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800">Mathematics</h4>
+              <p className="text-gray-600 mt-2 text-sm">
+                You learn core concepts like algebra, geometry, trigonometry, and calculus with step by step problem solving.
+              </p>
             </div>
-          </section>
+
+            {/* Physical Science */}
+            <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+              <img src="/assests/physics.png" alt="Physical Science Icon" className="mx-auto h-12 mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800">Physical Science</h4>
+              <p className="text-gray-600 mt-2 text-sm">
+                You learn physics and chemistry topics with explanations of forces, electricity, reactions, and exam problem techniques.
+              </p>
+            </div>
+
+            {/* Life Sciences */}
+            <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+              <img src="/assests/genetic-engineering.png" alt="Life Sciences Icon" className="mx-auto h-12 mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800">Life Sciences</h4>
+              <p className="text-gray-600 mt-2 text-sm">
+                You explore human biology, ecology, genetics, and cellular processes with clear diagrams and exam focused revision.
+              </p>
+            </div>
+
+            {/* Mathematical Literacy */}
+            <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+              <img src="/assests/maths.png" alt="Mathematical Literacy Icon" className="mx-auto h-12 mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800">Mathematical Literacy</h4>
+              <p className="text-gray-600 mt-2 text-sm">
+                You work with real life maths problems, financial maths, measurements, maps, and data handling for everyday situations.
+              </p>
+            </div>
+
+            {/* Learner's License */}
+            <div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+              <img src="/assests/school.png" alt="Learner's License Icon" className="mx-auto h-12 mb-4" />
+              <h4 className="text-xl font-semibold text-gray-800">Learner's License</h4>
+              <p className="text-gray-600 mt-2 text-sm">
+                You learn road rules, road signs, vehicle controls, and test style questions to prepare for the official K53 exam.
+              </p>
+            </div>
+
+            {/* Computer Applications Technology (CAT) */}
+<div className="subject-item bg-white p-6 rounded-lg shadow hover:shadow-lg transition duration-300 ease-in-out flex flex-col items-center text-center border border-gray-200">
+  <img
+    src="/assets/cat.png"
+    alt="Computer Applications Technology Icon"
+    className="mx-auto h-12 mb-4"
+  />
+  <h4 className="text-xl font-semibold text-gray-800">
+    Computer Applications Technology
+  </h4>
+  <p className="text-gray-600 mt-2 text-sm">
+    Learn essential digital skills, Word, Excel, Access, and internet literacy — aligned with the South African CAPS curriculum for Grades 10–12.
+  </p>
+</div>
+
+        
+
+          </div>
+        </div>
+      </section>
+
 
           {/* Pricing Section */}
           <section id="pricing" className="pricing-section py-16 bg-blue-50">
